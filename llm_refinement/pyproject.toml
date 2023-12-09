@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "llm_refinement"
+version = "0.1.0"
+description = "Package for LLM refinement (prompt engineering & fine-tuning) to predict biomarkers from unstructured clinical trials data."
+authors = [
+  "Nour Alkhoury <nouralkhoury01@gmail.com>",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^1.3"
+loguru = "^0.7.0"
+pandas = "^1.3.0"
+jupyter = "^1.0.0"
+ipykernel = "^5.3.4"
+openai = "^1.2.3" 
+langchain = "0.0.335"
