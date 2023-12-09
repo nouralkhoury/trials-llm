@@ -1,2 +1,4 @@
-# trials-llm
-"trials-llm" is your space for rigorous model experimentation. Fine-tune and engineer prompts to compare the performance of diverse language models in predicting genetic biomarkers from unstructured clinical trials text data. Gain clarity on which model excels in this task through systematic comparisons.
+# Trials LLM biomarker Predict
+
+## Overview
+This repository systematically investigates the impact of varying prompt engineering and fine-tuning strategies on different Large Language Models (LLMs) for the prediction of inclusion and exclusion genetic biomarkers. The study is conducted across diverse cancer clinical trials training dataset sizes to assess and optimize model performance.
