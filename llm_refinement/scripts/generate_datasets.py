@@ -103,14 +103,16 @@ def main():
     parser = argparse.ArgumentParser(description="Generate random biomarkers from Civic data and query them in a ChromaDB collection.")
     parser.add_argument("--persist-dir", required=True, help="Path to the ChromaDB collection persist directory")
     parser.add_argument("--civic-path", required=True, help="Path to the Civic data file")
+    parser.add_argument("--output-dir", required=True, help="Output directory to save train and test JSON files")
+
     args = parser.parse_args()
 
     results = generate_random_data(args.civic_path, args.persist_dir)
     final_results = [{'id': id_val[0], 'prompt': doc_val[0]} for id_val, doc_val in zip(results['ids'], results['documents'])]
     training_data , test_data  = train_test_split(final_results, train_size=0.8)
-    save_data({"size": len(final_results), "data": final_results}, "random_trials.json")
-    save_data({"size": len(training_data), "data": training_data}, "random_train.json")
-    save_data({"size": len(test_data), "data": test_data}, "random_test.json")
+    save_data({"size": len(final_results), "data": final_results}, f"{args.output_dir}/random_trials.json")
+    save_data({"size": len(training_data), "data": training_data}, f"{args.output_dir}/random_train.json")
+    save_data({"size": len(test_data), "data": test_data}, f"{args.output_dir}/random_test.json")
 
 if __name__ == "__main__":
     main()
