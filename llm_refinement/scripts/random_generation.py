@@ -10,23 +10,26 @@ Parameters:
 Usage:
 python script_name.py --persist-dir persist_dir --civic-path civic_data.csv
 """
-from modules.chromadb_handler import ChromaDBHandler
-import pandas as pd
-from sklearn.model_selection import train_test_split
 import random
-import json
 import argparse
+import pandas as pd
+from utils.jsons import dump_json
+from modules.chromadb_handler import ChromaDBHandler
+from sklearn.model_selection import train_test_split
 
 
 def get_civic_biomarkers(civic):
     """
-    Extract unique biomarkers from the given CIViC (Clinical Interpretations of Variants in Cancer) dataset.
+    Extract unique biomarkers from the given CIViC (Clinical Interpretations
+    of Variants in Cancer) dataset.
 
     Parameters:
-        - civic (pd.DataFrame): The CIViC dataset containing gene and variant information.
+        - civic (pd.DataFrame): The CIViC dataset containing gene
+        and variant information.
 
     Returns:
-        - numpy.ndarray: An array of unique biomarkers formed by concatenating gene and variant columns.
+        - numpy.ndarray: An array of unique biomarkers formed by concatenating
+        gene and variant columns.
     """
     civic['biomarkers'] = civic['gene'] + " " + civic['variant']
     return civic['biomarkers'].unique()
@@ -34,7 +37,8 @@ def get_civic_biomarkers(civic):
 
 def get_random_nums(seed, input_size, output_size):
     """
-    Generate a list of random numbers sampled without replacement from a given range.
+    Generate a list of random numbers sampled without replacement
+    from a given range.
 
     Parameters:
     - seed (int): The seed value for the random number generator.
@@ -50,7 +54,8 @@ def get_random_nums(seed, input_size, output_size):
 
 def generate_random_data(civic_path, persist_dir, size=250):
     """
-    Generate random data by querying a ChromaDB collection with a randomly selected set of biomarkers.
+    Generate random data by querying a ChromaDB collection with a randomly
+    selected set of biomarkers.
 
     Parameters:
         - civic_path (str): The file path to the Civic dataset containing gene and variant information.
@@ -76,11 +81,6 @@ def generate_random_data(civic_path, persist_dir, size=250):
     return results
 
 
-def save_data(results, file_name):
-    with open(file_name, 'w') as fi:
-        json.dump(results, fi, indent=4)
-
-
 def remove_duplicates(data):
     seen_ids = set()
     unique_data = []
@@ -92,7 +92,9 @@ def remove_duplicates(data):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate random biomarkers from Civic data and query them in a ChromaDB collection.")
+    parser = argparse.ArgumentParser(description="""Generate random biomarkers
+                                     from Civic data and query them in a
+                                     ChromaDB collection.""")
     parser.add_argument(
             "--persist-dir",
             required=True,
@@ -113,16 +115,19 @@ def main():
     results = generate_random_data(args.civic_path, args.persist_dir)
     final_results = [{'id': id_val[0], 'prompt': doc_val[0]} for id_val, doc_val in zip(results['ids'], results['documents'])]
     unique_results = remove_duplicates(final_results)
+
     training_data, test_data = train_test_split(unique_results,
                                                 train_size=0.8,
                                                 random_state=42)
 
-    save_data({"size": len(unique_results), "data": unique_results},
-              f"{args.output_dir}/random_trials.json")
-    save_data({"size": len(training_data), "data": training_data},
-              f"{args.output_dir}/random_train.json")
-    save_data({"size": len(test_data), "data": test_data},
-              f"{args.output_dir}/random_test.json")
+    dump_json(data={"size": len(unique_results), "data": unique_results},
+              file_path=f"{args.output_dir}/random_trials.json")
+
+    dump_json(data={"size": len(training_data), "data": training_data},
+              file_path=f"{args.output_dir}/random_train.json")
+
+    dump_json(data={"size": len(test_data), "data": test_data},
+              file_path=f"{args.output_dir}/random_test.json")
 
 
 if __name__ == "__main__":

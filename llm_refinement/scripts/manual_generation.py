@@ -1,7 +1,7 @@
 """
 Manual Test Set Generation Script
 
-This script generates a test set from a list of manually selected clinical
+This script generates a dataset from a list of manually selected clinical
 trial IDs stored in a JSON file. It extracts clinical trial documents, IDs,
 and initializes empty inclusion and exclusion lists. The results are saved in
 a structured JSON format.
@@ -16,9 +16,13 @@ Parameters:
     --input-file: Path to the JSON file containing the IDs for the manually selected trials.
     --output-dir: Output directory to save the generated JSON file.
 """
-import json
 import argparse
+import logging
 from modules.chromadb_handler import ChromaDBHandler
+from utils.jsons import load_json, dump_json
+
+
+logging.basicConfig(level=logging.ERROR)
 
 
 def get_trials_data(collection, ids):
@@ -68,20 +72,26 @@ def main():
                         the manually selected trials."""
                         )
 
-    parser.add_argument("--output-dir",
+    parser.add_argument("--output-file",
                         required=True,
-                        help="Output directory to JSON file")
+                        help="Output path to JSON file")
 
     args = parser.parse_args()
+    try:
+        collection = ChromaDBHandler(
+            persist_dir=args.persist_dir,
+            collection_name=args.collection).collection
+    except SystemExit:
+        print("Exiting due to an error.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
-    collection = ChromaDBHandler(
-        persist_dir=args.persist_dir,
-        collection_name=args.collection).collection
-
-    with open(args.input_file, "r") as f:
-        ids = json.load(f)['ids']
+    ids = load_json(args.input_file)['ids']
 
     results = get_trials_data(collection=collection, ids=ids)
 
-    with open(f"{args.output_dir}/manual_test_set.json", "w") as f:
-        json.dump(results, f, indent=4)
+    dump_json(results, f"{args.output_file}")
+
+
+if __name__ == "__main__":
+    main()
