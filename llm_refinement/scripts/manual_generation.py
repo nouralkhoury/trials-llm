@@ -1,3 +1,21 @@
+"""
+Manual Test Set Generation Script
+
+This script generates a test set from a list of manually selected clinical
+trial IDs stored in a JSON file. It extracts clinical trial documents, IDs,
+and initializes empty inclusion and exclusion lists. The results are saved in
+a structured JSON format.
+
+Usage:
+    python script_name.py --persist-dir <CHROMADB_PERSIST_DIR> --collection <COLLECTION_NAME>
+                         --input-file <INPUT_JSON_FILE> --output-dir <OUTPUT_DIR>
+
+Parameters:
+    --persist-dir: Path to the ChromaDB persist directory.
+    --collection: ChromaDB collection name.
+    --input-file: Path to the JSON file containing the IDs for the manually selected trials.
+    --output-dir: Output directory to save the generated JSON file.
+"""
 import json
 import argparse
 from modules.chromadb_handler import ChromaDBHandler
