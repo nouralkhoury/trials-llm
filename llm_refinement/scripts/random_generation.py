@@ -1,40 +1,22 @@
 """
-This script generates random biomarkers from the Civic dataset, queries them in a ChromaDB collection, 
+This script generates random biomarkers from the Civic dataset,
+queries them in a ChromaDB collection,
 and saves the results for training and testing purposes.
 
-The script takes the paths to the ChromaDB collection persist directory (--persist-dir) 
-and the Civic dataset file (--civic-path) as command-line arguments.
+Parameters:
+    --persist-dir: Path to the ChromaDB persist directory
+    --civic-path: Path the CIViC variant Summaries TSV file
 
 Usage:
-python script_name.py --persist-dir /path/to/persist_dir --civic-path /path/to/civic_data.csv
+python script_name.py --persist-dir persist_dir --civic-path civic_data.csv
 """
-
+from modules.chromadb_handler import ChromaDBHandler
 import pandas as pd
-import chromadb
-from chromadb.config import Settings
 from sklearn.model_selection import train_test_split
 import random
 import json
 import argparse
 
-
-def load_collection(collection_name, persist_dir):
-    """
-    Load the collection of clinical trials from the ChromaDB database.
-
-    Parameters:
-        - collection_name (str): The name of the collection to load, e.g., 'ctrials'.
-        - persist_dir (str): The path to the directory where the ChromaDB collection is persisted.
-
-    Returns:
-        - chromadb.Collection: The ChromaDB collection containing clinical trial data.
-    """
-    client = chromadb.Client(Settings(
-        chroma_db_impl="duckdb+parquet",
-        persist_directory=persist_dir
-    ))
-    collection = client.get_collection(collection_name)
-    return collection
 
 def get_civic_biomarkers(civic):
     """
@@ -81,38 +63,67 @@ def generate_random_data(civic_path, persist_dir, size=250):
         and 'documents' is a list of corresponding document content.
     """
     # load collection
-    trials = load_collection('ctrials', persist_dir)
+    trials = ChromaDBHandler(persist_dir, 'ctrials').collection
     # Get civic biomarkers list
     civic = pd.read_csv(civic_path)
-    biomarkers = get_civic_biomarkers(civic) 
+    biomarkers = get_civic_biomarkers(civic)
     # Generate the random biomarkers list
-    random_numbers = get_random_nums(24, len(biomarkers), size)
+    random_numbers = get_random_nums(34, len(biomarkers), size)
     selected_biomarkers = biomarkers[random_numbers]
-    results = trials.query(query_texts=selected_biomarkers, 
+    results = trials.query(query_texts=selected_biomarkers,
                            n_results=1,
-                           include = [ "documents" ])
+                           include=["documents"])
     return results
 
 
 def save_data(results, file_name):
-    with open(file_name,'w') as fi:
+    with open(file_name, 'w') as fi:
         json.dump(results, fi, indent=4)
+
+
+def remove_duplicates(data):
+    seen_ids = set()
+    unique_data = []
+    for item in data:
+        if item['id'] not in seen_ids:
+            seen_ids.add(item['id'])
+            unique_data.append(item)
+    return unique_data
 
 
 def main():
     parser = argparse.ArgumentParser(description="Generate random biomarkers from Civic data and query them in a ChromaDB collection.")
-    parser.add_argument("--persist-dir", required=True, help="Path to the ChromaDB collection persist directory")
-    parser.add_argument("--civic-path", required=True, help="Path to the Civic data file")
-    parser.add_argument("--output-dir", required=True, help="Output directory to save train and test JSON files")
+    parser.add_argument(
+            "--persist-dir",
+            required=True,
+            help="Path to the ChromaDB collection persist directory")
+
+    parser.add_argument(
+        "--civic-path",
+        required=True,
+        help="Path to the Civic data file")
+
+    parser.add_argument(
+        "--output-dir",
+        required=True,
+        help="Output directory to save train and test JSON files")
 
     args = parser.parse_args()
 
     results = generate_random_data(args.civic_path, args.persist_dir)
     final_results = [{'id': id_val[0], 'prompt': doc_val[0]} for id_val, doc_val in zip(results['ids'], results['documents'])]
-    training_data , test_data  = train_test_split(final_results, train_size=0.8)
-    save_data({"size": len(final_results), "data": final_results}, f"{args.output_dir}/random_trials.json")
-    save_data({"size": len(training_data), "data": training_data}, f"{args.output_dir}/random_train.json")
-    save_data({"size": len(test_data), "data": test_data}, f"{args.output_dir}/random_test.json")
+    unique_results = remove_duplicates(final_results)
+    training_data, test_data = train_test_split(unique_results,
+                                                train_size=0.8,
+                                                random_state=42)
+
+    save_data({"size": len(unique_results), "data": unique_results},
+              f"{args.output_dir}/random_trials.json")
+    save_data({"size": len(training_data), "data": training_data},
+              f"{args.output_dir}/random_train.json")
+    save_data({"size": len(test_data), "data": test_data},
+              f"{args.output_dir}/random_test.json")
+
 
 if __name__ == "__main__":
     main()
