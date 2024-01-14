@@ -19,6 +19,17 @@ from ncbi.datasets.openapi import ApiException as DatasetsApiException
 from ncbi.datasets import GeneApi as DatasetsGeneApi
 
 
+def clean_mutation_pattern(input_string):
+    # Define the mutation pattern
+    mutation_pattern = r'\(?C\..+\)?'
+    # Find the first match for mutation pattern
+    mutation_match = re.search(mutation_pattern, input_string)
+    # Remove the mutation if found and not at the beginning
+    if mutation_match and mutation_match.start() > 0:
+        input_string = input_string.replace(mutation_match.group(), '')
+    return input_string.strip()
+
+
 def clean_variant(variant):
     """
     Clean and standardize variant names.
@@ -35,6 +46,8 @@ def clean_variant(variant):
     variant = re.sub(r'\bAND \b', '', variant)
     pattern = r'([A-Za-z]\d+[A-Za-z])-([A-Za-z]\d+[A-Za-z])'
     cleaned_variant = re.sub(pattern, r'\1 \2', variant)
+    # remove the pattern c.\d+\w>\w when it follows a variant
+    cleaned_variant = clean_mutation_pattern(cleaned_variant)
     return cleaned_variant
 
 
