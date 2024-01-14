@@ -1,14 +1,15 @@
 """
 This script generates random biomarkers from the Civic dataset,
 queries them in a ChromaDB collection,
-and saves the results for training and testing purposes.
+and saves the trial IDS returned for training and testing purposes.
 
 Parameters:
     --persist-dir: Path to the ChromaDB persist directory
     --civic-path: Path the CIViC variant Summaries TSV file
+    --output-dir: Path to directory to save the JSON files
 
 Usage:
-python script_name.py --persist-dir persist_dir --civic-path civic_data.csv
+python script_name.py --persist-dir persist_dir --civic-path civic_data.csv --output-dir output_dir
 """
 import random
 import argparse
