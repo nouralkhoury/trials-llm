@@ -111,13 +111,13 @@ def main():
                                                 random_state=42)
 
     dump_json(data={"size": len(final_results), "ids": final_results},
-              file_path=f"{args.output_dir}/random_trials.json")
+              file_path=f"{args.output_dir}/random_trials_ids.json")
 
     dump_json(data={"size": len(training_data), "ids": training_data},
-              file_path=f"{args.output_dir}/random_train.json")
+              file_path=f"{args.output_dir}/random_train_ids.json")
 
     dump_json(data={"size": len(test_data), "ids": test_data},
-              file_path=f"{args.output_dir}/random_test.json")
+              file_path=f"{args.output_dir}/random_test_ids.json")
 
 
 if __name__ == "__main__":
