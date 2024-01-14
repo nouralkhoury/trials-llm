@@ -52,7 +52,7 @@ def get_random_nums(seed, input_size, output_size):
     return random.sample(range(0, input_size), output_size)
 
 
-def generate_random_data(civic_path, persist_dir, size=250):
+def generate_random_data(civic_path, persist_dir, size=250, seed=34):
     """
     Generate random data by querying a ChromaDB collection with a randomly
     selected set of biomarkers.
@@ -73,22 +73,12 @@ def generate_random_data(civic_path, persist_dir, size=250):
     civic = pd.read_csv(civic_path)
     biomarkers = get_civic_biomarkers(civic)
     # Generate the random biomarkers list
-    random_numbers = get_random_nums(34, len(biomarkers), size)
+    random_numbers = get_random_nums(seed, len(biomarkers), size)
     selected_biomarkers = biomarkers[random_numbers]
     results = trials.query(query_texts=selected_biomarkers,
                            n_results=1,
-                           include=["documents"])
+                           include=[])  # return example {'ids': [['NCT04489433']], 'embeddings': None, 'documents': None, 'metadatas': None, 'distances': None}
     return results
-
-
-def remove_duplicates(data):
-    seen_ids = set()
-    unique_data = []
-    for item in data:
-        if item['id'] not in seen_ids:
-            seen_ids.add(item['id'])
-            unique_data.append(item)
-    return unique_data
 
 
 def main():
@@ -113,20 +103,19 @@ def main():
     args = parser.parse_args()
 
     results = generate_random_data(args.civic_path, args.persist_dir)
-    final_results = [{'id': id_val[0], 'prompt': doc_val[0]} for id_val, doc_val in zip(results['ids'], results['documents'])]
-    unique_results = remove_duplicates(final_results)
+    final_results = list(set([id_val[0] for id_val in results['ids']]))  # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
-    training_data, test_data = train_test_split(unique_results,
+    training_data, test_data = train_test_split(final_results,
                                                 train_size=0.8,
                                                 random_state=42)
 
-    dump_json(data={"size": len(unique_results), "data": unique_results},
+    dump_json(data={"size": len(final_results), "ids": final_results},
               file_path=f"{args.output_dir}/random_trials.json")
 
-    dump_json(data={"size": len(training_data), "data": training_data},
+    dump_json(data={"size": len(training_data), "ids": training_data},
               file_path=f"{args.output_dir}/random_train.json")
 
-    dump_json(data={"size": len(test_data), "data": test_data},
+    dump_json(data={"size": len(test_data), "ids": test_data},
               file_path=f"{args.output_dir}/random_test.json")
 
 
