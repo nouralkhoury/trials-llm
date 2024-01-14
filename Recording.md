@@ -19,7 +19,17 @@ B) **Dataset Generation**
 B) **Dataset Generation**
 - Create files to annotate the trials on the side (and the a script to add the annotation to the prompt) --> submitted to Github RAW
 - Create files with trials ID that were manually selected --> Submitted to Github (a script that takes the file and generates the prompts from chromadb) RAW output should go to either processed or interem 
-- 
+
+- Annotation:
+  The output format:
+  <pre>
+    # Whatever is in the same inner clause ([]) reflect biomarkers that should exist together to render patient eligible (logic AND).
+    # Therefore, patient must satisfy all biomarkers inside one of the clauses to be eligible.
+    # Each clause is therefore separated by OR and inside clause biomarkers are separated by AND
+  {
+    "inclusion_biomarker": [["b1", "b2"], ["b3"]],
+    "exclusion_biomarker": []
+  }</pre>
 
 
 
