@@ -82,7 +82,7 @@ def create_stratified_sample(records, sample_size):
     sample_size_per_class = sample_size // len(class_records)
     sampled_records = []
     for class_label, class_list in class_records.items():
-        random.seed(42)
+        random.seed(8)
         sampled_class = random.sample(class_list, min(sample_size_per_class, len(class_list)))
         sampled_records.extend(sampled_class)
     result = {
