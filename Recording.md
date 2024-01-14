@@ -40,7 +40,24 @@ B) **Dataset Generation**
   a) defined stratified splitting (80/20) <br>
   b) ski-learn 80/20 then stratify? <br>
   Maybe we will need manual changing of trial to increase number of train set in fast manner instead of generating synthetic data using GPT
-  
+
+
+  How they defined and instructed the model to extract the biomarkers:
+  - In system message: I only extract the most important tumor biomarkers
+  - In instructions:
+  - This is a representation of the logical disjunctive normal form where each conjunctive (AND) clause is represented as a JSON and the outer list is a disjunction (logical OR) of those clauses or JSONs.
+  - biomarker inclusion: a list of biomarker inclusion criteria that if all elemnts of the list are satisfied, contributes to the expression evaluating to True.
+  - biomarker exclusion: a list of biomarker exclusion criteria that if any elements of the list are satisfied, contributes to the expression evaluating to False.
+  - Skip biomarker or histology criteria that are inside if-then conditions unless the if condition is a cohort type (non-cohor if-then example: If the patient has received prior treatment, then they must have a specific biomarker profile.)
+  - Do not include criteria about prior therapies or prior treatment. They are not considered biomarkers criteria and should not be included in the inclusion or exclusion criteria. Do not include any expression prior therapies, treatments, or therapies.
+  - If the inclusion criteria is for either of multiple biomarkers (and/or), list each of those biomarkers in a separate clause or JSON item because either of them being satisfied should contribute to the entire expression being True.
+    I want to have the least restrictive accurate matching criteria output. Only list multiple biomarkers in biomarker inclusion list for one clause JSON item if the trial absolutely require all of those biomarkers.
+  - Do not include mentioned if the presence or absense of the biomarker does not affect eligibility.
+  - And do not include biomarkers in the output that if the biomarker is present, then additional criteria is needed.
+  - I only extract if the criteria itself determines eligibility.
+  - When there is a list of biomarker criteria in the same sentence and it’s not clear whether the biomarkers have an AND or OR relationship, assume it’s an OR criteria relationship between the biomarkers
+  - If the biomarkers are on separate main bullet points in criteria section, assume those are AND criteria relationship and all the biomarkers should be in the same clause.
+  - For multiple exclusion biomarker or histology criteria, those should be present in every clause JSON item
 
 
 
