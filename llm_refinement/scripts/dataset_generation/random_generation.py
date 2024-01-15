@@ -53,7 +53,7 @@ def get_random_nums(seed, input_size, output_size):
     return random.sample(range(0, input_size), output_size)
 
 
-def generate_random_data(civic_path, persist_dir, size=250, seed=34):
+def generate_random_data(civic_path, persist_dir, size=500, seed=42):
     """
     Generate random data by querying a ChromaDB collection with a randomly
     selected set of biomarkers.
