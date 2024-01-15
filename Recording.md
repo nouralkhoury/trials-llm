@@ -17,8 +17,12 @@ B) **Dataset Generation**
 
 
 B) **Dataset Generation**
-- Create files to annotate the trials on the side (and the a script to add the annotation to the prompt) --> submitted to Github RAW
-- Create files with trials ID that were manually selected --> Submitted to Github (a script that takes the file and generates the prompts from chromadb) RAW output should go to either processed or interem 
+- Generate a bunch of randomly selected biomarkers+chromadb trials ID
+- Annotate the ones I feel confident about
+- Select only these trials (provide a list of these IDs in JSON file named final_id_selection or something)
+- Include the manually selected trials to increase the number of trials with biomarkers (better than synthetic data generation) and provide these (as JSON file too)
+- Merge all and split
+
 
 - Annotation:
   The output format:
