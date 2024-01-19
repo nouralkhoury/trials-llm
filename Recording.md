@@ -36,14 +36,13 @@ B) **Dataset Generation**
   }</pre>
 
 
-  - Should we consider cohort?
+  - Should we consider cohort? No
   - First, Annotate all the randomly generated trials
   - Select the ones that I am confident from the annotation
   - Add the manually annotated trials
   - How and when to split for test/train? Annotate all randomly selected trials, filter out trials that we are not confident from the annotation so that we do not give bad data to model, add the manually selected trials to increase variability then split in either ways: <br>
   a) defined stratified splitting (80/20) <br>
-  b) ski-learn 80/20 then stratify? <br>
-  Maybe we will need manual changing of trial to increase number of train set in fast manner instead of generating synthetic data using GPT
+  b) ski-learn 80/20 then stratify? --> <span style="color: blue">Might not need to stratify, LLM is not like supervised learning. Having a balanced data is not an issue. It is just showing it how to respond in a structured manner. There's no class to return</span>
 
 
   How they defined and instructed the model to extract the biomarkers:
