@@ -44,7 +44,7 @@ B) **Dataset Generation**
 
 > [!TIP]
 > Helpful guidelines when annotating dataset
-> - Consider all biomarkers (gene mutation, gene/protein expression, HR/HER2/PR/ER status, dMMR/pMMR/MSI/TMB status, pathway alterations, etc.)
+> - Consider all biomarkers (gene mutation, gene/protein expression, HR/HER2/PR/ER status, dMMR/pMMR/MSI/TMB/PD-L1 status, pathway alterations, etc.)
 > - If gene lists for the pathway are not listed, extract the name of the pathway (genes corresponding to pathway can be handled post-processing)
 > - If biomarker is in both inclusion and exclusion, extract it anyway (we can add later a condition if the biomarker is in both inclusion and exclusion still return the matched trial)
 > - If gene is missing from biomarker, do not extract it (e.g T315I, we don't know which gene this is belonging to!)
