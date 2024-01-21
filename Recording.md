@@ -53,6 +53,7 @@ B) **Dataset Generation**
 > - When there is a list of biomarker criteria in the same sentence and it’s not clear whether the biomarkers have an AND or OR relationship, assume it’s an OR criteria relationship between the biomarkers.
 > - If the biomarkers are on separate main bullet points in the criteria section, assume those are AND criteria relationship, and all the biomarkers should be in the same clause.
 > - Main bullet points: In inclusion treat them as AND unless stated otherwise. In exclusion treat them as OR (one or more exlusion criteria will exclude patient)
+> - If main bullet points are each for a different ARM or COHORT or PHASE of the trial, treat them as OR
 
 
 C) **Evaluation**
