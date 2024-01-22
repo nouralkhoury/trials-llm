@@ -54,6 +54,9 @@ B) **Dataset Generation**
 > - If the biomarkers are on separate main bullet points in the criteria section, assume those are AND criteria relationship, and all the biomarkers should be in the same clause.
 > - Main bullet points: In inclusion treat them as AND unless stated otherwise. In exclusion treat them as OR (one or more exlusion criteria will exclude patient)
 > - If main bullet points are each for a different ARM or COHORT or PHASE of the trial, treat them as OR
+> - If the presence or abscence of biomarker does not affect inclusion do not extract this and do not include it in the inclusion biomarker
+> - If there is an exception in inclusion or a NOT, include it in exclusion biomarker
+> - If there is an except in the exclusion, include it in the exclusion_except entity
 
 
 C) **Evaluation**
