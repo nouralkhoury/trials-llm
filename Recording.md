@@ -57,6 +57,7 @@ B) **Dataset Generation**
 > - If the presence or abscence of biomarker does not affect inclusion do not extract this and do not include it in the inclusion biomarker
 > - If there is an exception in inclusion or a NOT, include it in exclusion biomarker
 > - If there is an except in the exclusion, include it in the exclusion_except entity
+> - replace "uncommon" with rare (example uncommon EGFR exon 18-21 mutation --> EGFR rare exon 18-21 mutation)
 
 
 C) **Evaluation**
