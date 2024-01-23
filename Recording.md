@@ -64,3 +64,12 @@ C) **Evaluation**
 2 step evaluation could be done:
 At extraction level (could also try comparing to the paper https://arxiv.org/pdf/2308.02180.pdf on our test set and focus on biomarkers, however, keep in mind that they consider biomarker in general not only genetic so think about that)
 At post-processing level --> This is basically to make sure the post-processing is working as expected especially for gene naming! 
+
+
+
+LLM Optimization:
+https://medium.com/@luvverma2011/optimizing-llms-best-practices-prompt-engineering-rag-and-fine-tuning-8def58af8dcc
+https://www.rungalileo.io/blog/optimizing-llm-performance-rag-vs-finetune-vs-both --> 7 Factors to Consider When Evaluating Fine-Tuning and RAG
+
+
+Fine-tuning Galileo tool https://docs.rungalileo.io/galileo/llm-studio/llm-debugger/getting-started
