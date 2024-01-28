@@ -16,7 +16,6 @@ import argparse
 import pandas as pd
 from utils.jsons import dump_json
 from modules.chromadb_handler import ChromaDBHandler
-from sklearn.model_selection import train_test_split
 
 
 def get_civic_biomarkers(civic):
@@ -106,18 +105,8 @@ def main():
     results = generate_random_data(args.civic_path, args.persist_dir)
     final_results = list(set([id_val[0] for id_val in results['ids']]))  # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
-    training_data, test_data = train_test_split(final_results,
-                                                train_size=0.8,
-                                                random_state=42)
-
     dump_json(data={"size": len(final_results), "ids": final_results},
               file_path=f"{args.output_dir}/random_trials_ids.json")
-
-    dump_json(data={"size": len(training_data), "ids": training_data},
-              file_path=f"{args.output_dir}/random_train_ids.json")
-
-    dump_json(data={"size": len(test_data), "ids": test_data},
-              file_path=f"{args.output_dir}/random_test_ids.json")
 
 
 if __name__ == "__main__":
