@@ -34,23 +34,35 @@ def main():
     )
 
     args = parser.parse_args()
-
-    annotated = load_json(args.annotated)
+    # Load JSON file
+    try:
+        annotated = load_json(args.annotated)
+    except Exception as e:
+        print(f"Error loading annotated JSON file: {e}")
+        return
 
     # convert dict to list of dict
     list_annotated = [{'trial_id': trial_id, **trial_data} for trial_id, trial_data in annotated.items()]
-
-    # Get size of train from %
     train_size = int(len(list_annotated) * args.train_perc/100)
-    training_data, test_data = train_test_split(list_annotated,
-                                                train_size=train_size,
-                                                random_state=args.random_state)
 
-    dump_json(data={"size": len(training_data), "ids": training_data},
-              file_path=f"{args.output_dir}/train_set.json")
+    # Split data into train and test
+    try:
+        training_data, test_data = train_test_split(list_annotated,
+                                                    train_size=train_size,
+                                                    random_state=args.random_state)
+    except Exception as e:
+        print(f"Error during train-test split: {e}")
+        return
+    
+    # Save train and test sets to JSON files
+    try:
+        dump_json(data={"size": len(training_data), "ids": training_data},
+                    file_path=f"{args.output_dir}/train_set.json")
 
-    dump_json(data={"size": len(test_data), "ids": test_data},
-              file_path=f"{args.output_dir}/test_set.json")
+        dump_json(data={"size": len(test_data), "ids": test_data},
+                    file_path=f"{args.output_dir}/test_set.json")
+    except Exception as e:
+        print(f"Error saving train/test sets to JSON files: {e}")
 
 
 if __name__ == "__main__":
