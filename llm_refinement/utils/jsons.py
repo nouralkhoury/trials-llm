@@ -17,7 +17,12 @@ def dump_json(data, file_path):
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=4)
         return data
-    except TypeError:
-        print("Unable to serialize the object")
+    except TypeError as e:
+        print(f"Unable to serialize the object: {e}")
 
-# add a check on the structure of the json from chromadb
+
+def loads_json(json_str):
+    try:
+        return json.loads(json_str)
+    except TypeError as e:
+        print(f"Unable to load JSON from string: {e}")
