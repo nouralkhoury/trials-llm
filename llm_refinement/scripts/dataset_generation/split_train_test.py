@@ -5,7 +5,7 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="""Generate train/test sets
-                                     from previously annotated dataset in JSON 
+                                     from previously annotated dataset in JSON
                                      format.""")
 
     parser.add_argument(
@@ -53,7 +53,7 @@ def main():
     except Exception as e:
         print(f"Error during train-test split: {e}")
         return
-    
+
     # Save train and test sets to JSON files
     try:
         dump_json(data={"size": len(training_data), "ids": training_data},
