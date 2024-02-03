@@ -23,6 +23,7 @@ def evaluate_predictions(predicted_output, ground_truth, entity):
         Example: {"inclusion": ["A", "B", "C"]} or {"inclusion": [["A", "B"], ["C"]]}
     - ground_truth (dict): A dictionary containing the ground truth inclusion criteria.
         Example: {"inclusion": ["A", "B", "C"]} or {"inclusion": [["A", "B"], ["C"]]}
+    - entity (str): The entity for which to evaluate the predictions ("inclusion" or "exclusion").
 
     Returns:
     - precision (float): Precision score calculated as the number of correctly predicted criteria divided by the total number of predicted criteria.
@@ -42,20 +43,26 @@ def evaluate_predictions(predicted_output, ground_truth, entity):
     """
     correct_conjunctions = 0
     predicted_conjunctions = len(predicted_output[entity])
+    true_conjunctions = len(ground_truth[entity])
 
-    for predicted_conjunction in predicted_output[entity]:
-        for true_conjunction in ground_truth[entity]:
-            if set(predicted_conjunction) == set(true_conjunction):
-                correct_conjunctions += 1
-                break  # Break if a match is found, as each predicted conjunction should match exactly one true conjunction
+    if predicted_conjunctions == 0 and true_conjunctions == 0:
+        # Handle the case where both predicted and true outputs have no inclusion or exclusion biomarkers
+        precision = recall = f1_score = accuracy = 1.0
+    else:
+        for predicted_conjunction in predicted_output[entity]:
+            for true_conjunction in ground_truth[entity]:
+                if set(predicted_conjunction) == set(true_conjunction):
+                    correct_conjunctions += 1
+                    break  # Break if a match is found, as each predicted conjunction should match exactly one true conjunction
 
-    # Calculate precision, recall, F1 score, and accuracy
-    precision = correct_conjunctions / predicted_conjunctions if predicted_conjunctions != 0 else 0
-    recall = correct_conjunctions / len(ground_truth[entity]) if len(ground_truth[entity]) != 0 else 0
-    f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
-    accuracy = correct_conjunctions / predicted_conjunctions if predicted_conjunctions != 0 else 0
+        # Calculate precision, recall, F1 score, and accuracy
+        precision = correct_conjunctions / predicted_conjunctions if predicted_conjunctions != 0 else 0
+        recall = correct_conjunctions / true_conjunctions if true_conjunctions != 0 else 0
+        f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
+        accuracy = correct_conjunctions / predicted_conjunctions if predicted_conjunctions != 0 else 0
 
     return precision, recall, f1_score, accuracy
+
 
 
 def threshold_accuracy(accuracy, threshold=50):
