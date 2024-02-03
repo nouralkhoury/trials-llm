@@ -26,3 +26,27 @@ def loads_json(json_str):
         return json.loads(json_str)
     except TypeError as e:
         print(f"Unable to load JSON from string: {e}")
+
+
+def flatten_lists_in_dict(input_dict):
+    """
+    Flatten lists in a dictionary.
+
+    Parameters:
+    - input_dict (dict): Input dictionary containing lists.
+
+    Returns:
+    - dict: Output dictionary with flattened lists.
+
+    Example:
+    - Input: {"inclusion": [["A", "B"], ["C"]], "exclusion": [['k']]}
+    - Output: {"inclusion": ["A", "B", "C"], "exclusion": ['k']}
+    """
+    output_dict = {}
+    for key, value in input_dict.items():
+        if isinstance(value, list):
+            flattened_list = [item for sublist in value for item in (sublist if isinstance(sublist, list) else [sublist])]
+            output_dict[key] = flattened_list
+        else:
+            output_dict[key] = value
+    return output_dict
