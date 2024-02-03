@@ -1009,11 +1009,12 @@
     },
     "NCT05401110": {
         "inclusion_biomarker": [
-            ["EGFR mutation"],
+            ["EGFR activating mutation"],
             ["EGFR Exon 21 L858R"],
             ["EGFR Exon 19 deletion"],
             ["EGFR Exon 18 G719X"],
-            ["EGFR Exon 21 L861Q"]
+            ["EGFR Exon 21 L861Q"],
+            ["EGFR mutation"]
         ],
         "exclusion_biomarker": []
     },
@@ -1063,10 +1064,8 @@
     },
     "NCT05099172": {
         "inclusion_biomarker": [
-            ["EGFR mutation"],
-            ["HER2 mutation"],
-            ["EGFR ex20ins"],
-            ["HER2 ex20ins"]
+            ["EGFR activating mutation"],
+            ["HER2 activating mutation"]
         ],
         "exclusion_biomarker": []
     },
