@@ -64,7 +64,6 @@ def evaluate_predictions(predicted_output, ground_truth, entity):
     return precision, recall, f1_score, accuracy
 
 
-
 def threshold_accuracy(accuracy, threshold=50):
     """
     Determine if the accuracy meets or exceeds a specified threshold percentage.
