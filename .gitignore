@@ -94,3 +94,7 @@ venv-llm/
 
 # poetry lock
 poetry.lock
+
+logs
+
+notebooks
