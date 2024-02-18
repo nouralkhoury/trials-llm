@@ -1,6 +1,4 @@
 from starlette.config import Config
-from starlette.datastructures import Secret
-
 
 try:
     config = Config(".env")
@@ -9,10 +7,10 @@ except FileNotFoundError:
 
 
 # OpenAI API key
-OPENAI_API_KEY = config("OPENAI_API_KEY", default="", cast=Secret)
+OPENAI_API_KEY = config("OPENAI_API_KEY", default="")
 
 # PromptLayer API Key
-PROMPTLAYER_API_KEY = config("PROMPTLAYER_API_KEY", default="", cast=Secret)
+PROMPTLAYER_API_KEY = config("PROMPTLAYER_API_KEY", default="")
 
 
 # Data Directories
