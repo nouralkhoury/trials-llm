@@ -82,3 +82,11 @@ def threshold_accuracy(accuracy, threshold=50):
     """
     threshold_met = accuracy * 100 >= threshold
     return threshold_met
+
+
+def save_eval(p, r, f1, acc, evals):
+    precision, recall, f1_score, accuracy = evals
+    p.append(precision)
+    r.append(recall)
+    f1.append(f1_score)
+    acc.append(accuracy)
