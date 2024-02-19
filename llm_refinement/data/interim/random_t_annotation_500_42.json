@@ -8,7 +8,12 @@
         "exclusion_biomarker": []
     },
     "NCT05069935": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            ["microsatellite instability-high"],
+            ["HER2 positive"],
+            ["KRAS mutation"],
+            ["NRAS mutation"]
+        ],
         "exclusion_biomarker": []
     },
     "NCT04185883": {
@@ -80,6 +85,7 @@
     },
     "NCT03586453": {
         "inclusion_biomarker": [
+            ["EGFR mutation"],
             ["EGFR L858R"],
             ["EGFR exon 19 deletion"]
         ],
@@ -101,7 +107,7 @@
     },
     "NCT04649112": {
         "inclusion_biomarker": [
-            ["CD19 positive"]
+            ["CD19 expression"]
         ],
         "exclusion_biomarker": []
     },
@@ -246,7 +252,7 @@
     },
     "NCT05245500": {
         "inclusion_biomarker": [
-            ["MTAP deletion"]
+            ["MTAP homozygous deletion"]
         ],
         "exclusion_biomarker": []
     },
@@ -394,7 +400,9 @@
         "exclusion_biomarker": []
     },
     "NCT05128825": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            ["CCNE1 copy number amplification"]
+        ],
         "exclusion_biomarker": []
     },
     "NCT03494296": {
@@ -484,10 +492,15 @@
     },
     "NCT05379985": {
         "inclusion_biomarker": [
-            ["KRAS G12"],
-            ["RAS mutation"]
+            ["KRAS p.G12A"],
+            ["KRAS p.G12D"],
+            ["KRAS p.G12R"],
+            ["KRAS p.G12S"],
+            ["KRAS p.G12V"]
         ],
-        "exclusion_biomarker": []
+        "exclusion_biomarker": [
+            ["KRAS p.G12C"]
+        ]
     },
     "NCT05271682": {
         "inclusion_biomarker": [],
@@ -513,8 +526,13 @@
     },
     "NCT03383575": {
         "inclusion_biomarker": [
+            ["IDH2 mutation"],
             ["IDH2 R140"],
-            ["IDH2 R172"]
+            ["IDH2 R172"],
+            ["TP53 mutation"],
+            ["ASXL1 mutation"],
+            ["EZH2 mutation"],
+            ["RUNX1 mutation"]
         ],
         "exclusion_biomarker": []
     },
@@ -614,7 +632,9 @@
         "exclusion_biomarker": []
     },
     "NCT05100134": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            ["ALK positive"]
+        ],
         "exclusion_biomarker": []
     },
     "NCT03815279": {
@@ -677,7 +697,7 @@
     "NCT04659044": {
         "inclusion_biomarker": [
             ["cyclin D1 positive"],
-            ["t(11;14) positive"]
+            ["t(11;14)"]
         ],
         "exclusion_biomarker": [
             ["CD20 negative"]
@@ -819,7 +839,7 @@
     "NCT05439889": {
         "inclusion_biomarker": [
             ["BCR-ABL e13a2"],
-            ["BCR-ABL e14a2"]
+            ["BCR-ABL p210"]
         ],
         "exclusion_biomarker": []
     },
@@ -841,15 +861,15 @@
     },
     "NCT04750941": {
         "inclusion_biomarker": [
-            ["PIK3CA mutation"],
+            ["PIK3CA activating mutation"],
             ["PTEN loss"]
         ],
         "exclusion_biomarker": []
     },
     "NCT05007873": {
         "inclusion_biomarker": [
-            ["Philadelphia chromosome positive"],
-            ["BCR-ABL positive"]
+            ["Philadelphia chromosome"],
+            ["BCR-ABL"]
         ],
         "exclusion_biomarker": []
     },
@@ -971,9 +991,9 @@
             ["FGFR3 K650E"],
             ["FGFR3 K650Q"],
             ["FGFR3 K650N"],
-            ["FGFR1 mutation"],
-            ["FGFR2 mutation"],
-            ["FGFR3 mutation"],
+            ["FGFR1 activating mutation"],
+            ["FGFR2 activating mutation"],
+            ["FGFR3 activating mutation"],
             ["FGFR1 amplification"],
             ["FGFR2 amplification"]
         ],
@@ -1000,7 +1020,9 @@
         ]
     },
     "NCT03064269": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            ["CD19 positive"]
+        ],
         "exclusion_biomarker": []
     },
     "NCT05489783": {
@@ -1049,7 +1071,7 @@
     },
     "NCT05339204": {
         "inclusion_biomarker": [
-            ["(AML) inv(16)(p13.1q22)"],
+            ["inv(16)(p13.1q22)"],
             ["t(16;16)(p13.1;q22)"],
             ["CBFB-MYH11"],
             ["t(8;21)(q22;q22.1)"],
@@ -1071,6 +1093,9 @@
     },
     "NCT04504071": {
         "inclusion_biomarker": [
+            ["EGFR activating mutation"],
+            ["uncommon EGFR mutation"],
+            ["EGFR exon 18-21 mutation"],
             ["EGFR G719A"],
             ["EGFR G719C"],
             ["EGFR G719S"],
