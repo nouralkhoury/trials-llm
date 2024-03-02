@@ -39,7 +39,7 @@ class ChromaDBHandler:
 
     def create_collection(self):
         try:
-            collection = self.client.create_collection(name=self.load_collection)
+            collection = self.client.create_collection(name=self.collection_name)
             return collection
         except Exception as e:
             logging.error(f"Error creating ChromaDB collection: {e}")
