@@ -36,3 +36,12 @@ class ChromaDBHandler:
             logging.error(f"Error loading ChromaDB collection: {e}")
             # Exit the program with a non-zero status code
             exit(1)
+
+    def create_collection(self):
+        try:
+            collection = self.client.create_collection(name=self.load_collection)
+            return collection
+        except Exception as e:
+            logging.error(f"Error creating ChromaDB collection: {e}")
+            # Exit the program with a non-zero status code
+            exit(1)
