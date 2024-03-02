@@ -24,15 +24,16 @@ from configurations.config import CTRIALS_COLLECTION, PERSIST_DIRECTORY, PROCESS
 
 
 def create_train_collection(train_collection_name, train_set_path, persist_train):
-    db = ChromaDBHandler(PERSIST_DIRECTORY,
-                         CTRIALS_COLLECTION)
-    db_client = db.client
-    # Load the old collection
-    full_collection = db.collection
+    full_collection = ChromaDBHandler(PERSIST_DIRECTORY,
+                                      CTRIALS_COLLECTION).collection
+
     print("Full collection loaded", full_collection.count())
     # Create or load the train collection
-    train_collection = ChromaDBHandler(persist_train,
-                                       train_collection_name).collection
+    db = ChromaDBHandler(persist_train,
+                         train_collection_name)
+    db_client = db.client
+    # Load the old collection
+    train_collection = db.collection
     print("Train collection loaded", train_collection.count())
 
     # Get train set
@@ -64,7 +65,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Create a ChromaDB train collection from a subset of a full collection.")
     parser.add_argument("--persist-train",
                         required=False,
-                        default=PERSIST_DIRECTORY,
+                        default="data/collection_train",
                         help="ChromaDB Persist directory")
 
     parser.add_argument("--train-collection",
