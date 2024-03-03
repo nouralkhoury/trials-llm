@@ -30,7 +30,7 @@ class ChromaDBHandler:
             Returns:
                 - chromadb.Collection: The ChromaDB collection
             """
-            collection = self.client.get_or_create_collection(self.collection_name)
+            collection = self.client.get_or_create_collection(self.collection_name, metadata={"hnsw:space": "cosine"})
             return collection
         except Exception as e:
             logging.error(f"Error loading ChromaDB collection: {e}")
