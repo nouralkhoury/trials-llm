@@ -22,7 +22,7 @@ class GPTHandler(object):
         """
         if pl_tags:
             promptlayer.api_key = PROMPTLAYER_API_KEY
-            llm = PromptLayerChatOpenAI(pl_tags=["zero-shot-gpt-4"],
+            llm = PromptLayerChatOpenAI(pl_tags=pl_tags,
                                         temperature=0,
                                         model=model_name)
         else:
