@@ -45,6 +45,8 @@ def create_train_collection(train_collection_name, train_set_path, persist_train
     # Iterate through train set ids
     for train_id_info in train_set['ids']:
         trial_id = train_id_info['trial_id']
+        if trial_id == "NCT04017130":  # skip outlier, large tokens
+            continue
         # Get document from the full collection
         doc = full_collection.get(ids=[trial_id])['documents'][0]
         # Extract relevant information from the train set
