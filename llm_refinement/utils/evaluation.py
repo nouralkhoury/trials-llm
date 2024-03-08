@@ -46,8 +46,9 @@ def get_metrics(tp, tn, fp, fn):
     precision = tp / (tp + fp) if (tp + fp) != 0 else 0
     recall = tp / (tp + fn) if (tp + fn) != 0 else 0
     f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
+    f2_score = 5 * (precision * recall) / ((4*precision) + recall) if  ((4*precision) + recall) != 0 else 0
     accuracy = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) != 0 else 0
-    return precision, recall, f1_score, accuracy
+    return precision, recall, f1_score, accuracy, f2_score
 
 
 def threshold_accuracy(accuracy, threshold=50):
