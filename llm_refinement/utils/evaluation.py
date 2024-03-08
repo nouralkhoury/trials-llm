@@ -69,9 +69,9 @@ def threshold_accuracy(accuracy, threshold=50):
     return threshold_met
 
 
-def save_eval(p, r, f1, acc, evals):
-    precision, recall, f1_score, accuracy = evals
-    p.append(precision)
-    r.append(recall)
-    f1.append(f1_score)
-    acc.append(accuracy)
+def save_eval(tp, tn, fp, fn, evals):
+    true_p, true_n, false_p, false_n = evals
+    tp.append(true_p)
+    tn.append(true_n)
+    fp.append(false_p)
+    fn.append(false_n)
