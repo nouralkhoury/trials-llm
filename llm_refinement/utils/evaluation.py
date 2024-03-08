@@ -15,52 +15,38 @@ and the threshold is a percentage.
 
 
 def evaluate_predictions(predicted_output, ground_truth, entity):
-    """
-    Evaluate the predictions for inclusion/exclusion criteria in a clinical trial.
+    tp, tn, fp, fn = 0, 0, 0, 0
 
-    Parameters:
-    - predicted_output (dict): A dictionary containing the predicted criteria.
-        Example: {"inclusion": ["A", "B", "C"]} or {"inclusion": [["A", "B"], ["C"]]}
-    - ground_truth (dict): A dictionary containing the ground truth inclusion criteria.
-        Example: {"inclusion": ["A", "B", "C"]} or {"inclusion": [["A", "B"], ["C"]]}
-    - entity (str): The entity for which to evaluate the predictions ("inclusion" or "exclusion").
+    predicted_biomarkers = [set(inner_list) for inner_list in predicted_output[entity]]
+    actual_biomarkers = [set(inner_list) for inner_list in ground_truth[entity]]
 
-    Returns:
-    - precision (float): Precision score calculated as the number of correctly predicted criteria divided by the total number of predicted criteria.
-    - recall (float): Recall score calculated as the number of correctly predicted criteria divided by the total number of true criteria.
-    - f1_score (float): F1 score calculated based on precision and recall.
-    - accuracy (float): Accuracy score calculated as the number of correctly predicted criteria divided by the total number of predicted criteria.
-
-    Note:
-    - The function assumes that each predicted criterion should match exactly one true criterion.
-    - The input format is flexible, supporting both flat lists and lists of lists for criteria.
-      For flat lists, each element is treated as an individual criterion. For lists of lists, each inner list is treated as a conjunction of criteria.
-
-    Precision, Recall, and F1 Score Formulas:
-    - Precision = Correctly Predicted Criteria / Total Predicted Criteria
-    - Recall = Correctly Predicted Criteria / Total True Criteria
-    - F1 Score = 2 * (Precision * Recall) / (Precision + Recall), with consideration for cases where Precision + Recall is zero.
-    """
-    correct_conjunctions = 0
-    predicted_conjunctions = len(predicted_output[entity])
-    true_conjunctions = len(ground_truth[entity])
-
-    if predicted_conjunctions == 0 and true_conjunctions == 0:
-        # Handle the case where both predicted and true outputs have no inclusion or exclusion biomarkers
-        precision = recall = f1_score = accuracy = 1.0
+    if predicted_biomarkers == [] and actual_biomarkers == []:
+        tn = 1
     else:
-        for predicted_conjunction in predicted_output[entity]:
-            for true_conjunction in ground_truth[entity]:
-                if set(predicted_conjunction) == set(true_conjunction):
-                    correct_conjunctions += 1
-                    break  # Break if a match is found, as each predicted conjunction should match exactly one true conjunction
+        # Calculate True Positives
+        for predicted_set in predicted_biomarkers:
+            if predicted_set in actual_biomarkers:
+                tp += 1
 
-        # Calculate precision, recall, F1 score, and accuracy
-        precision = correct_conjunctions / predicted_conjunctions if predicted_conjunctions != 0 else 0
-        recall = correct_conjunctions / true_conjunctions if true_conjunctions != 0 else 0
-        f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
-        accuracy = correct_conjunctions / predicted_conjunctions if predicted_conjunctions != 0 else 0
+        # Calculate False Negatives
+        for actual in actual_biomarkers:
+            if actual not in predicted_biomarkers:
+                fn += 1
 
+        # Calculate False Positives
+        for predicted_set in predicted_biomarkers:
+            if predicted_set not in actual_biomarkers:
+                fp += 1
+
+    return tp, tn, fp, fn
+
+
+def get_metrics(tp, tn, fp, fn):
+    # Calculate precision, recall, F1 score, and accuracy
+    precision = tp / (tp + fp) if (tp + fp) != 0 else 0
+    recall = tp / (tp + fn) if (tp + fn) != 0 else 0
+    f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
+    accuracy = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) != 0 else 0
     return precision, recall, f1_score, accuracy
 
 
