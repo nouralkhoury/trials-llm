@@ -19,7 +19,7 @@ from utils.jsons import (
     flatten_lists_in_dict,
     dump_json,
     loads_json)
-from utils.evaluation import evaluate_predictions, save_eval
+from utils.evaluation import evaluate_predictions, save_eval, get_metrics
 
 
 def actual_output(trial):
@@ -47,6 +47,16 @@ def input_args():
     parser.add_argument("--prompt",
                         required=True,
                         help="Path to prompt JSON file with the template")
+    parser.add_argument("--n-example",
+                        type=int,  # Specify the type as integer
+                        default=0,  # Default value is 0
+                        required=False,
+                        help="Number of examples for the Few shot.")
+    parser.add_argument("--rag",
+                        type=lambda x: (str(x).lower() == 'true'),  # Convert input to boolean
+                        default=False,  # Default value is False
+                        required=False,
+                        help="Boolean to perform RAG or take static example")
     parser.add_argument("--model",
                         required=False,
                         help="OPENAI model name to be used",
@@ -76,7 +86,7 @@ def compute_evals(response, actual):
 
 def main():
     args = input_args()
-    model, template_file, pl_tags = args.model, args.prompt, args.tags
+    model, template_file, pl_tags, n_examples, rag = args.model, args.prompt, args.tags, args.n_example, args.rag
 
     logger = CustomLogger(log_name(template_file, model))
 
@@ -116,27 +126,58 @@ def main():
     logger.log_info(f"Prompt Template: {prompt_template.template}")
     start_time = time.time()
 
-    prec_inc, recall_inc, accs_inc, f1s_inc = [], [], [], []
-    prec_inc_dnf, recall_inc_dnf, accs_inc_dnf, f1s_inc_dnf = [], [], [], []
+    tp_inc, tn_inc, fp_inc, fn_inc = [], [], [], []
+    tp_inc_dnf, tn_inc_dnf, fp_inc_dnf, fn_inc_dnf = [], [], [], []
 
-    prec_ex, recall_ex, f1s_ex, accs_ex = [], [], [], []
-    prec_ex_dnf, recall_ex_dnf, f1s_ex_dnf, accs_ex_dnf = [], [], [], []
-
-    predicted_list, actual_list = [], []
+    tp_ex, tn_ex, fp_ex, fn_ex = [], [], [], []
+    tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf = [], [], [], []
 
     bar = progressbar.ProgressBar(maxval=test_set['size'], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
     counter = 0
-    for i in test_set['ids'][0:1]:
+    for i in test_set['ids']:
         counter += 1
-        bar.update(counter+1)
+        bar.update(counter)
         try:
             trial_id = i['trial_id']
             logger.log_info(f"@ trial {trial_id}")
 
             input_trial = trials.get(ids=[trial_id])['documents'][0]
 
-            response = llm_chain({'trial': input_trial})
+            if n_examples == 0:
+                response = llm_chain({'trial': input_trial})
+            else:
+                from langchain.vectorstores.chroma import Chroma
+                db = Chroma(
+                    collection_name="train-ctrials",
+                    persist_directory="./data/collection_train",
+                    )
+                if rag:  # perform RAG
+                    similar_trials = db.similarity_search(query=input_trial, k=n_examples)
+                    similar_doc = similar_trials[0].page_content
+                    example_output = similar_trials[0].metadata['output']
+                else:
+                    #similar_trials = db.get(ids=["NCT03383575"])
+                    similar_trials = db.get(ids=["NCT05435274"])
+                    similar_doc = similar_trials['documents'][0]
+                    # example_output = similar_trials['metadatas'][0]['output']
+                    example_output = {
+                        'reasoning': "From the inclusion criteria, I select the genomics biomarkers, which in this case are 'EGFR/HER2 Exon 20 insertion mutation'. I Split the biomarkers into separate entities as they are connected by 'OR' logic, resulting in 'EGFR Exon 20 insertion' and 'HER2 Exon 20 insertion'.I do not include the word 'mutation' because i have a specific variant before it.The exclusion criteria do not contain any genomics biomarkers, so it is left empty.Format the biomarkers according to the instructions, removing the word 'mutation' and ensuring the gene name is followed by the variant.The final biomarkers are 'EGFR Exon 20 insertion' and 'HER2 Exon 20 insertion'. No further processing is needed, I assemble the biomarkers into the required JSON format",
+                        'inclusion_biomarker': [['IDH2 R140'],
+                                                ['IDH2 R172'],
+                                                ['IDH2 R140', 'TP53 mutation'],
+                                                ['IDH2 R172', 'TP53 mutation'],
+                                                ['IDH2 R140', 'ASXL1 mutation'],
+                                                ['IDH2 R172', 'ASXL1 mutation'],
+                                                ['IDH2 R140', 'EZH2 mutation'],
+                                                ['IDH2 R172', 'EZH2 mutation'],
+                                                ['IDH2 R140', 'RUNX1 mutation'],
+                                                ['IDH2 R172', 'RUNX1 mutation']],
+                        'exclusion_biomarker': []}
+
+                example = f"""{similar_doc}\nJSON output:{example_output}"""
+
+                response = llm_chain({'trial': input_trial, 'example': example})
             try:
                 response['text']
             except Exception as e:
@@ -153,15 +194,11 @@ def main():
 
             # Metrics
             evals_dnf_inclusion, evals_dnf_exclusion, evals_extract_incl, evals_extract_exl = compute_evals(response_parsed, actual)
-            save_eval(prec_inc_dnf, recall_inc_dnf, f1s_inc_dnf, accs_inc_dnf, evals_dnf_inclusion)
-            save_eval(prec_ex_dnf, recall_ex_dnf, f1s_ex_dnf, accs_ex_dnf, evals_dnf_exclusion)
-            save_eval(prec_inc, recall_inc, f1s_inc, accs_inc, evals_extract_incl)
-            save_eval(prec_ex, recall_ex, f1s_ex, accs_ex, evals_extract_exl)
+            save_eval(tp_inc_dnf, tn_inc_dnf, fp_inc_dnf, fn_inc_dnf, evals_dnf_inclusion)
+            save_eval(tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf, evals_dnf_exclusion)
+            save_eval(tp_inc, tn_inc, fp_inc, fn_inc, evals_extract_incl)
+            save_eval(tp_ex, tn_ex, fp_ex, fn_ex, evals_extract_exl)
 
-            inc_status = True if evals_dnf_inclusion[3] == 1 else False
-            exc_status = True if evals_dnf_exclusion[3] == 1 else False
-            logger.log_info(f"Inclusion: {inc_status}")
-            logger.log_info(f"Exclusion: {exc_status}")
             logger.log_info("\n")
         except Exception as e:
             print(f"Trial {trial_id} Failed: {e}")
@@ -170,35 +207,45 @@ def main():
     latency = end_time - start_time
     logger.log_info(f"Latency: {latency} seconds")
     logger.log_info("\n\n\n")
+
+    # Get Precision, recall, f1 score and accuracy
+    inc = get_metrics(tp=sum(tp_inc), tn=sum(tn_inc), fp=sum(fp_inc), fn=sum(fn_inc))
+    ex = get_metrics(tp=sum(tp_ex), tn=sum(tn_ex), fp=sum(fp_ex), fn=sum(fn_ex))
+    inc_dnf = get_metrics(tp=sum(tp_inc_dnf), tn=sum(tn_inc_dnf), fp=sum(fp_inc_dnf), fn=sum(fn_inc_dnf))
+    ex_dnf = get_metrics(tp=sum(tp_ex_dnf), tn=sum(tn_ex_dnf), fp=sum(fp_ex_dnf), fn=sum(fn_ex_dnf))
     results = {
         "prompt": prompt_template.template,
         "Model": model,
         "Precited": predicted_list,
         "Actual": actual_list,
-        "precision_inclusion": prec_inc,
-        "precision_inclusion_dnf": prec_inc_dnf,
-        "precision_exclusion": prec_ex,
-        "precision_exclusion_dnf": prec_ex_dnf,
-        "recall_inclusion": recall_inc,
-        "recall_inclusion_dnf": recall_inc_dnf,
-        "recall_exclusion": recall_ex,
-        "recall_exclusion_dnf": recall_ex_dnf,
-        "Average Inclusion Precision": mean(prec_inc),
-        "Average Inclusion Recall": mean(recall_inc),
-        "Average Inclusion F1": mean(f1s_inc),
-        "Average Inclusion Acc": mean(accs_inc),
-        "Average Exclusion Precision": mean(prec_ex),
-        "Average Exclusion Recall": mean(recall_ex),
-        "Average Exclusion F1": mean(f1s_ex),
-        "Average Exclusion Acc": mean(accs_ex),
-        "Average Inclusion DNF Precision": mean(prec_inc_dnf),
-        "Average Inclusion DNF Recall": mean(recall_inc_dnf),
-        "Average Inclusion DNF F1": mean(f1s_inc_dnf),
-        "Average Inclusion DNF Acc": mean(accs_inc_dnf),
-        "Average Exclusion DNF Precision": mean(prec_ex_dnf),
-        "Average Exclusion DNF Recall": mean(recall_ex_dnf),
-        "Average Exclusion DNF F1": mean(f1s_ex_dnf),
-        "Average Exclusion DNF Acc": mean(accs_ex_dnf),
+        "tp_inclusion": tp_inc,
+        "fp_inclusion": fp_inc,
+        "tn_inclusion": tn_inc,
+        "fn_inclusion": fn_inc,
+        "tp_exclusion": tp_ex,
+        "tn_exclusion": tn_ex,
+        "fp_exclusion": fp_ex,
+        "fn_exclusion": fn_ex,
+        "Inclusion Precision": [inc[0]],
+        "Inclusion Recall": [inc[1]],
+        "Inclusion F1": [inc[2]],
+        "Inclusion Acc": [inc[3]],
+        "Inclusion F2": [inc[4]],
+        "Exclusion Precision": [ex[0]],
+        "Exclusion Recall": [ex[1]],
+        "Exclusion F1": [ex[2]],
+        "Exclusion Acc": [ex[3]],
+        "Exclusion F2": [ex[4]],
+        "Inclusion DNF Precision": [inc_dnf[0]],
+        "Inclusion DNF Recall": [inc_dnf[1]],
+        "Inclusion DNF F1": [inc_dnf[2]],
+        "Inclusion DNF Acc": [inc_dnf[3]],
+        "Inclusion DNF F2": [inc_dnf[4]],
+        "Exclusion DNF Precision": [ex_dnf[0]],
+        "Exclusion DNF Recall": [ex_dnf[1]],
+        "Exclusion DNF F1": [ex_dnf[2]],
+        "Exclusion DNF Acc": [ex_dnf[3]],
+        "Exclusion DNF F2": [ex_dnf[4]],
         "Latency (seconds)": latency,
     }
     bar.finish()
