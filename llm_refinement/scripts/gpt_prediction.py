@@ -131,6 +131,7 @@ def main():
 
     tp_ex, tn_ex, fp_ex, fn_ex = [], [], [], []
     tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf = [], [], [], []
+    predicted_list, actual_list = [], []
 
     bar = progressbar.ProgressBar(maxval=test_set['size'], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
