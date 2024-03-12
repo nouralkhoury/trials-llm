@@ -9,28 +9,50 @@
     },
     "NCT05069935": {
         "inclusion_biomarker": [
-            ["microsatellite instability-high"],
-            ["HER2 positive"],
-            ["KRAS mutation"],
-            ["NRAS mutation"]
+            [
+                "microsatellite instability-high"
+            ],
+            [   
+                "mismatch repair deficient"
+            ],
+            [
+                "HER2 positive"
+            ],
+            [
+                "KRAS mutation"
+            ],
+            [
+                "NRAS mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04185883": {
         "inclusion_biomarker": [
-            ["KRAS p.G12C"]
+            [
+                "KRAS p.G12C"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05358249": {
         "inclusion_biomarker": [
-            ["KRAS G12C"]
+            [
+                "KRAS G12C"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05019534": {
         "inclusion_biomarker": [
-            ["BRAF V600E", "MSS", "pMMR"]
+            [
+                "BRAF V600E",
+                "MSS"
+            ],
+            [
+                "BRAF V600E",
+                "pMMR"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -44,88 +66,176 @@
     },
     "NCT04418167": {
         "inclusion_biomarker": [
-            ["BRAF (Class I, II or III)"],
-            ["RAS (H/K/N)"],
-            ["MEK (MAP2K1)"],
-            ["RAS-GAP (NF1 loss, RASA1)"],
-            ["RAS-GEF"],
-            ["BRAF V600E/K"],
-            ["BRAF V600E"]
+            [
+                "MAPK pathway mutation"
+            ],
+            [
+                "BRAF Class 1 mutation"
+            ],
+            [
+                "BRAF Class 2 mutation"
+            ],
+            [
+                "BRAF Class 3 mutation"
+            ],
+            [
+                "HRAS mutation"
+            ],
+            [
+                "KRAS mutation"
+            ],
+            [
+                "NRAS mutation"
+            ],
+            [
+                "MEK mutation"
+            ],
+            [
+                "NF1 loss"
+            ],
+            [
+                "RASA1 mutation"
+            ],
+            [
+                "RAS-GEF"
+            ],
+            [
+                "BRAF V600E"
+            ],
+            [
+                "BRAF V600K"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03516214": {
         "inclusion_biomarker": [
-            ["EGFR p.L858R"],
-            ["EGFR del19"],
-            ["EGFR p.T790M"]
+            [
+                "EGFR p.L858R"
+            ],
+            [
+                "EGFR del19"
+            ],
+            [
+                "EGFR p.T790M"
+            ]
         ],
         "exclusion_biomarker": [
-            ["MET amplification"],
-            ["EGFR mutation"]
+            [
+                "MET amplification"
+            ],
+            [
+                "EGFR mutation"
+            ]
         ],
         "exclusion_exception": [
-            ["EGFR del19"],
-            ["EGFR p.L858R"],
-            ["EGFR p.T790M"]
+            [
+                "EGFR del19"
+            ],
+            [
+                "EGFR p.L858R"
+            ],
+            [
+                "EGFR p.T790M"
+            ]
         ]
     },
     "NCT03944499": {
         "inclusion_biomarker": [
-            ["HER2-expression"],
-            ["HER2 positive"]
+            [
+                "HER2 expression"
+            ],
+            [
+                "HER2 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05384587": {
         "inclusion_biomarker": [
-            ["loss of MMR"]
+            [
+                "BCR-ABL1 mutation"
+            ],
+            [
+                "CCA/Ph positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03586453": {
         "inclusion_biomarker": [
-            ["EGFR mutation"],
-            ["EGFR L858R"],
-            ["EGFR exon 19 deletion"]
+            [
+                "EGFR mutation"
+            ],
+            [
+                "EGFR L858R"
+            ],
+            [
+                "EGFR exon 19 deletion"
+            ]
         ],
         "exclusion_biomarker": [
-            ["EGFR T790M"],
-            ["EGFR T790M (germline)"]
+            [
+                "EGFR T790M"
+            ],
+            [
+                "EGFR T790M (germline)"
+            ]
         ]
     },
     "NCT05011019": {
         "inclusion_biomarker": [
-            ["NF1 mutation (germline)"],
-            ["NF1 mutation"]
+            [
+                "NF1 mutation (germline)"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03829540": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            [
+                "CD4 positive"
+            ]
+        ],
         "exclusion_biomarker": []
     },
     "NCT04649112": {
         "inclusion_biomarker": [
-            ["CD19 expression"]
+            [
+                "CD19 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05169437": {
         "inclusion_biomarker": [
-            ["tPALB2 mutatuon"]
+            [
+                "PALB2 mutatuon"
+            ]
         ],
         "exclusion_biomarker": [
-            ["PALB2 VUS"],
-            ["BRCA1 mutation (germline)"],
-            ["BRCA1 mutation (somatic)"],
-            ["BRCA2 mutation (germline)"],
-            ["BRCA2 mutation (somatic)"]
+            [
+                "PALB2 variants of undetermined significance"
+            ],
+            [
+                "BRCA1 mutation (germline)"
+            ],
+            [
+                "BRCA1 mutation (somatic)"
+            ],
+            [
+                "BRCA2 mutation (germline)"
+            ],
+            [
+                "BRCA2 mutation (somatic)"
+            ]
         ]
     },
     "NCT03783403": {
         "inclusion_biomarker": [
-            ["CD20 positive"]
+            [
+                "CD20 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -135,22 +245,50 @@
     },
     "NCT04140500": {
         "inclusion_biomarker": [
-            ["PD-L1 expression"]
+            [
+                "PD-L1 expression"
+            ]
         ],
         "exclusion_biomarker": [
-            ["EGFR mutation"],
-            ["EGFR rearrangement"],
-            ["EGFR translocation"],
-            ["ALK mutation"],
-            ["ALK rearrangement"],
-            ["ALK translocation"],
-            ["ROS1 mutation"],
-            ["ROS1 rearrangement"],
-            ["ROS1 translocation"],
-            ["BRAF V600E"],
-            ["NTRK mutation"],
-            ["NTRK rearrangement"],
-            ["NTRK translocation"]
+            [
+                "EGFR mutation"
+            ],
+            [
+                "EGFR rearrangement"
+            ],
+            [
+                "EGFR translocation"
+            ],
+            [
+                "ALK mutation"
+            ],
+            [
+                "ALK rearrangement"
+            ],
+            [
+                "ALK translocation"
+            ],
+            [
+                "ROS1 mutation"
+            ],
+            [
+                "ROS1 rearrangement"
+            ],
+            [
+                "ROS1 translocation"
+            ],
+            [
+                "BRAF V600E"
+            ],
+            [
+                "NTRK mutation"
+            ],
+            [
+                "NTRK rearrangement"
+            ],
+            [
+                "NTRK translocation"
+            ]
         ]
     },
     "NCT02848001": {
@@ -159,90 +297,170 @@
     },
     "NCT05438368": {
         "inclusion_biomarker": [
-            ["GD2 expression"],
-            ["CD70 expression"]
+            [
+                "GD2 expression"
+            ],
+            [
+                "CD70 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05099549": {
         "inclusion_biomarker": [
-            ["EGFR expression"]
+            [
+                "EGFR expression"
+            ],
+            [
+                "MSI low"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03188965": {
         "inclusion_biomarker": [
-            ["DDR positive"],
-            ["ATM mutation"],
-            ["ATM low expression"],
-            ["ATM loss"],
-            ["DDR positive", "HER2 negative", "HR positive"],
-            ["ATM loss"]
+            [
+                "ATM deleterious mutation"
+            ],
+            [
+                "ATM low expression"
+            ],
+            [
+                "ATM loss"
+            ],
+            [
+                "DDR deficiency",
+                "estrogen-receptor positive"
+            ],
+            [
+                "DDR deficiency",
+                "progesterone-receptor positive"
+            ],
+            [
+                "DDR deficiency",
+                "estrogen-receptor positive",
+                "progesterone-receptor positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05207787": {
         "inclusion_biomarker": [
-            ["RET alteration"]
+            [
+                "RET alteration"
+            ]
         ],
         "exclusion_biomarker": [
-            ["Primary driver alteration"]
+            [
+                "Primary driver alteration"
+            ]
         ],
-        "exclusion_exception":[
-            ["RET alteration"]
+        "exclusion_exception": [
+            [
+                "RET alteration"
+            ]
         ]
     },
     "NCT03114319": {
         "inclusion_biomarker": [],
         "exclusion_biomarker": [
-            ["KRAS mutation"],
-            ["NRAS mutation"],
-            ["HRAS mutation"],
-            ["BRAF mutation"],
-            ["PTPN11 mutation"]
-        ],
-        "exclusion_exception":[
-            ["KRAS G12"]
+            [
+                "KRAS activating mutation"
+            ],
+            [
+                "NRAS activating mutation"
+            ],
+            [
+                "HRAS activating mutation"
+            ],
+            [
+                "BRAF activating mutation"
+            ],
+            [
+                "PTPN11 activating mutation"
+            ]
         ]
     },
     "NCT04973163": {
         "inclusion_biomarker": [
-            ["KRAS G12C"]
+            [
+                "KRAS G12C"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04892693": {
         "inclusion_biomarker": [
-            ["BRCA1 mutation (germline)"],
-            ["BRCA2 mutation (germline)"],
-            ["BRCA1 mutation (somatic)"],
-            ["BRCA2 mutation (somatic)"],
-            ["ATM mutation"],
-            ["BARD1 mutation"],
-            ["BRIP1 mutation"],
-            ["CDK12 mutation"],
-            ["CHEK1 mutation"],
-            ["CHEK2 mutation"],
-            ["FANCL mutation"],
-            ["PALB2 mutation"],
-            ["PPP2R2A mutation"],
-            ["RAD51B mutation"],
-            ["RAD51C mutation"],
-            ["RAD51D mutation"],
-            ["RAD54L mutation"]
+            [
+                "BRCA1 mutation (germline)"
+            ],
+            [
+                "BRCA2 mutation (germline)"
+            ],
+            [
+                "BRCA1 mutation (somatic)"
+            ],
+            [
+                "BRCA2 mutation (somatic)"
+            ],
+            [
+                "ATM mutation"
+            ],
+            [
+                "BARD1 mutation"
+            ],
+            [
+                "BRIP1 mutation"
+            ],
+            [
+                "CDK12 mutation"
+            ],
+            [
+                "CHEK1 mutation"
+            ],
+            [
+                "CHEK2 mutation"
+            ],
+            [
+                "FANCL mutation"
+            ],
+            [
+                "PALB2 mutation"
+            ],
+            [
+                "PPP2R2A mutation"
+            ],
+            [
+                "RAD51B mutation"
+            ],
+            [
+                "RAD51C mutation"
+            ],
+            [
+                "RAD51D mutation"
+            ],
+            [
+                "RAD54L mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05435274": {
         "inclusion_biomarker": [
-            ["EGFR Exon 20 insertion"],
-            ["HER2 Exon 20 insertion"]
+            [
+                "EGFR Exon 20 insertion"
+            ],
+            [
+                "HER2 Exon 20 insertion"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04625205": {
         "inclusion_biomarker": [
-            ["BRAF mutation"]
+            [
+                "BRAF mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -252,20 +470,35 @@
     },
     "NCT05245500": {
         "inclusion_biomarker": [
-            ["MTAP homozygous deletion"]
+            [
+                "MTAP homozygous deletion"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03732703": {
         "inclusion_biomarker": [
-            ["CDKN2C mutation"],
-            ["FGFR3 mutation"],
-            ["KRAS mutation"],
-            ["NRAS mutation"],
-            ["BRAF V600E,"],
-            ["IDH2 mutation"],
-            ["T(11;14)"]
-
+            [
+                "CDKN2C mutation"
+            ],
+            [
+                "FGFR3 mutation"
+            ],
+            [
+                "KRAS mutation"
+            ],
+            [
+                "NRAS mutation"
+            ],
+            [
+                "BRAF V600E"
+            ],
+            [
+                "IDH2 mutation"
+            ],
+            [
+                "T(11;14)"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -283,25 +516,38 @@
     },
     "NCT04432649": {
         "inclusion_biomarker": [
-            ["CD276 expression"]
+            [
+                "CD276 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05302778": {
         "inclusion_biomarker": [
-            ["HR negative", "HER2 negative"]
+            [
+                "HR negative",
+                "HER2 negative"
+            ]
         ],
         "exclusion_biomarker": [
-            ["HER2 positive"],
-            ["HR positive"]
+            [
+                "HER2 positive"
+            ],
+            [
+                "HR positive"
+            ]
         ]
     },
     "NCT05018520": {
         "inclusion_biomarker": [
-            ["CD20 positive"]
+            [
+                "CD20 positive"
+            ]
         ],
         "exclusion_biomarker": [
-            ["TP53 mutation"]
+            [
+                "TP53 mutation"
+            ]
         ]
     },
     "NCT03732768": {
@@ -322,12 +568,18 @@
     },
     "NCT03793478": {
         "inclusion_biomarker": [
-            ["FLT3 ITD"]
+            [
+                "FLT3 ITD"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04017130": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            [
+                "CD38 expression"
+            ]
+        ],
         "exclusion_biomarker": []
     },
     "NCT03724227": {
@@ -336,62 +588,115 @@
     },
     "NCT05252416": {
         "inclusion_biomarker": [
-            ["HR positive", "HER2 positive"],
-            ["CCNE1 amplification"]
+            [
+                "HR positive",
+                "HER2 positive"
+            ],
+            [
+                "CCNE1 amplification"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04467801": {
         "inclusion_biomarker": [],
         "exclusion_biomarker": [
-            ["EGFR mutation"],
-            ["BRAF mutation"],
-            ["ALK mutation"],
-            ["ROS1 mutation"],
-            ["NTRAK mutation"]
+            [
+                "EGFR mutation"
+            ],
+            [
+                "BRAF mutation"
+            ],
+            [
+                "ALK mutation"
+            ],
+            [
+                "ROS1 mutation"
+            ],
+            [
+                "NTRAK mutation"
+            ]
         ]
     },
     "NCT05453500": {
         "inclusion_biomarker": [
-            ["CD19 positive", "Philadelphia chromosome negative"]
+            [
+                "CD19 positive",
+                "Philadelphia chromosome negative"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04996121": {
         "inclusion_biomarker": [
-            ["NTRK fusion"],
-            ["ROS1 fusion"]
+            [
+                "NTRK fusion"
+            ],
+            [
+                "ROS1 fusion"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03666000": {
         "inclusion_biomarker": [
-            ["CD19 positive"]
+            [
+                "CD19 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05483491": {
         "inclusion_biomarker": [
-            ["KK-LC-1 expression", "HLA-A*01:01"]
+            [
+                "KK-LC-1 expression",
+                "HLA-A*01:01"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03929666": {
         "inclusion_biomarker": [
-            ["HER2 expression"],
-            ["HER2 expression", "KRAS wildtype", "NRAS wildtype", "BRAF wildtype"]
+            [
+                "HER2 expression"
+            ],
+            [
+                "HER2 expression",
+                "KRAS wildtype",
+                "NRAS wildtype",
+                "BRAF wildtype"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04204928": {
         "inclusion_biomarker": [
-            ["RET fusion"],
-            ["RET fusion", "EGFR mutation"],
-            ["RET fusion", "ALK mutation"],
-            ["RET fusion", "ROS1 mutation"],
-            ["RET fusion", "NTRK mutation"],
-            ["RET fusion", "BRAF mutation"],
-            ["RET mutation"]
+            [
+                "RET fusion"
+            ],
+            [
+                "RET fusion",
+                "EGFR mutation"
+            ],
+            [
+                "RET fusion",
+                "ALK mutation"
+            ],
+            [
+                "RET fusion",
+                "ROS1 mutation"
+            ],
+            [
+                "RET fusion",
+                "NTRK mutation"
+            ],
+            [
+                "RET fusion",
+                "BRAF mutation"
+            ],
+            [
+                "RET mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -401,7 +706,9 @@
     },
     "NCT05128825": {
         "inclusion_biomarker": [
-            ["CCNE1 copy number amplification"]
+            [
+                "CCNE1 copy number amplification"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -410,7 +717,14 @@
         "exclusion_biomarker": []
     },
     "NCT05043714": {
-        "inclusion_biomarker": [],
+        "inclusion_biomarker": [
+            [
+                "MSI-high"
+            ],
+            [
+                "dMMR"
+            ]
+        ],
         "exclusion_biomarker": []
     },
     "NCT04423536": {
@@ -419,33 +733,57 @@
     },
     "NCT04294628": {
         "inclusion_biomarker": [
-            ["HER2 positive"],
-            ["HER2 expression"],
-            ["HER2 amplification"],
-            ["HER2 mutation"]
+            [
+                "HER2 positive"
+            ],
+            [
+                "HER2 expression"
+            ],
+            [
+                "HER2 amplification"
+            ],
+            [
+                "HER2 mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03862885": {
         "inclusion_biomarker": [
-            ["PDGFRA exon 18 mutation"],
-            ["PDGFRA D842V"]
+            [
+                "PDGFRA exon 18 mutation"
+            ],
+            [
+                "PDGFRA D842V"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05546905": {
         "inclusion_biomarker": [
-            ["BRAF V600E"]
+            [
+                "BRAF V600E"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04671849": {
         "inclusion_biomarker": [
-            ["NTRK1 fusion"],
-            ["NTRK2 fusion"],
-            ["NTRK3 fusion"],
-            ["ROS1 fusion"],
-            ["ALK fusion"]
+            [
+                "NTRK1 fusion"
+            ],
+            [
+                "NTRK2 fusion"
+            ],
+            [
+                "NTRK3 fusion"
+            ],
+            [
+                "ROS1 fusion"
+            ],
+            [
+                "ALK fusion"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -455,7 +793,12 @@
     },
     "NCT03233854": {
         "inclusion_biomarker": [
-            ["CD19 expression"]
+            [
+                "Philadelphia Chromosome positive"
+            ],
+            [
+                "CD19 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -469,37 +812,85 @@
     },
     "NCT04192981": {
         "inclusion_biomarker": [
-            ["PIK3CA mutation"],
-            ["PIK3CB mutation"],
-            ["PIK3CD mutation"],
-            ["PIK3CG mutation"],
-            ["PIK3R1 mutation"],
-            ["PIK3R2 mutation"],
-            ["PIK3R3 mutation"],
-            ["PIK3C2G mutation"],
-            ["PIK3C3 mutation"],
-            ["INPP4A mutation"],
-            ["INPP4B mutation"],
-            ["INPPL1 mutation"],
-            ["INPP5D mutation"],
-            ["PTEN mutation"],
-            ["AKT1 mutation"],
-            ["AKT2 mutation"],
-            ["AKT3 mutation"],
-            ["MTOR mutation"]
+            [
+                "PIK3CA mutation"
+            ],
+            [
+                "PIK3CB mutation"
+            ],
+            [
+                "PIK3CD mutation"
+            ],
+            [
+                "PIK3CG mutation"
+            ],
+            [
+                "PIK3R1 mutation"
+            ],
+            [
+                "PIK3R2 mutation"
+            ],
+            [
+                "PIK3R3 mutation"
+            ],
+            [
+                "PIK3C2G mutation"
+            ],
+            [
+                "PIK3C3 mutation"
+            ],
+            [
+                "INPP4A mutation"
+            ],
+            [
+                "INPP4B mutation"
+            ],
+            [
+                "INPPL1 mutation"
+            ],
+            [
+                "INPP5D mutation"
+            ],
+            [
+                "PTEN mutation"
+            ],
+            [
+                "AKT1 mutation"
+            ],
+            [
+                "AKT2 mutation"
+            ],
+            [
+                "AKT3 mutation"
+            ],
+            [
+                "MTOR mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05379985": {
         "inclusion_biomarker": [
-            ["KRAS p.G12A"],
-            ["KRAS p.G12D"],
-            ["KRAS p.G12R"],
-            ["KRAS p.G12S"],
-            ["KRAS p.G12V"]
+            [
+                "KRAS p.G12A"
+            ],
+            [
+                "KRAS p.G12D"
+            ],
+            [
+                "KRAS p.G12R"
+            ],
+            [
+                "KRAS p.G12S"
+            ],
+            [
+                "KRAS p.G12V"
+            ]
         ],
         "exclusion_biomarker": [
-            ["KRAS p.G12C"]
+            [
+                "KRAS p.G12C"
+            ]
         ]
     },
     "NCT05271682": {
@@ -508,7 +899,9 @@
     },
     "NCT04984369": {
         "inclusion_biomarker": [
-            ["BRAF V600E"]
+            [
+                "BRAF V600E"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -526,28 +919,79 @@
     },
     "NCT03383575": {
         "inclusion_biomarker": [
-            ["IDH2 mutation"],
-            ["IDH2 R140"],
-            ["IDH2 R172"],
-            ["TP53 mutation"],
-            ["ASXL1 mutation"],
-            ["EZH2 mutation"],
-            ["RUNX1 mutation"]
+            [
+                "IDH2 R140"
+            ],
+            [
+                "IDH2 R172"
+            ],
+            [
+                "IDH2 R140",
+                "TP53 mutation"
+            ],
+            [
+                "IDH2 R172",
+                "TP53 mutation"
+            ],
+            [
+                "IDH2 R140",
+                "ASXL1 mutation"
+            ],
+            [
+                "IDH2 R172",
+                "ASXL1 mutation"
+            ],
+            [
+                "IDH2 R140",
+                "EZH2 mutation"
+            ],
+            [
+                "IDH2 R172",
+                "EZH2 mutation"
+            ],
+            [
+                "IDH2 R140",
+                "RUNX1 mutation"
+            ],
+            [
+                "IDH2 R172",
+                "RUNX1 mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT02675829": {
         "inclusion_biomarker": [
-            ["HER2 mutation"],
-            ["HER2 Y772_A775dup"],
-            ["HER2 G778_P780dup"],
-            ["HER2 G776delinsVC"],
-            ["HER2 L755A"],
-            ["HER2 L755S"],
-            ["HER2 V777L"],
-            ["HER2 V659E"],
-            ["HER2 S310F"],
-            ["HER2 amplification"]
+            [
+                "HER2 mutation"
+            ],
+            [
+                "HER2 exon 20 insYVMA"
+            ],
+            [
+                "HER2 exon 20 insGSP"
+            ],
+            [
+                "HER2 exon 20 insTGT"
+            ],
+            [
+                "HER2 L755A"
+            ],
+            [
+                "HER2 L755S"
+            ],
+            [
+                "HER2 V777L"
+            ],
+            [
+                "HER2 V659E"
+            ],
+            [
+                "HER2 S310F"
+            ],
+            [
+                "HER2 amplification"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -557,57 +1001,170 @@
     },
     "NCT03925350": {
         "inclusion_biomarker": [
-            ["ARID1A mutation"],
-            ["ARID1B mutation"],
-            ["ARID2 mutation"],
-            ["ATM mutation"],
-            ["ATR mutation"],
-            ["ATRX mutation"],
-            ["BARD1 mutation"],
-            ["BRCA1 mutation"],
-            ["BRCA2 mutation"],
-            ["BAP1 mutation"],
-            ["BRIP1 mutation"],
-            ["CHEK2 mutation"],
-            ["FANCD2 mutation"],
-            ["MRN11A mutation"],
-            ["PALB2 mutation"],
-            ["RAD50 mutation"],
-            ["RAD51 mutation"],
-            ["RAD54B mutation"]
+            [
+                "ARID1A mutation"
+            ],
+            [
+                "ARID1B mutation"
+            ],
+            [
+                "ARID2 mutation"
+            ],
+            [
+                "ATM mutation"
+            ],
+            [
+                "ATR mutation"
+            ],
+            [
+                "ATRX mutation"
+            ],
+            [
+                "BARD1 mutation"
+            ],
+            [
+                "BRCA1 mutation"
+            ],
+            [
+                "BRCA2 mutation"
+            ],
+            [
+                "BAP1 mutation"
+            ],
+            [
+                "BRIP1 mutation"
+            ],
+            [
+                "CHEK2 mutation"
+            ],
+            [
+                "FANCD2 mutation"
+            ],
+            [
+                "MRN11A mutation"
+            ],
+            [
+                "PALB2 mutation"
+            ],
+            [
+                "RAD50 mutation"
+            ],
+            [
+                "RAD51 mutation"
+            ],
+            [
+                "RAD54B mutation"
+            ],
+            [
+                "ARID1A mutation"
+            ],
+            [
+                "ARID1B mutation"
+            ],
+            [
+                "ARID2 mutation"
+            ],
+            [
+                "ATM mutation"
+            ],
+            [
+                "ATR mutation"
+            ],
+            [
+                "ATRX mutation"
+            ],
+            [
+                "BARD1 mutation"
+            ],
+            [
+                "BRCA1 alteration"
+            ],
+            [
+                "BRCA2 alteration"
+            ],
+            [
+                "BAP1 alteration"
+            ],
+            [
+                "BRIP1 alteration"
+            ],
+            [
+                "CHEK2 alteration"
+            ],
+            [
+                "FANCD2 alteration"
+            ],
+            [
+                "MRN11A alteration"
+            ],
+            [
+                "PALB2 alteration"
+            ],
+            [
+                "RAD50 alteration"
+            ],
+            [
+                "RAD51 alteration"
+            ],
+            [
+                "RAD54B alteration"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04708639": {
         "inclusion_biomarker": [
-            ["ALK translocation"]
+            [
+                "ALK translocation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05431270": {
         "inclusion_biomarker": [
-            ["CD73 expression", "PD-L1 expression"]
+            [
+                "CD73 expression"
+            ],
+            [
+                "PD-L1 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04916236": {
         "inclusion_biomarker": [
-            ["KRAS mutation"]
+            [
+                "KRAS mutation"
+            ]
         ],
         "exclusion_biomarker": [
-            ["NRAS mutation"],
-            ["RAS Q61"],
-            ["KRAS G13"],
-            ["BRAF class 1 mutation"],
-            ["BRAF class 2 mutation"],
-            ["BRAF unclassified mutation"],
-            ["PIK3CA mutation"],
-            ["STK11 mutation"],
-            ["KEAP1 mutation"]
-        ],
-        "exclusion_exception": [
-            ["NRAS G12A"],
-            ["NRAS G12C"]
+            [
+                "NRAS mutation"
+            ],
+            [
+                "RAS Q61"
+            ],
+            [
+                "KRAS G13"
+            ],
+            [
+                "BRAF class 1 mutation"
+            ],
+            [
+                "BRAF class 2 mutation"
+            ],
+            [
+                "BRAF unclassified mutation"
+            ],
+            [
+                "PIK3CA mutation"
+            ],
+            [
+                "STK11 mutation"
+            ],
+            [
+                "KEAP1 mutation"
+            ]
         ]
     },
     "NCT04869501": {
@@ -624,16 +1181,26 @@
     },
     "NCT04820023": {
         "inclusion_biomarker": [
-            ["EGFR mutation"],
-            ["EGFR exon 19 deletion"],
-            ["EGFR L858R"],
-            ["EGFR L861Q"]
+            [
+                "EGFR mutation"
+            ],
+            [
+                "EGFR exon 19 deletion"
+            ],
+            [
+                "EGFR L858R"
+            ],
+            [
+                "EGFR L861Q"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05100134": {
         "inclusion_biomarker": [
-            ["ALK positive"]
+            [
+                "ALK positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -647,22 +1214,45 @@
     },
     "NCT04692740": {
         "inclusion_biomarker": [
-            ["gBRCA1 mutation"],
-            ["gBRCA2 mutation"],
-            ["BRCA1 VUS"],
-            ["BRCA2 VUS"],
-            ["Genetic aberrations associated with HRD"]
+            [
+                "gBRCA1 deleterious mutation"
+            ],
+            [
+                "gBRCA2 deleterious mutation"
+            ],
+            [
+                "BRCA1 uncertain significance"
+            ],
+            [
+                "BRCA2 uncertain significance"
+            ],
+            [
+                "Genetic aberrations associated with HRD"
+            ]
         ],
         "exclusion_biomarker": [
-            ["BRCA mutation"],
-            ["MSI-H"],
-            ["TMB-H"]
+            [
+                "BRCA mutation"
+            ],
+            [
+                "Mismatch repair"
+            ],
+            [
+                "microsatellite instability-high"
+            ],
+            [
+                "tumor mutational burden-high"
+            ]
         ]
     },
     "NCT02098954": {
         "inclusion_biomarker": [
-            ["EGFR exon 19 del"],
-            ["EGFR exon 21 L858R"]
+            [
+                "EGFR exon 19 del"
+            ],
+            [
+                "EGFR exon 21 L858R"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -676,12 +1266,14 @@
     },
     "NCT05484622": {
         "inclusion_biomarker": [
-            ["IDH1 R132H"],
-            ["ATRX loss of nuclear expression"],
-            ["ATRX mutation"]
+            [
+                "IDH1 R132H"
+            ]
         ],
         "exclusion_biomarker": [
-            ["1p19q co-deletion"]
+            [
+                "1p19q co-deletion"
+            ]
         ]
     },
     "NCT04908046": {
@@ -690,17 +1282,25 @@
     },
     "NCT04795713": {
         "inclusion_biomarker": [
-            ["PD-L1 expression"]
+            [
+                "PD-L1 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04659044": {
         "inclusion_biomarker": [
-            ["cyclin D1 positive"],
-            ["t(11;14)"]
+            [
+                "cyclin D1 positive"
+            ],
+            [
+                "t(11;14)"
+            ]
         ],
         "exclusion_biomarker": [
-            ["CD20 negative"]
+            [
+                "CD20 negative"
+            ]
         ]
     },
     "NCT04787029": {
@@ -717,16 +1317,36 @@
     },
     "NCT04693468": {
         "inclusion_biomarker": [
-            ["BRCA1 defect"],
-            ["BRCA2 defect"],
-            ["PALB2 defect"],
-            ["RAD51C defect"],
-            ["RAD51D defect"],
-            ["MET mutation"],
-            ["MET amplification"],
-            ["MET overexpression"],
-            ["ALK translocation"],
-            ["ROS1 translocation"]
+            [
+                "BRCA1 defect"
+            ],
+            [
+                "BRCA2 defect"
+            ],
+            [
+                "PALB2 defect"
+            ],
+            [
+                "RAD51C defect"
+            ],
+            [
+                "RAD51D defect"
+            ],
+            [
+                "MET mutation"
+            ],
+            [
+                "MET amplification"
+            ],
+            [
+                "MET overexpression"
+            ],
+            [
+                "ALK translocation"
+            ],
+            [
+                "ROS1 translocation"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -736,116 +1356,242 @@
     },
     "NCT04683445": {
         "inclusion_biomarker": [
-            ["HR positive",  "HER2 negative"],
-            ["HER2 positive"]
+            [
+                "HR positive",
+                "HER2 negative"
+            ],
+            [
+                "HER2 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05114603": {
         "inclusion_biomarker": [
-            ["BRAF V600"]
+            [
+                "BRAF V600"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04092673": {
-        "inclusion_biomarker": [],
-        "exclusion_biomarker": []
+        "inclusion_biomarker": [
+            [
+                "ER positive"
+            ],
+            [
+                "KRAS activating mutation"
+            ],
+            [
+                "ER positive",
+                "FGFR amplification"
+            ],
+            [
+                "ER positive",
+                "HER2 positive"
+            ],
+            [
+                "KRAS G12C"
+            ],
+            [
+                "ER positive",
+                "HER2 negative"
+            ],
+            [
+                "HER2 positive"
+            ]
+        ],
+        "exclusion_biomarker": [
+            [
+                "KRAS G12C"
+            ]
+        ]
     },
     "NCT04837222": {
         "inclusion_biomarker": [
-            ["CD30 positive"],
-            ["CD30 expression"]
+            [
+                "CD30 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05357898": {
         "inclusion_biomarker": [
-            ["HPV16 positive"]
+            [
+                "HPV16 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04082572": {
         "inclusion_biomarker": [
-            ["dMMR"],
-            ["MSI-H"],
-            ["MLH1 loss"],
-            ["PMS2 loss"],
-            ["MSH2 loss"],
-            ["MSH6 loss"]
+            [
+                "mismatch repair deficient"
+            ],
+            [
+                "Microsatellite instability-high"
+            ],
+            [
+                "MLH1 loss"
+            ],
+            [
+                "PMS2 loss"
+            ],
+            [
+                "MSH2 loss"
+            ],
+            [
+                "MSH6 loss"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04524000": {
         "inclusion_biomarker": [
-            ["PIK3CA mutation", "ER positive", "HER2 negative"],
-            ["PIK3CA mutation", "PgR positive", "HER2 negative"]
+            [
+                "PIK3CA mutation",
+                "ER positive",
+                "HER2 negative"
+            ],
+            [
+                "PIK3CA mutation",
+                "PgR positive",
+                "HER2 negative"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05504213": {
         "inclusion_biomarker": [
-            ["HR positive", "HER2 negative", "PIK3CA mutation"]
+            [
+                "HR positive",
+                "HER2 negative",
+                "PIK3CA mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05389514": {
         "inclusion_biomarker": [
-            ["KRAS G12V", "HLA-DRB1*07:01"]
+            [
+                "KRAS G12V",
+                "HLA class II match"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05002868": {
         "inclusion_biomarker": [
-            ["HRR mutation"]
+            [
+                "HRR deleterious mutation"
+            ]
         ],
         "exclusion_biomarker": [
-            ["HER2 positive "]
+            [
+                "HER2 positive"
+            ]
         ]
     },
     "NCT05003141": {
         "inclusion_biomarker": [
-            ["CD20 positive"],
-            ["CD20 positive", "CD37 positive"]
+            [
+                "CD20 expression"
+            ],
+            [
+                "CD37 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04681820": {
         "inclusion_biomarker": [
-            ["Philadelphia chromosome of t (9;22) translocation"],
-            ["P210 BCR-ABL1"]
+            [
+                "Philadelphia chromosome of t (9;22) translocation"
+            ],
+            [
+                "BCR-ABL1 P210"
+            ]
         ],
         "exclusion_biomarker": [
-            ["ABL T315I"],
-            ["ABL Y253F"],
-            ["ABL Y253H"],
-            ["ABL E255K"],
-            ["ABL E255V"],
-            ["ABL F359C"],
-            ["ABL F359V"],
-            ["ABL F359I"]
+            [
+                "ABL T315I"
+            ],
+            [
+                "ABL Y253F"
+            ],
+            [
+                "ABL Y253H"
+            ],
+            [
+                "ABL E255K"
+            ],
+            [
+                "ABL E255V"
+            ],
+            [
+                "ABL F359C"
+            ],
+            [
+                "ABL F359V"
+            ],
+            [
+                "ABL F359I"
+            ]
         ]
     },
     "NCT05554354": {
         "inclusion_biomarker": [
-            ["NF1 nonsense mutation", "ER positive", "HER2 negative"],
-            ["NF1 frameshift mutation", "ER positive", "HER2 negative"],
-            ["NF1 deletion", "ER positive", "HER2 negative"],
-            ["NF1 nonsense mutation", "PgR positive", "HER2 negative"],
-            ["NF1 frameshift mutation", "PgR positive", "HER2 negative"],
-            ["NF1 deletion", "PgR positive", "HER2 negative"]
+            [
+                "NF1 nonsense mutation",
+                "ER positive",
+                "HER2 negative"
+            ],
+            [
+                "NF1 frameshift mutation",
+                "ER positive",
+                "HER2 negative"
+            ],
+            [
+                "NF1 deletion",
+                "ER positive",
+                "HER2 negative"
+            ],
+            [
+                "NF1 nonsense mutation",
+                "PgR positive",
+                "HER2 negative"
+            ],
+            [
+                "NF1 frameshift mutation",
+                "PgR positive",
+                "HER2 negative"
+            ],
+            [
+                "NF1 deletion",
+                "PgR positive",
+                "HER2 negative"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05439889": {
         "inclusion_biomarker": [
-            ["BCR-ABL e13a2"],
-            ["BCR-ABL p210"]
+            [
+                "BCR-ABL e13a2"
+            ],
+            [
+                "BCR-ABL e14a2"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04445844": {
         "inclusion_biomarker": [
-            ["ER negative", "PR negative", "HER2 negative"]
+            [
+                "ER negative",
+                "PR negative",
+                "HER2 negative"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -855,56 +1601,76 @@
     },
     "NCT04235114": {
         "inclusion_biomarker": [
-            ["EGFR positive"]
+            [
+                "EGFR expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04750941": {
         "inclusion_biomarker": [
-            ["PIK3CA activating mutation"],
-            ["PTEN loss"]
+            [
+                "PIK3CA activating mutation"
+            ],
+            [
+                "PTEN loss"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05007873": {
         "inclusion_biomarker": [
-            ["Philadelphia chromosome"],
-            ["BCR-ABL"]
+            [
+                "Philadelphia chromosome positive"
+            ],
+            [
+                "BCR-ABL"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04427449": {
         "inclusion_biomarker": [
-            ["CD44v6 expression"]
+            [
+                "CD44v6 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04420754": {
         "inclusion_biomarker": [
-            ["ICAM-1 expression", "BRAF wild-type"],
-            ["ICAM-1 expression", "BRAF mutation"]
-            
+            [
+                "ICAM-1 expression",
+                "BRAF wild-type"
+            ],
+            [
+                "ICAM-1 expression",
+                "BRAF mutation"
+            ]
         ],
-        "exclusion_biomarker": [],
-        "exclusion_exception":[
-            ["ICAM-1 expression"]
-        ]
+        "exclusion_biomarker": []
     },
     "NCT04152018": {
         "inclusion_biomarker": [
-            ["PDL-1 expression"]
+            [
+                "PDL-1 expression"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05611931": {
         "inclusion_biomarker": [
-            ["TP53 wt"]
+            [
+                "TP53 wt"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04585035": {
         "inclusion_biomarker": [
-            ["KRas G12C"]
+            [
+                "KRas G12C"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -914,14 +1680,17 @@
     },
     "NCT04499794": {
         "inclusion_biomarker": [
-            ["EML4-ALK4 fusion positive"],
-            ["EML4-ALK4 fusion negative"]
+            [
+                "ALK EML4-ALK"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04585750": {
         "inclusion_biomarker": [
-            ["TP53 Y220C"]
+            [
+                "TP53 Y220C"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -939,89 +1708,239 @@
     },
     "NCT04962867": {
         "inclusion_biomarker": [
-            ["FGFR1 fusion"],
-            ["FGFR2 fusion"],
-            ["FGFR3 fusion"],
-            ["FGFR1 P150S"],
-            ["FGFR1 T340M"],
-            ["FGFR1 R445W"],
-            ["FGFR1 N546K"],
-            ["FGFR1 K656E"],
-            ["FGFR2 C62Y"],
-            ["FGFR2 A67V"],
-            ["FGFR2 N82K"],
-            ["FGFR2 D101Y"],
-            ["FGFR2 E160K"],
-            ["FGFR2 E163K"],
-            ["FGFR2 M186T"],
-            ["FGFR2 R203H"],
-            ["FGFR2 R210Q"],
-            ["FGFR2 Q212K"],
-            ["FGFR2 R251Q"],
-            ["FGFR2 S252W"],
-            ["FGFR2 P253R"],
-            ["FGFR2 P253L"],
-            ["FGFR2 A264T"],
-            ["FGFR2 W290C"],
-            ["FGFR2 K310R"],
-            ["FGFR2 Y328N"],
-            ["FGFR2 G364E"],
-            ["FGFR2 Y375C"],
-            ["FGFR2 C382R"],
-            ["FGFR2 A389T"],
-            ["FGFR2 V392A"],
-            ["FGFR2 R399Q"],
-            ["FGFR2 H416R"],
-            ["FGFR2 I422V"],
-            ["FGFR2 H544Q"],
-            ["FGFR2 N549H"],
-            ["FGFR2 N549K"],
-            ["FGFR2 N549D"],
-            ["FGFR2 N549S"],
-            ["FGFR2 L560F"],
-            ["FGFR2 K659E"],
-            ["FGFR2 K659N"],
-            ["FGFR2 R664W"],
-            ["FGFR2 E718K"],
-            ["FGFR2 S791T"],
-            ["FGFR3 G380E"],
-            ["FGFR3 G380R"],
-            ["FGFR3 A391E"],
-            ["FGFR3 K650T"],
-            ["FGFR3 K650E"],
-            ["FGFR3 K650Q"],
-            ["FGFR3 K650N"],
-            ["FGFR1 activating mutation"],
-            ["FGFR2 activating mutation"],
-            ["FGFR3 activating mutation"],
-            ["FGFR1 amplification"],
-            ["FGFR2 amplification"]
+            [
+                "FGFR1 fusion"
+            ],
+            [
+                "FGFR2 fusion"
+            ],
+            [
+                "FGFR3 fusion"
+            ],
+            [
+                "FGFR1 P150S"
+            ],
+            [
+                "FGFR1 T340M"
+            ],
+            [
+                "FGFR1 R445W"
+            ],
+            [
+                "FGFR1 N546K"
+            ],
+            [
+                "FGFR1 K656E"
+            ],
+            [
+                "FGFR2 C62Y"
+            ],
+            [
+                "FGFR2 A67V"
+            ],
+            [
+                "FGFR2 N82K"
+            ],
+            [
+                "FGFR2 D101Y"
+            ],
+            [
+                "FGFR2 E160K"
+            ],
+            [
+                "FGFR2 E163K"
+            ],
+            [
+                "FGFR2 M186T"
+            ],
+            [
+                "FGFR2 R203H"
+            ],
+            [
+                "FGFR2 R210Q"
+            ],
+            [
+                "FGFR2 Q212K"
+            ],
+            [
+                "FGFR2 R251Q"
+            ],
+            [
+                "FGFR2 S252W"
+            ],
+            [
+                "FGFR2 P253R"
+            ],
+            [
+                "FGFR2 P253L"
+            ],
+            [
+                "FGFR2 A264T"
+            ],
+            [
+                "FGFR2 W290C"
+            ],
+            [
+                "FGFR2 K310R"
+            ],
+            [
+                "FGFR2 Y328N"
+            ],
+            [
+                "FGFR2 G364E"
+            ],
+            [
+                "FGFR2 Y375C"
+            ],
+            [
+                "FGFR2 C382R"
+            ],
+            [
+                "FGFR2 A389T"
+            ],
+            [
+                "FGFR2 V392A"
+            ],
+            [
+                "FGFR2 R399Q"
+            ],
+            [
+                "FGFR2 H416R"
+            ],
+            [
+                "FGFR2 I422V"
+            ],
+            [
+                "FGFR2 H544Q"
+            ],
+            [
+                "FGFR2 N549H"
+            ],
+            [
+                "FGFR2 N549K"
+            ],
+            [
+                "FGFR2 N549D"
+            ],
+            [
+                "FGFR2 N549S"
+            ],
+            [
+                "FGFR2 L560F"
+            ],
+            [
+                "FGFR2 K659E"
+            ],
+            [
+                "FGFR2 K659N"
+            ],
+            [
+                "FGFR2 R664W"
+            ],
+            [
+                "FGFR2 E718K"
+            ],
+            [
+                "FGFR2 S791T"
+            ],
+            [
+                "FGFR3 G380E"
+            ],
+            [
+                "FGFR3 G380R"
+            ],
+            [
+                "FGFR3 A391E"
+            ],
+            [
+                "FGFR3 K650T"
+            ],
+            [
+                "FGFR3 K650E"
+            ],
+            [
+                "FGFR3 K650Q"
+            ],
+            [
+                "FGFR3 K650N"
+            ],
+            [
+                "FGFR1 activating mutation"
+            ],
+            [
+                "FGFR2 activating mutation"
+            ],
+            [
+                "FGFR3 activating mutation"
+            ],
+            [
+                "FGFR1 amplification"
+            ],
+            [
+                "FGFR2 amplification"
+            ]
         ],
         "exclusion_biomarker": [
-            ["FGFR1 V561"],
-            ["FGFR2 V564"],
-            ["FGFR2 V565"],
-            ["FGFR3 V555"],
-            ["FGFR3 V557"],
-            ["FGFR4 V550"],
-            ["KRAS mutation"],
-            ["NRAS mutation"],
-            ["EGFR mutation"],
-            ["BRAF V600"],
-            ["ALK translocation"],
-            ["ROS1 translocation"],
-            ["NTRK translocation"]
+            [
+                "FGFR1 V561"
+            ],
+            [
+                "FGFR2 V564"
+            ],
+            [
+                "FGFR2 V565"
+            ],
+            [
+                "FGFR3 V555"
+            ],
+            [
+                "FGFR3 V557"
+            ],
+            [
+                "FGFR4 V550"
+            ],
+            [
+                "KRAS mutation"
+            ],
+            [
+                "NRAS mutation"
+            ],
+            [
+                "EGFR mutation"
+            ],
+            [
+                "BRAF V600"
+            ],
+            [
+                "ALK translocation"
+            ],
+            [
+                "ROS1 translocation"
+            ],
+            [
+                "NTRK translocation"
+            ]
         ],
-        "exclusion_exception":[
-            ["FGFR2 fusion"],
-            ["KRAS VUS"],
-            ["NRAS VUS"],
-            ["EGFR VUS"]
+        "exclusion_exception": [
+            [
+                "FGFR2 fusion"
+            ],
+            [
+                "KRAS VUS"
+            ],
+            [
+                "NRAS VUS"
+            ],
+            [
+                "EGFR VUS"
+            ]
         ]
     },
     "NCT03064269": {
         "inclusion_biomarker": [
-            ["CD19 positive"]
+            [
+                "CD19 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -1031,12 +1950,24 @@
     },
     "NCT05401110": {
         "inclusion_biomarker": [
-            ["EGFR activating mutation"],
-            ["EGFR Exon 21 L858R"],
-            ["EGFR Exon 19 deletion"],
-            ["EGFR Exon 18 G719X"],
-            ["EGFR Exon 21 L861Q"],
-            ["EGFR mutation"]
+            [
+                "EGFR activating mutation"
+            ],
+            [
+                "EGFR Exon 21 L858R"
+            ],
+            [
+                "EGFR Exon 19 deletion"
+            ],
+            [
+                "EGFR Exon 18 G719X"
+            ],
+            [
+                "EGFR Exon 21 L861Q"
+            ],
+            [
+                "EGFR mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -1046,118 +1977,282 @@
     },
     "NCT05453903": {
         "inclusion_biomarker": [
-            ["NPM1 alteration"],
-            ["KMT2A alteration"]
+            [
+                "NPM1 alteration"
+            ],
+            [
+                "KMT2A alteration"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04973683": {
         "inclusion_biomarker": [
-            ["NOTCH1 pathway activation"]
+            [
+                "NOTCH1 pathway activation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04778982": {
         "inclusion_biomarker": [
-            ["HER2 positive"]
+            [
+                "HER2 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04599556": {
         "inclusion_biomarker": [
-            ["CD7 positive"]
+            [
+                "CD7 positive"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05339204": {
         "inclusion_biomarker": [
-            ["inv(16)(p13.1q22)"],
-            ["t(16;16)(p13.1;q22)"],
-            ["CBFB-MYH11"],
-            ["t(8;21)(q22;q22.1)"],
-            ["RUNX1-RUNX1T1"],
-            ["FLT3 mutation"],
-            ["NPM1 mutation"],
-            ["CEBPa mutation"]
+            [
+                "inv(16)(p13.1q22)"
+            ],
+            [
+                "t(16;16)(p13.1;q22)"
+            ],
+            [
+                "CBFB-MYH11"
+            ],
+            [
+                "t(8;21)(q22;q22.1)"
+            ],
+            [
+                "RUNX1-RUNX1T1"
+            ],
+            [
+                "FLT3 mutation"
+            ],
+            [
+                "NPM1 mutation"
+            ],
+            [
+                "CEBPa mutation"
+            ]
         ],
         "exclusion_biomarker": [
-            ["t(9;22)"]
+            [
+                "t(9;22)"
+            ]
         ]
     },
     "NCT05099172": {
         "inclusion_biomarker": [
-            ["EGFR activating mutation"],
-            ["HER2 activating mutation"]
+            [
+                "EGFR activating mutation"
+            ],
+            [
+                "HER2 activating mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT04504071": {
         "inclusion_biomarker": [
-            ["EGFR activating mutation"],
-            ["uncommon EGFR mutation"],
-            ["EGFR exon 18-21 mutation"],
-            ["EGFR G719A"],
-            ["EGFR G719C"],
-            ["EGFR G719S"],
-            ["EGFR G719D"],
-            ["EGFR G719E"],
-            ["EGFR 18del"],
-            ["EGFR E709G"],
-            ["EGFR E709M"],
-            ["EGFR E709V"],
-            ["EGFR E709H"],
-            ["EGFR E709DA"],
-            ["EGFR E709DK"],
-            ["EGFR V689M"],
-            ["EGFR S720P"],
-            ["EGFR S720F"],
-            ["EGFR P699S"],
-            ["EGFR N700D"],
-            ["EGFR E709Q"],
-            ["EGFR G721A"],
-            ["EGFR V740A"],
-            ["EGFR L718P"],
-            ["EGFR L718P"],
-            ["EGFR I744_K745insKIPVAI"],
-            ["EGFR K745_E746insIPVAIK"],
-            ["EGFR K745_E746insVPVAIK"],
-            ["EGFR K745_E746insTPVAIK"],
-            ["EGFR S768I"],
-            ["EGFR V765A"],
-            ["EGFR T783A"],
-            ["EGFR V774A"],
-            ["EGFR S784P"],
-            ["EGFR R776C"],
-            ["EGFR R776H"],
-            ["EGFR V765M"],
-            ["EGFR G779C"],
-            ["EGFR G779F"],
-            ["EGFR G779S"],
-            ["EGFR T783I"],
-            ["EGFR L798F"],
-            ["EGFR L798H"],
-            ["EGFR K806E"],
-            ["EGFR Q812R"],
-            ["EGFR L814P"],
-            ["EGFR L861Q"],
-            ["EGFR R831H"],
-            ["EGFR V834I"],
-            ["EGFR L838P"],
-            ["EGFR L861R"],
-            ["EGFR 18G719A+20S768I"],
-            ["EGFR 18 E709X+21L861Q"]
+            [
+                "EGFR activating mutation"
+            ],
+            [
+                "EGFR uncommon mutation"
+            ],
+            [
+                "EGFR exon 18 mutation"
+            ],
+            [
+                "EGFR exon 19 mutation"
+            ],
+            [
+                "EGFR exon 20 mutation"
+            ],
+            [
+                "EGFR exon 21 mutation"
+            ],
+            [
+                "EGFR exon 18 G719A"
+            ],
+            [
+                "EGFR exon 18 G719C"
+            ],
+            [
+                "EGFR exon 18 G719S"
+            ],
+            [
+                "EGFR exon 18 G719D"
+            ],
+            [
+                "EGFR exon 18 G719E"
+            ],
+            [
+                "EGFR exon 18 18del"
+            ],
+            [
+                "EGFR exon 18 E709G"
+            ],
+            [
+                "EGFR exon 18 E709M"
+            ],
+            [
+                "EGFR exon 18 E709V"
+            ],
+            [
+                "EGFR exon 18 E709H"
+            ],
+            [
+                "EGFR exon 18 E709DA"
+            ],
+            [
+                "EGFR exon 18 E709DK"
+            ],
+            [
+                "EGFR exon 18 V689M"
+            ],
+            [
+                "EGFR exon 18 S720P"
+            ],
+            [
+                "EGFR exon 18 S720F"
+            ],
+            [
+                "EGFR exon 18 P699S"
+            ],
+            [
+                "EGFR exon 18 N700D"
+            ],
+            [
+                "EGFR exon 18 E709Q"
+            ],
+            [
+                "EGFR exon 18 G721A"
+            ],
+            [
+                "EGFR exon 18 V740A"
+            ],
+            [
+                "EGFR exon 18 L718P"
+            ],
+            [
+                "EGFR exon 19 I744_K745insKIPVAI"
+            ],
+            [
+                "EGFR exon 19 K745_E746insIPVAIK"
+            ],
+            [
+                "EGFR exon 19 K745_E746insVPVAIK"
+            ],
+            [
+                "EGFR exon 19 K745_E746insTPVAIK"
+            ],
+            [
+                "EGFR exon 20 S768I"
+            ],
+            [
+                "EGFR exon 20 V765A"
+            ],
+            [
+                "EGFR exon 20 T783A"
+            ],
+            [
+                "EGFR exon 20 V774A"
+            ],
+            [
+                "EGFR exon 20 S784P"
+            ],
+            [
+                "EGFR exon 20 R776C"
+            ],
+            [
+                "EGFR exon 20 R776H"
+            ],
+            [
+                "EGFR exon 20 V765M"
+            ],
+            [
+                "EGFR exon 20 G779C"
+            ],
+            [
+                "EGFR exon 20 G779F"
+            ],
+            [
+                "EGFR exon 20 G779S"
+            ],
+            [
+                "EGFR exon 20 T783I"
+            ],
+            [
+                "EGFR exon 20 L798F"
+            ],
+            [
+                "EGFR exon 20 L798H"
+            ],
+            [
+                "EGFR exon 20 K806E"
+            ],
+            [
+                "EGFR exon 20 Q812R"
+            ],
+            [
+                "EGFR exon 20 L814P"
+            ],
+            [
+                "EGFR exon 21 L861Q"
+            ],
+            [
+                "EGFR exon 21 R831H"
+            ],
+            [
+                "EGFR exon 21 V834I"
+            ],
+            [
+                "EGFR exon 21 L838P"
+            ],
+            [
+                "EGFR exon 21 L861R"
+            ],
+            [
+                "EGFR 18G719A+20S768I"
+            ],
+            [
+                "EGFR 18 E709X+21L861Q"
+            ]
         ],
         "exclusion_biomarker": [
-            ["EGFR 19del+21L861Q"],
-            ["EGFR 18G719X+21L858R"],
-            ["EGFR exon 19 deletion"],
-            ["EGFR exon 21 L858R"],
-            ["EGFR 20 insertion"],
-            ["EGFR exon 20 T790M"],
-            ["EGFR L747S"],
-            ["EGFR L747P"],
-            ["EGFR D761Y"],
-            ["EGFR T854A"]
+            [
+                "EGFR 19del+21L861Q"
+            ],
+            [
+                "EGFR 18G719X+21L858R"
+            ],
+            [
+                "EGFR exon 19 deletion"
+            ],
+            [
+                "EGFR exon 21 L858R"
+            ],
+            [
+                "EGFR 20 insertion"
+            ],
+            [
+                "EGFR exon 20 T790M"
+            ],
+            [
+                "EGFR L747S"
+            ],
+            [
+                "EGFR L747P"
+            ],
+            [
+                "EGFR D761Y"
+            ],
+            [
+                "EGFR T854A"
+            ]
         ]
     },
     "NCT04853602": {
@@ -1166,9 +2261,15 @@
     },
     "NCT04879121": {
         "inclusion_biomarker": [
-            ["NTRK1 amplification"],
-            ["NTRK2 amplification"],
-            ["NTRK3 amplification"]
+            [
+                "NTRK1 amplification"
+            ],
+            [
+                "NTRK2 amplification"
+            ],
+            [
+                "NTRK3 amplification"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -1182,33 +2283,53 @@
     },
     "NCT05382936": {
         "inclusion_biomarker": [
-            ["PI3K pathway deregulation"],
-            ["DNA-PK pathway deregulation"]
+            [
+                "PI3K pathway deregulation"
+            ],
+            [
+                "DNA-PK pathway deregulation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05102292": {
         "inclusion_biomarker": [
-            ["BRAF V600"]
+            [
+                "BRAF V600"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03206931": {
         "inclusion_biomarker": [
-            ["NTRK1 fusion"],
-            ["NTRK2 fusion"],
-            ["NTRK3 fusion"]
+            [
+                "NTRK1 fusion"
+            ],
+            [
+                "NTRK2 fusion"
+            ],
+            [
+                "NTRK3 fusion"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05329545": {
         "inclusion_biomarker": [
-            ["NaPi2b-H"],
-            ["NaPi2b positive"]
+            [
+                "NaPi2b-H"
+            ],
+            [
+                "NaPi2b positive"
+            ]
         ],
         "exclusion_biomarker": [
-            ["BRCA1 mutation"],
-            ["BRCA2 mutation"]
+            [
+                "BRCA1 mutation"
+            ],
+            [
+                "BRCA2 mutation"
+            ]
         ]
     },
     "NCT03708822": {
@@ -1221,8 +2342,12 @@
     },
     "NCT05415072": {
         "inclusion_biomarker": [
-            ["GNAQ mutation"],
-            ["GNA11 mutation"]
+            [
+                "GNAQ mutation"
+            ],
+            [
+                "GNA11 mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -1236,113 +2361,347 @@
     },
     "NCT04266912": {
         "inclusion_biomarker": [
-            ["ARID1A aberration"],
-            ["ATM aberration"],
-            ["ATR aberration"],
-            ["ATRX aberration"],
-            ["BAP1 aberration"],
-            ["BARD1 aberration"],
-            ["BRCA1 aberration"],
-            ["BRCA2 aberration"],
-            ["BRIP1 aberration"],
-            ["CDK12 aberration"],
-            ["CHEK2 aberration"],
-            ["FANCA aberration"],
-            ["FANCC aberration"],
-            ["FANCD2 aberration"],
-            ["FANCE aberration"],
-            ["FANCF aberration"],
-            ["FANCM aberration"],
-            ["MRE11A aberration"],
-            ["MSH2 aberration"],
-            ["NBS1 aberration"],
-            ["PALB2 aberration"],
-            ["RAD51 aberration"],
-            ["RAD51C aberration"],
-            ["RAD51D aberration"],
-            ["SMARCB1 aberration"],
-            ["VHL aberration"],
-            ["DDR genes defect (germline)"]
+            [
+                "ARID1A aberration"
+            ],
+            [
+                "ATM aberration"
+            ],
+            [
+                "ATR aberration"
+            ],
+            [
+                "ATRX aberration"
+            ],
+            [
+                "BAP1 aberration"
+            ],
+            [
+                "BARD1 aberration"
+            ],
+            [
+                "BRCA1 aberration"
+            ],
+            [
+                "BRCA2 aberration"
+            ],
+            [
+                "BRIP1 aberration"
+            ],
+            [
+                "CDK12 aberration"
+            ],
+            [
+                "CHEK2 aberration"
+            ],
+            [
+                "FANCA aberration"
+            ],
+            [
+                "FANCC aberration"
+            ],
+            [
+                "FANCD2 aberration"
+            ],
+            [
+                "FANCE aberration"
+            ],
+            [
+                "FANCF aberration"
+            ],
+            [
+                "FANCM aberration"
+            ],
+            [
+                "MRE11A aberration"
+            ],
+            [
+                "MSH2 aberration"
+            ],
+            [
+                "NBS1 aberration"
+            ],
+            [
+                "PALB2 aberration"
+            ],
+            [
+                "RAD51 aberration"
+            ],
+            [
+                "RAD51C aberration"
+            ],
+            [
+                "RAD51D aberration"
+            ],
+            [
+                "SMARCB1 aberration"
+            ],
+            [
+                "VHL aberration"
+            ],
+            [
+                "ARID1A defect (germline)"
+            ],
+            [
+                "ATM defect (germline)"
+            ],
+            [
+                "ATR defect (germline)"
+            ],
+            [
+                "ATRX defect (germline)"
+            ],
+            [
+                "BAP1 defect (germline)"
+            ],
+            [
+                "BARD1 defect (germline)"
+            ],
+            [
+                "BRCA1 defect (germline)"
+            ],
+            [
+                "BRCA2 defect (germline)"
+            ],
+            [
+                "BRIP1 defect (germline)"
+            ],
+            [
+                "CDK12 defect (germline)"
+            ],
+            [
+                "CHEK2 defect (germline)"
+            ],
+            [
+                "FANCA defect (germline)"
+            ],
+            [
+                "FANCC defect (germline)"
+            ],
+            [
+                "FANCD2 defect (germline)"
+            ],
+            [
+                "FANCE defect (germline)"
+            ],
+            [
+                "FANCF defect (germline)"
+            ],
+            [
+                "FANCM defect (germline)"
+            ],
+            [
+                "MRE11A defect (germline)"
+            ],
+            [
+                "MSH2 defect (germline)"
+            ],
+            [
+                "NBS1 defect (germline)"
+            ],
+            [
+                "PALB2 defect (germline)"
+            ],
+            [
+                "RAD51 defect (germline)"
+            ],
+            [
+                "RAD51C defect (germline)"
+            ],
+            [
+                "RAD51D defect (germline)"
+            ],
+            [
+                "SMARCB1 defect (germline)"
+            ],
+            [
+                "VHL defect (germline)"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05555212": {
         "inclusion_biomarker": [
-            ["EGFR mutation"],
-            ["EGFR C797S"],
-            ["EGFR T790M"],
-            ["EGFR 19del"],
-            ["EGFR 21L858R"]
+            [
+                "EGFR mutation"
+            ],
+            [
+                "EGFR C797S"
+            ],
+            [
+                "EGFR T790M"
+            ],
+            [
+                "EGFR 19del"
+            ],
+            [
+                "EGFR 21L858R"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03375307": {
         "inclusion_biomarker": [
-            ["BRCA1 alteration"],
-            ["BRCA2 alteration"],
-            ["ATM alteration"],
-            ["BAP1 alteration"],
-            ["MSH2 alteration"],
-            ["PALB2 alteration"],
-            ["BRIP1 alteration"],
-            ["ABL1 alteration"],
-            ["ATR alteration"],
-            ["ATRX alteration"],
-            ["BARD1 alteration"],
-            ["BRD4 alteration"],
-            ["CCND1 alteration"],
-            ["CHEK1 alteration"],
-            ["CHEK2 alteration"],
-            ["DOT1L alteration"],
-            ["FANCC alteration"],
-            ["FANCE alteration"],
-            ["FANCG alteration"],
-            ["FANCL alteration"],
-            ["IKBKE alteration"],
-            ["MEN1 alteration"],
-            ["MLH1 alteration"],
-            ["MSH2 alteration"],
-            ["MSH6 alteration"],
-            ["MUTYH alteration"],
-            ["NPM1 alteration"],
-            ["PMS2 alteration"],
-            ["POLD1 alteration"],
-            ["POLE alteration"],
-            ["RAD51 alteration"],
-            ["SMARCB1 alteration"],
-            ["STK11 alteration"],
-            ["TP53 alteration"]
-
+            [
+                "BRCA1 alteration"
+            ],
+            [
+                "BRCA2 alteration"
+            ],
+            [
+                "ATM alteration"
+            ],
+            [
+                "BAP1 alteration"
+            ],
+            [
+                "MSH2 alteration"
+            ],
+            [
+                "PALB2 alteration"
+            ],
+            [
+                "BRIP1 alteration"
+            ],
+            [
+                "ABL1 alteration"
+            ],
+            [
+                "ATR alteration"
+            ],
+            [
+                "ATRX alteration"
+            ],
+            [
+                "BARD1 alteration"
+            ],
+            [
+                "BRD4 alteration"
+            ],
+            [
+                "CCND1 alteration"
+            ],
+            [
+                "CHEK1 alteration"
+            ],
+            [
+                "CHEK2 alteration"
+            ],
+            [
+                "DOT1L alteration"
+            ],
+            [
+                "FANCC alteration"
+            ],
+            [
+                "FANCE alteration"
+            ],
+            [
+                "FANCG alteration"
+            ],
+            [
+                "FANCL alteration"
+            ],
+            [
+                "IKBKE alteration"
+            ],
+            [
+                "MEN1 alteration"
+            ],
+            [
+                "MLH1 alteration"
+            ],
+            [
+                "MSH2 alteration"
+            ],
+            [
+                "MSH6 alteration"
+            ],
+            [
+                "MUTYH alteration"
+            ],
+            [
+                "NPM1 alteration"
+            ],
+            [
+                "PMS2 alteration"
+            ],
+            [
+                "POLD1 alteration"
+            ],
+            [
+                "POLE alteration"
+            ],
+            [
+                "RAD51 alteration"
+            ],
+            [
+                "SMARCB1 alteration"
+            ],
+            [
+                "STK11 alteration"
+            ],
+            [
+                "TP53 alteration"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05122806": {
         "inclusion_biomarker": [
-            ["ALK rearrangement"]
+            [
+                "ALK rearrangement"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05445310": {
         "inclusion_biomarker": [
-            ["EGFR mutation"],
-            ["EGFR exon 19 deletion"],
-            ["EGFR L858R"],
-            ["EGFR S768I"],
-            ["EGFR G719X"],
-            ["EGFR L861Q"],
-            ["EGFR T790M"]
+            [
+                "EGFR mutation"
+            ],
+            [
+                "EGFR exon 19 deletion"
+            ],
+            [
+                "EGFR L858R"
+            ],
+            [
+                "EGFR S768I"
+            ],
+            [
+                "EGFR G719X"
+            ],
+            [
+                "EGFR L861Q"
+            ],
+            [
+                "EGFR T790M"
+            ]
         ],
         "exclusion_biomarker": [
-            ["EGFR exon 20 insertion"],
-            ["ALK alteration"],
-            ["ROS1 alteration"],
-            ["MET alteration"]
+            [
+                "EGFR exon 20 insertion",
+                "ALK alteration"
+            ],
+            [
+                "EGFR exon 20 insertion",
+                "ROS1 alteration"
+            ],
+            [
+                "EGFR exon 20 insertion",
+                "MET alteration"
+            ]
         ]
     },
     "NCT04749641": {
         "inclusion_biomarker": [
-            ["H3.3 K27M"],
-            ["H3.3 K27M"]
+            [
+                "HLA-A2 subtype"
+            ],
+            [
+                "H3.3 K27M"
+            ]
         ],
         "exclusion_biomarker": []
     },
@@ -1352,22 +2711,34 @@
     },
     "NCT05341570": {
         "inclusion_biomarker": [
-            ["PIK3CA mutation"]
+            [
+                "PIK3CA mutation"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT03593993": {
         "inclusion_biomarker": [
-            ["BRAF V600E"],
-            ["BRAF V600K"],
-            ["BRAF V600R"],
-            ["BRAF V600D"]
+            [
+                "BRAF V600E"
+            ],
+            [
+                "BRAF V600K"
+            ],
+            [
+                "BRAF V600R"
+            ],
+            [
+                "BRAF V600D"
+            ]
         ],
         "exclusion_biomarker": []
     },
     "NCT05665062": {
         "inclusion_biomarker": [
-            ["CD19 expression"]
+            [
+                "CD19 expression"
+            ]
         ],
         "exclusion_biomarker": []
     }
