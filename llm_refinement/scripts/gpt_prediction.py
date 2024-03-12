@@ -94,7 +94,7 @@ def main():
         test_set = load_json(args.test)
         print(f"Size of test set {args.test}: {test_set['size']}")
     except FileNotFoundError as e:
-        print(f"Failed to load {args.test}: {e}")
+        logger.log_error(f"Failed to load {args.test}: {e}")
         sys.exit(1)
 
     try:
@@ -103,7 +103,7 @@ def main():
             raise FileNotFoundError(f"The file '{template_file}' does not exist.")
         prompt_template = load_prompt(template_file)
     except FileNotFoundError as e:
-        print(f"Template File {template_file} does not exist: {e}")
+        logger.log_error(f"Template File {template_file} does not exist: {e}")
         sys.exit(1)
 
     # set up LLM chain
@@ -113,15 +113,15 @@ def main():
                                          prompt_template=prompt_template,
                                          pl_tags=pl_tags)
     except Exception as e:
-        print(f"Failed to set up GPTHandler {e}")
+        logger.log_error(f"Failed to set up GPTHandler {e}")
         sys.exit(1)
 
     # loading collection
     try:
         trials = ChromaDBHandler(PERSIST_DIRECTORY, CTRIALS_COLLECTION).collection
-        print(f"Number of Trials in {CTRIALS_COLLECTION} collection: {trials.count()}")
+        logger.log_info(f"Number of Trials in {CTRIALS_COLLECTION} collection: {trials.count()}")
     except Exception as e:
-        print(f"Failed to load ChromaDB collection {CTRIALS_COLLECTION} from {PERSIST_DIRECTORY}: {e}")
+        logger.log_error(f"Failed to load ChromaDB collection {CTRIALS_COLLECTION} from {PERSIST_DIRECTORY}: {e}")
 
     logger.log_info(f"Prompt Template: {prompt_template.template}")
     start_time = time.time()
@@ -132,6 +132,16 @@ def main():
     tp_ex, tn_ex, fp_ex, fn_ex = [], [], [], []
     tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf = [], [], [], []
     predicted_list, actual_list = [], []
+
+    try:
+        from langchain.vectorstores.chroma import Chroma
+        db = Chroma(
+            collection_name="train-ctrial",
+            persist_directory="./data/collection_train",
+            )
+    except Exception as e:
+        logger.log_info(f"Failed to initialize train collection: {e}")
+        sys.exit(1)
 
     bar = progressbar.ProgressBar(maxval=test_set['size'], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
@@ -148,41 +158,24 @@ def main():
             if n_examples == 0:
                 response = llm_chain({'trial': input_trial})
             else:
-                from langchain.vectorstores.chroma import Chroma
-                db = Chroma(
-                    collection_name="train-ctrials",
-                    persist_directory="./data/collection_train",
-                    )
-                if rag:  # perform RAG
-                    similar_trials = db.similarity_search(query=input_trial, k=n_examples)
-                    similar_doc = similar_trials[0].page_content
-                    example_output = similar_trials[0].metadata['output']
-                else:
-                    #similar_trials = db.get(ids=["NCT03383575"])
-                    similar_trials = db.get(ids=["NCT05435274"])
+                similar_trials = db.get(ids=["NCT03383575"])
+                similar_doc = similar_trials['documents'][0]
+                example_output = similar_trials['metadatas'][0]['output']
+
+                example = f"""{similar_doc}\n\nJSON output: {example_output}"""
+                if n_examples == 2:
+                    similar_trials = db.get(ids=["NCT04483284"])
                     similar_doc = similar_trials['documents'][0]
-                    # example_output = similar_trials['metadatas'][0]['output']
-                    example_output = {
-                        'reasoning': "From the inclusion criteria, I select the genomics biomarkers, which in this case are 'EGFR/HER2 Exon 20 insertion mutation'. I Split the biomarkers into separate entities as they are connected by 'OR' logic, resulting in 'EGFR Exon 20 insertion' and 'HER2 Exon 20 insertion'.I do not include the word 'mutation' because i have a specific variant before it.The exclusion criteria do not contain any genomics biomarkers, so it is left empty.Format the biomarkers according to the instructions, removing the word 'mutation' and ensuring the gene name is followed by the variant.The final biomarkers are 'EGFR Exon 20 insertion' and 'HER2 Exon 20 insertion'. No further processing is needed, I assemble the biomarkers into the required JSON format",
-                        'inclusion_biomarker': [['IDH2 R140'],
-                                                ['IDH2 R172'],
-                                                ['IDH2 R140', 'TP53 mutation'],
-                                                ['IDH2 R172', 'TP53 mutation'],
-                                                ['IDH2 R140', 'ASXL1 mutation'],
-                                                ['IDH2 R172', 'ASXL1 mutation'],
-                                                ['IDH2 R140', 'EZH2 mutation'],
-                                                ['IDH2 R172', 'EZH2 mutation'],
-                                                ['IDH2 R140', 'RUNX1 mutation'],
-                                                ['IDH2 R172', 'RUNX1 mutation']],
-                        'exclusion_biomarker': []}
+                    example_output = similar_trials['metadatas'][0]['output']
 
-                example = f"""{similar_doc}\nJSON output:{example_output}"""
-
-                response = llm_chain({'trial': input_trial, 'example': example})
+                    example_2 = f"""{similar_doc}\n\nJSON output: {example_output}"""
+                    response = llm_chain({'trial': input_trial, 'example': example, 'example2': example_2})
+                else:
+                    response = llm_chain({'trial': input_trial, 'example': example})
             try:
                 response['text']
             except Exception as e:
-                print(f"Trial {trial_id} Failed to generate text output: {e}")
+                logger.log_error(f"Trial {trial_id} Failed to generate text output: {e}")
                 continue
 
             response_parsed = loads_json(response['text'])
@@ -202,7 +195,7 @@ def main():
 
             logger.log_info("\n")
         except Exception as e:
-            print(f"Trial {trial_id} Failed: {e}")
+            logger.log_error(f"Trial {trial_id} Failed: {e}")
 
     end_time = time.time()
     latency = end_time - start_time
@@ -255,7 +248,7 @@ def main():
         # Read existing data from the file, if it exists
         existing_data = load_json(output_file)
     except FileNotFoundError:
-        print(f"Output file {output_file} does not exist")
+        logger.log_error(f"Output file {output_file} does not exist")
         existing_data = {}
 
     # Append the new data to the existing results list
