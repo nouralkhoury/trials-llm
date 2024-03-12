@@ -17,8 +17,8 @@ and the threshold is a percentage.
 def evaluate_predictions(predicted_output, ground_truth, entity):
     tp, tn, fp, fn = 0, 0, 0, 0
 
-    predicted_biomarkers = [set(inner_list) for inner_list in predicted_output[entity]]
-    actual_biomarkers = [set(inner_list) for inner_list in ground_truth[entity]]
+    predicted_biomarkers = [set(map(str.lower, inner_list)) for inner_list in predicted_output[entity]]
+    actual_biomarkers = [set(map(str.lower, inner_list)) for inner_list in ground_truth[entity]]
 
     if predicted_biomarkers == [] and actual_biomarkers == []:
         tn = 1
