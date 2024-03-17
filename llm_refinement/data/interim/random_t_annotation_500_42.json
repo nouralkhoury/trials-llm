@@ -313,6 +313,9 @@
             ],
             [
                 "MSI low"
+            ],
+            [
+                "DNA mismatch repair proficient"
             ]
         ],
         "exclusion_biomarker": []
@@ -1294,7 +1297,7 @@
                 "cyclin D1 positive"
             ],
             [
-                "t(11;14)"
+                "t(11;14) positive"
             ]
         ],
         "exclusion_biomarker": [
@@ -1409,6 +1412,9 @@
     },
     "NCT04837222": {
         "inclusion_biomarker": [
+            [
+                "CD30 positive"
+            ],
             [
                 "CD30 expression"
             ]
@@ -1624,7 +1630,7 @@
                 "Philadelphia chromosome positive"
             ],
             [
-                "BCR-ABL"
+                "BCR-ABL positive"
             ]
         ],
         "exclusion_biomarker": []
@@ -2075,145 +2081,145 @@
                 "EGFR exon 21 mutation"
             ],
             [
-                "EGFR exon 18 G719A"
+                "EGFR G719A"
             ],
             [
-                "EGFR exon 18 G719C"
+                "EGFR G719C"
             ],
             [
-                "EGFR exon 18 G719S"
+                "EGFR G719S"
             ],
             [
-                "EGFR exon 18 G719D"
+                "EGFR G719D"
             ],
             [
-                "EGFR exon 18 G719E"
+                "EGFR G719E"
             ],
             [
-                "EGFR exon 18 18del"
+                "EGFR 18del"
             ],
             [
-                "EGFR exon 18 E709G"
+                "EGFR E709G"
             ],
             [
-                "EGFR exon 18 E709M"
+                "EGFR E709M"
             ],
             [
-                "EGFR exon 18 E709V"
+                "EGFR E709V"
             ],
             [
-                "EGFR exon 18 E709H"
+                "EGFR E709H"
             ],
             [
-                "EGFR exon 18 E709DA"
+                "EGFR E709DA"
             ],
             [
-                "EGFR exon 18 E709DK"
+                "EGFR E709DK"
             ],
             [
-                "EGFR exon 18 V689M"
+                "EGFR V689M"
             ],
             [
-                "EGFR exon 18 S720P"
+                "EGFR S720P"
             ],
             [
-                "EGFR exon 18 S720F"
+                "EGFR S720F"
             ],
             [
-                "EGFR exon 18 P699S"
+                "EGFR P699S"
             ],
             [
-                "EGFR exon 18 N700D"
+                "EGFR N700D"
             ],
             [
-                "EGFR exon 18 E709Q"
+                "EGFR E709Q"
             ],
             [
-                "EGFR exon 18 G721A"
+                "EGFR G721A"
             ],
             [
-                "EGFR exon 18 V740A"
+                "EGFR V740A"
             ],
             [
-                "EGFR exon 18 L718P"
+                "EGFR L718P"
             ],
             [
-                "EGFR exon 19 I744_K745insKIPVAI"
+                "EGFR I744_K745insKIPVAI"
             ],
             [
-                "EGFR exon 19 K745_E746insIPVAIK"
+                "EGFR K745_E746insIPVAIK"
             ],
             [
-                "EGFR exon 19 K745_E746insVPVAIK"
+                "EGFR K745_E746insVPVAIK"
             ],
             [
-                "EGFR exon 19 K745_E746insTPVAIK"
+                "EGFR K745_E746insTPVAIK"
             ],
             [
-                "EGFR exon 20 S768I"
+                "EGFR S768I"
             ],
             [
-                "EGFR exon 20 V765A"
+                "EGFR V765A"
             ],
             [
-                "EGFR exon 20 T783A"
+                "EGFR T783A"
             ],
             [
-                "EGFR exon 20 V774A"
+                "EGFR V774A"
             ],
             [
-                "EGFR exon 20 S784P"
+                "EGFR S784P"
             ],
             [
-                "EGFR exon 20 R776C"
+                "EGFR R776C"
             ],
             [
-                "EGFR exon 20 R776H"
+                "EGFR R776H"
             ],
             [
-                "EGFR exon 20 V765M"
+                "EGFR V765M"
             ],
             [
-                "EGFR exon 20 G779C"
+                "EGFR G779C"
             ],
             [
-                "EGFR exon 20 G779F"
+                "EGFR G779F"
             ],
             [
-                "EGFR exon 20 G779S"
+                "EGFR G779S"
             ],
             [
-                "EGFR exon 20 T783I"
+                "EGFR T783I"
             ],
             [
-                "EGFR exon 20 L798F"
+                "EGFR L798F"
             ],
             [
-                "EGFR exon 20 L798H"
+                "EGFR L798H"
             ],
             [
-                "EGFR exon 20 K806E"
+                "EGFR K806E"
             ],
             [
-                "EGFR exon 20 Q812R"
+                "EGFR Q812R"
             ],
             [
-                "EGFR exon 20 L814P"
+                "EGFR L814P"
             ],
             [
-                "EGFR exon 21 L861Q"
+                "EGFR L861Q"
             ],
             [
-                "EGFR exon 21 R831H"
+                "EGFR R831H"
             ],
             [
-                "EGFR exon 21 V834I"
+                "EGFR V834I"
             ],
             [
-                "EGFR exon 21 L838P"
+                "EGFR L838P"
             ],
             [
-                "EGFR exon 21 L861R"
+                "EGFR L861R"
             ],
             [
                 "EGFR 18G719A+20S768I"
