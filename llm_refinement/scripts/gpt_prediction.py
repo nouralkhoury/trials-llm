@@ -12,7 +12,9 @@ from modules.logging_handler import CustomLogger
 from configurations.config import (
     CTRIALS_COLLECTION,
     PERSIST_DIRECTORY,
-    RESULTS_DATA
+    RESULTS_DATA,
+    CTRIALS_COLLECTION_TRAIN,
+    PERSIST_DIRECTORY_TRAIN
     )
 from utils.jsons import (
     load_json,
@@ -136,8 +138,8 @@ def main():
     try:
         from langchain.vectorstores.chroma import Chroma
         db = Chroma(
-            collection_name="train-ctrial",
-            persist_directory="./data/collection_train",
+            collection_name=CTRIALS_COLLECTION_TRAIN,
+            persist_directory=PERSIST_DIRECTORY_TRAIN,
             )
     except Exception as e:
         logger.log_info(f"Failed to initialize train collection: {e}")
@@ -162,13 +164,13 @@ def main():
                 similar_doc = similar_trials['documents'][0]
                 example_output = similar_trials['metadatas'][0]['output']
 
-                example = f"""{similar_doc}\n\nJSON output: {example_output}"""
+                example = f"""{similar_doc}\nexample JSON:{example_output}"""
                 if n_examples == 2:
-                    similar_trials = db.get(ids=["NCT04483284"])
+                    similar_trials = db.get(ids=["NCT05484622"])
                     similar_doc = similar_trials['documents'][0]
                     example_output = similar_trials['metadatas'][0]['output']
 
-                    example_2 = f"""{similar_doc}\n\nJSON output: {example_output}"""
+                    example_2 = f"""{similar_doc}\nJSON:{example_output}"""
                     response = llm_chain({'trial': input_trial, 'example': example, 'example2': example_2})
                 else:
                     response = llm_chain({'trial': input_trial, 'example': example})
