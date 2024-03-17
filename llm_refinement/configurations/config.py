@@ -20,4 +20,6 @@ RESULTS_DATA = config("RESULTS_DATA", default="data/results")
 
 # ChromaDB
 CTRIALS_COLLECTION = config("CTRIALS_COLLECTION", default="ctrials")
+CTRIALS_COLLECTION_TRAIN = config("CTRIALS_COLLECTION_TRAIN", default="train-ctrials")
 PERSIST_DIRECTORY = config("PERSIST_DIRECTORY", default="data/collections")
+PERSIST_DIRECTORY_TRAIN = config("PERSIST_DIRECTORY", default="data/collection_train")
