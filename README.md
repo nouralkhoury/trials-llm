@@ -14,7 +14,7 @@ To generate the train and test datasets, execute the script `scripts/data_genera
 ### Make prediction
 
 #### Zero-Shot and Few-Shot
-To perform zero-shot or few-shot predictions on the test set, use the script `scripts/gpt_predictions.py`. Ensure that you pass the correct arguments. The prompts required for this script can be found in `data/prompts`. You can use the following templates: `one-shot.json`, `zero-shot.json`, and `two-shot.json`.
+To perform zero-shot or few-shot predictions on the test set, use the script `scripts/single_prompt_evaluation.py`. Ensure that you pass the correct arguments. The prompts required for this script can be found in `data/prompts`. You can use the following templates: `one-shot.json`, `zero-shot.json`, and `two-shot.json`.
 
 #### Chain of Prompts
-To run a chain of prompts, execute the script `scripts/chain_of_prompt_prediction.py`. For a 2-chain pipeline, use `chain_1.json` and `chain_2.json`. For a 3-chain pipeline, use `chain_1.json`, `chain_interim.json`, and `chain_2.json`. The `chain_interim.json` serves as an intermediate chain between chain_1 and chain_2.
+To run a chain of prompts, execute the script `scripts/chain_of_prompt_evaluation.py`. For a 2-chain pipeline, use `chain_1.json` and `chain_2.json`. For a 3-chain pipeline, use `chain_1.json`, `chain_interim.json`, and `chain_2.json`. The `chain_interim.json` serves as an intermediate chain between chain_1 and chain_2.
