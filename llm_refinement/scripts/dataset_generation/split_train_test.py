@@ -1,5 +1,7 @@
 from sklearn.model_selection import train_test_split
 from utils.jsons import dump_json, load_json
+from modules.chromadb_handler import ChromaDBHandler
+
 import argparse
 
 
@@ -32,6 +34,8 @@ def main():
         type=int,
         help="Random state for train_test_split(). Default is 42"
     )
+    parser.add_argument("--collection_name", type=str, required=True, help="Name of the collection.")
+    parser.add_argument("--persist_dir", type=str, required=True, help="Persist directory of the collection.")
 
     args = parser.parse_args()
     # Load JSON file
@@ -41,9 +45,17 @@ def main():
         print(f"Error loading annotated JSON file: {e}")
         return
 
+    collection = ChromaDBHandler(persist_dir=args.persist_dir, collection_name=args.collection_name).collection
+
     # convert dict to list of dict
-    list_annotated = [{'trial_id': trial_id, **trial_data} for trial_id, trial_data in annotated.items()]
+    list_annotated = [{'trial_id': trial_id, "output": {"inclusion_biomarker": trial_data.get('inclusion_biomarker', []), "exclusion_biomarker": trial_data.get('exclusion_biomarker', [])}} for trial_id, trial_data in annotated.items()]
     train_size = int(len(list_annotated) * args.train_perc/100)
+
+    # Iterate through the list_annotated and add the ChromaDB document for each trial
+    for trial in list_annotated:
+        trial_id = trial['trial_id']
+        trial_document = collection.get(ids=[trial_id])['documents'][0]
+        trial['document'] = trial_document
 
     # Split data into train and test
     try:
