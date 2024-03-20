@@ -73,3 +73,9 @@ https://www.rungalileo.io/blog/optimizing-llm-performance-rag-vs-finetune-vs-bot
 
 
 Fine-tuning Galileo tool https://docs.rungalileo.io/galileo/llm-studio/llm-debugger/getting-started
+
+>[!IMPORTANT]
+> - Cost for prompt engineering: gpt-4 zero-shot -> 2.83$, gpt-4 (2 chains) -> ~3.7$, gpt-3.5-turbo (2 chains) -> 0.05$, gpt-3.5-turbo (3 chains) -> 0.04$. 
+
+
+
