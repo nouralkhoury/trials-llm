@@ -11,7 +11,6 @@ def dump_json(data, file_path):
     try:
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=4)
-        return data
     except TypeError as e:
         print(f"Unable to serialize the object: {e}")
 
