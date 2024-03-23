@@ -15,6 +15,8 @@ def to_jsonl(dataset):
     messages = []
     for trial in dataset:
         try:
+            if trial['trial_id'] == "NCT04017130": # skip this, outlier
+                continue
             t_doc = trial['document']
             t_output = trial['output']
 
