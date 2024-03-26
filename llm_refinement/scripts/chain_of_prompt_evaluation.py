@@ -157,7 +157,7 @@ def main():
 
     tp_ex, tn_ex, fp_ex, fn_ex = [], [], [], []
     tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf = [], [], [], []
-    predicted_list, actual_list = [], []
+    predicted_list, actual_list, failed_prediction = [], [], []
 
     bar = progressbar.ProgressBar(maxval=test_set['size'], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
@@ -188,6 +188,16 @@ def main():
                 response_parsed = loads_json(response)
             except Exception as e:
                 logger.log_error(f"Trial {trial_id} Failed to parse JSON output: {e}")
+                failed_prediction.append(response)
+                if actual == {'inclusion_biomarker': [], 'exclusion_biomarker': []}:
+                    evals_dnf_inclusion = evals_dnf_exclusion = evals_extract_incl = evals_extract_exl = (0,0,1,0)
+                else:
+                    response = {'inclusion_biomarker': [], 'exclusion_biomarker': []}
+                    evals_dnf_inclusion, evals_dnf_exclusion, evals_extract_incl, evals_extract_exl = compute_evals(response, actual)
+                save_eval(tp_inc_dnf, tn_inc_dnf, fp_inc_dnf, fn_inc_dnf, evals_dnf_inclusion)
+                save_eval(tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf, evals_dnf_exclusion)
+                save_eval(tp_inc, tn_inc, fp_inc, fn_inc, evals_extract_incl)
+                save_eval(tp_ex, tn_ex, fp_ex, fn_ex, evals_extract_exl)
                 continue
 
             predicted_list.append(response_parsed)
@@ -219,8 +229,11 @@ def main():
     ex_dnf = get_metrics(tp=sum(tp_ex_dnf), tn=sum(tn_ex_dnf), fp=sum(fp_ex_dnf), fn=sum(fn_ex_dnf))
     results = {
         "Model": model,
+        "correct_size": len(predicted_list),
+        "failed_size": len(failed_prediction),
         "Precited": predicted_list,
         "Actual": actual_list,
+        "Failed": failed_prediction,
         "tp_inclusion": tp_inc,
         "fp_inclusion": fp_inc,
         "tn_inclusion": tn_inc,
