@@ -16,10 +16,7 @@ def dump_json(data, file_path):
 
 
 def loads_json(json_str):
-    try:
-        return json.loads(json_str)
-    except TypeError as e:
-        print(f"Unable to load JSON from string: {e}")
+    return json.loads(json_str)
 
 
 def flatten_lists_in_dict(input_dict):
