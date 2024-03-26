@@ -8,11 +8,7 @@ from langchain.prompts import load_prompt
 from modules.gpt_handler import GPTHandler
 from modules.logging_handler import CustomLogger
 from modules.chromadb_handler import ChromaDBHandler
-from configurations.config import (
-    CTRIALS_COLLECTION,
-    PERSIST_DIRECTORY,
-    RESULTS_DATA
-    )
+from configurations.config import RESULTS_DATA
 from utils.jsons import (
     load_json,
     flatten_lists_in_dict,
@@ -20,14 +16,6 @@ from utils.jsons import (
     loads_json)
 from utils.evaluation import evaluate_predictions, save_eval, get_metrics
 from utils.token_count import num_tokens_from_string
-
-
-def actual_output(trial):
-    actual_inclusion = trial['inclusion_biomarker']
-    actual_exclusion = trial['exclusion_biomarker']
-    actual = {'inclusion_biomarker': actual_inclusion,
-              'exclusion_biomarker': actual_exclusion}
-    return actual
 
 
 def log_name(template_file, model):
@@ -116,13 +104,6 @@ def main():
         logger.log_error(f"Failed to load {args.test}: {e}")
         sys.exit(1)
 
-    # loading collection
-    try:
-        trials = ChromaDBHandler(PERSIST_DIRECTORY, CTRIALS_COLLECTION).collection
-        logger.log_info(f"Number of Trials in {CTRIALS_COLLECTION} collection: {trials.count()}")
-    except Exception as e:
-        logger.log_error(f"Failed to load ChromaDB collection {CTRIALS_COLLECTION} from {PERSIST_DIRECTORY}: {e}")
-
     try:
         # Load the first prompt file
         first_prompt_template = load_prompt_file(prompt_1)
@@ -188,7 +169,8 @@ def main():
             trial_id = i['trial_id']
             logger.log_info(f"@ trial {trial_id}")
 
-            input_trial = trials.get(ids=[trial_id])['documents'][0]
+            actual = i['output']
+            input_trial = i['document']
 
             response_1 = chain_1.run({'trial': input_trial})
             token_count += num_tokens_from_string(response_1, "cl100k_base") + num_tokens_from_string(input_trial, "cl100k_base") + num_tokens_from_string(first_prompt_template.template, "cl100k_base")
@@ -208,7 +190,6 @@ def main():
                 logger.log_error(f"Trial {trial_id} Failed to parse JSON output: {e}")
                 continue
 
-            actual = actual_output(i)
             predicted_list.append(response_parsed)
             actual_list.append(actual)
 
