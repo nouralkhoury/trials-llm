@@ -2,6 +2,7 @@
     "results": [
         {
             "Model": "gpt-4",
+            "predicted_size": 50,
             "Precited": [
                 {
                     "inclusion_biomarker": [],

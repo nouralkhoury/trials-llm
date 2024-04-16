@@ -2,6 +2,7 @@
     "results": [
         {
             "Model": "gpt-3.5-turbo",
+            "predicted_size": 50,
             "Precited": [
                 {
                     "inclusion_biomarker": [
