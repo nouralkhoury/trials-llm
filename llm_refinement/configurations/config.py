@@ -16,6 +16,7 @@ PROMPTLAYER_API_KEY = config("PROMPTLAYER_API_KEY", default="")
 # Data Directories
 PROCESSED_DATA = config("PROCESSED_DATA", default="data/processed")
 RESULTS_DATA = config("RESULTS_DATA", default="data/results")
+PROMPTS = config("PROMPTS", default="data/prompts")
 
 
 # ChromaDB
