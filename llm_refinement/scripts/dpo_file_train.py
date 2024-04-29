@@ -49,39 +49,41 @@ def main(file_path):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
-    # LoRA configuration
+
+    # LoRA configuration https://huggingface.co/docs/peft/en/package_reference/lora
     peft_config = LoraConfig(
-        r=2,
-        lora_alpha=4,
-        lora_dropout=0.05,
-        bias="none",
+        r=2,  # Lora attention dimension (the “rank”).
+        lora_alpha=4,  # The alpha parameter for Lora scaling.
+        lora_dropout=0.05,  # The dropout probability for Lora layers.
+        bias="none",  # Bias type for LoRA.
         task_type="CAUSAL_LM",
-        target_modules=['k_proj', 'gate_proj', 'v_proj', 'up_proj', 'q_proj', 'o_proj', 'down_proj']
+        target_modules=['k_proj', 'gate_proj', 'v_proj', 'up_proj', 'q_proj', 'o_proj', 'down_proj']  # The names of the modules to apply the adapter to.
     )
+    # Quantization configuration for QLoRA https://huggingface.co/docs/transformers/en/main_classes/quantization
     bnb_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_use_double_quant=True,
-        bnb_4bit_quant_type="nf4",
-        bnb_4bit_compute_dtype=torch.bfloat16
+        load_in_4bit=True,  # This flag is used to enable 4-bit quantization by replacing the Linear layers with FP4/NF4 layers from bitsandbytes.
+        bnb_4bit_use_double_quant=True,  # This flag is used for nested quantization where the quantization constants from the first quantization are quantized again.
+        bnb_4bit_quant_type="nf4",  # This sets the quantization data type in the bnb.nn.Linear4Bit layers
+        bnb_4bit_compute_dtype=torch.bfloat16  # This sets the computational type which might be different than the input type.
     )
 
     model = AutoModelForCausalLM.from_pretrained(model_name, quantization_config=bnb_config, device_map="auto")
 
-    # Training arguments
+    # Training arguments https://huggingface.co/docs/transformers/en/main_classes/trainer#transformers.TrainingArguments
     training_args = TrainingArguments(
-        per_device_train_batch_size=1,
-        gradient_accumulation_steps=4,
-        gradient_checkpointing=True,
-        learning_rate=5e-5,
+        per_device_train_batch_size=1,  # The batch size per GPU/XPU/TPU/MPS/NPU core/CPU for training.
+        gradient_accumulation_steps=4,  # Number of updates steps to accumulate the gradients for, before performing a backward/update pass.
+        gradient_checkpointing=True,    # To use gradient checkpointing to save memory at the expense of slower backward pass.
+        learning_rate=5e-5,  # The initial learning rate for the optimizer
         lr_scheduler_type="cosine",
-        max_steps=200,
+        max_steps=200,  # the total number of training steps to perform.
         save_strategy="no",
         logging_steps=1,
         output_dir=new_model,
-        optim="paged_adamw_32bit",
-        warmup_steps=100,
-        bf16=False,
-        report_to="wandb",
+        optim="paged_adamw_32bit",  # The optimizer to use
+        warmup_steps=100,  # Number of steps used for a linear warmup from 0 to learning_rate
+        bf16=False,  # Whether to use bf16 16-bit (mixed) precision training instead of 32-bit training. Requires Ampere or higher NVIDIA architecture or using CPU (use_cpu) or Ascend NPU.
+        report_to="wandb"
     )
 
     # Create DPO trainer
