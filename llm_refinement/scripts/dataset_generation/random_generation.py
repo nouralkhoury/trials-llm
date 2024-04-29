@@ -6,7 +6,7 @@ and saves the trial IDS returned for training and testing purposes.
 Parameters:
     --persist-dir: Path to the ChromaDB persist directory
     --civic-path: Path the CIViC variant Summaries TSV file
-    --output-dir: Path to directory to save the JSON files
+    --output-dir: Path to directory to save the JSON file `random_trials_ids.json` with a list of trial ids
 
 Usage:
 python script_name.py --persist-dir persist_dir --civic-path civic_data.csv --output-dir output_dir
@@ -98,12 +98,12 @@ def main():
     parser.add_argument(
         "--output-dir",
         required=True,
-        help="Output directory to save train and test JSON files")
+        help="Output directory to save a JSON holding the selected clinical trial ids")
 
     args = parser.parse_args()
 
     results = generate_random_data(args.civic_path, args.persist_dir)
-    final_results = list(set([id_val[0] for id_val in results['ids']]))  # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
+    final_results = list(set([id_val[0] for id_val in results['ids']]))   # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
     dump_json(data={"size": len(final_results), "ids": final_results},
               file_path=f"{args.output_dir}/random_trials_ids.json")
