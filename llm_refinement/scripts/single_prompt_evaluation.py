@@ -4,18 +4,12 @@ import time
 import argparse
 import progressbar
 from pathlib import Path
-from statistics import mean
 from langchain.prompts import load_prompt
 from modules.gpt_handler import GPTHandler
-from modules.chromadb_handler import ChromaDBHandler
 from modules.logging_handler import CustomLogger
 from configurations.config import (
-    CTRIALS_COLLECTION,
-    PERSIST_DIRECTORY,
-    RESULTS_DATA,
-    CTRIALS_COLLECTION_TRAIN,
-    PERSIST_DIRECTORY_TRAIN
-    )
+    RESULTS_DATA
+)
 from utils.jsons import (
     load_json,
     flatten_lists_in_dict,
@@ -24,18 +18,18 @@ from utils.jsons import (
 from utils.evaluation import evaluate_predictions, save_eval, get_metrics
 
 
-def actual_output(trial):
-    actual_inclusion = trial['inclusion_biomarker']
-    actual_exclusion = trial['exclusion_biomarker']
-    actual = {'inclusion_biomarker': actual_inclusion,
-              'exclusion_biomarker': actual_exclusion}
-    return actual
-
-
 def log_name(template_file, model):
     file_name_no_extension = Path(template_file).stem
     log_name = f"{model}_{file_name_no_extension}"
     return log_name
+
+
+def find_trial(k, trials):
+    trial = next((t for t in trials if t['trial_id'] == k), None)
+    if trial:
+        return trial['document'], trial['output']
+    else:
+        return None, None
 
 
 def input_args():
@@ -43,22 +37,16 @@ def input_args():
     parser.add_argument("--test",
                         required=True,
                         help="Paths to JSON test set with annotation")
+    # create a mutually exclusive group for the --n-example argument
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--n-example", type=int, help="Number of examples for the Few shot.")
+    group.add_argument("--no-n-example", action="store_true", help="Don't use few shot learning.")
     parser.add_argument("--output-file",
                         required=True,
                         help="Output filename to save evaluation results")
     parser.add_argument("--prompt",
                         required=True,
                         help="Path to prompt JSON file with the template")
-    parser.add_argument("--n-example",
-                        type=int,  # Specify the type as integer
-                        default=0,  # Default value is 0
-                        required=False,
-                        help="Number of examples for the Few shot.")
-    parser.add_argument("--rag",
-                        type=lambda x: (str(x).lower() == 'true'),  # Convert input to boolean
-                        default=False,  # Default value is False
-                        required=False,
-                        help="Boolean to perform RAG or take static example")
     parser.add_argument("--model",
                         required=False,
                         help="OPENAI model name to be used",
@@ -68,7 +56,15 @@ def input_args():
                         help="List of PromptLayer tags",
                         nargs='+',
                         default=[])
+    # add the --train argument to a separate argument group that is required only when --n-example is used
+    train_group = parser.add_argument_group(title="required arguments when using --n-example")
+    train_group.add_argument("--train", required=False, help="Paths to JSON train set with annotation")
+
     args = parser.parse_args()
+    # check if --n-example was used and if so, make the --train argument required
+    if args.n_example:
+        if not args.train:
+            parser.error("--train is required when using --n-example")
     return args
 
 
@@ -88,7 +84,7 @@ def compute_evals(response, actual):
 
 def main():
     args = input_args()
-    model, template_file, pl_tags, n_examples, rag = args.model, args.prompt, args.tags, args.n_example, args.rag
+    model, template_file, pl_tags, n_examples = args.model, args.prompt, args.tags, args.n_example
 
     logger = CustomLogger(log_name(template_file, model))
 
@@ -97,6 +93,13 @@ def main():
         print(f"Size of test set {args.test}: {test_set['size']}")
     except FileNotFoundError as e:
         logger.log_error(f"Failed to load {args.test}: {e}")
+        sys.exit(1)
+
+    try:
+        train_set = load_json(args.train)
+        print(f"Size of test set {args.train}: {train_set['size']}")
+    except FileNotFoundError as e:
+        logger.log_error(f"Failed to load {args.train}: {e}")
         sys.exit(1)
 
     try:
@@ -118,13 +121,6 @@ def main():
         logger.log_error(f"Failed to set up GPTHandler {e}")
         sys.exit(1)
 
-    # loading collection
-    try:
-        trials = ChromaDBHandler(PERSIST_DIRECTORY, CTRIALS_COLLECTION).collection
-        logger.log_info(f"Number of Trials in {CTRIALS_COLLECTION} collection: {trials.count()}")
-    except Exception as e:
-        logger.log_error(f"Failed to load ChromaDB collection {CTRIALS_COLLECTION} from {PERSIST_DIRECTORY}: {e}")
-
     logger.log_info(f"Prompt Template: {prompt_template.template}")
     start_time = time.time()
 
@@ -133,17 +129,7 @@ def main():
 
     tp_ex, tn_ex, fp_ex, fn_ex = [], [], [], []
     tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf = [], [], [], []
-    predicted_list, actual_list = [], []
-
-    try:
-        from langchain.vectorstores.chroma import Chroma
-        db = Chroma(
-            collection_name=CTRIALS_COLLECTION_TRAIN,
-            persist_directory=PERSIST_DIRECTORY_TRAIN,
-            )
-    except Exception as e:
-        logger.log_info(f"Failed to initialize train collection: {e}")
-        sys.exit(1)
+    predicted_list, actual_list, failed_prediction = [], [], []
 
     bar = progressbar.ProgressBar(maxval=test_set['size'], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
@@ -155,22 +141,20 @@ def main():
             trial_id = i['trial_id']
             logger.log_info(f"@ trial {trial_id}")
 
-            input_trial = trials.get(ids=[trial_id])['documents'][0]
+            actual = i['output']
+            input_trial = i['document']
 
             if n_examples == 0:
                 response = llm_chain({'trial': input_trial})
             else:
-                similar_trials = db.get(ids=["NCT03383575"])
-                similar_doc = similar_trials['documents'][0]
-                example_output = similar_trials['metadatas'][0]['output']
-
-                example = f"""{similar_doc}\nexample JSON:{example_output}"""
+                example_id = "NCT03383575"
+                example_doc, example_output = find_trial(example_id, train_set['ids'])
+                example = f"""{example_doc}\nexample JSON:{example_output}"""
                 if n_examples == 2:
-                    similar_trials = db.get(ids=["NCT05484622"])
-                    similar_doc = similar_trials['documents'][0]
-                    example_output = similar_trials['metadatas'][0]['output']
+                    example_id = "NCT05484622"
+                    example_doc, example_output = find_trial(example_id, train_set['ids'])
+                    example_2 = f"""{example_doc}\nJSON:{example_output}"""
 
-                    example_2 = f"""{similar_doc}\nJSON:{example_output}"""
                     response = llm_chain({'trial': input_trial, 'example': example, 'example2': example_2})
                 else:
                     response = llm_chain({'trial': input_trial, 'example': example})
@@ -178,10 +162,22 @@ def main():
                 response['text']
             except Exception as e:
                 logger.log_error(f"Trial {trial_id} Failed to generate text output: {e}")
+            try:
+                response_parsed = loads_json(response['text'])
+            except TypeError as e:
+                logger.log_error(f"Trial {trial_id} Failed to parse text output: {e}")
+                failed_prediction.append(response)
+                if actual == {'inclusion_biomarker': [], 'exclusion_biomarker': []}:
+                    evals_dnf_inclusion = evals_dnf_exclusion = evals_extract_incl = evals_extract_exl = (0,0,1,0)
+                else:
+                    response = {'inclusion_biomarker': [], 'exclusion_biomarker': []}
+                    evals_dnf_inclusion, evals_dnf_exclusion, evals_extract_incl, evals_extract_exl = compute_evals(response, actual)
+                save_eval(tp_inc_dnf, tn_inc_dnf, fp_inc_dnf, fn_inc_dnf, evals_dnf_inclusion)
+                save_eval(tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf, evals_dnf_exclusion)
+                save_eval(tp_inc, tn_inc, fp_inc, fn_inc, evals_extract_incl)
+                save_eval(tp_ex, tn_ex, fp_ex, fn_ex, evals_extract_exl)
                 continue
 
-            response_parsed = loads_json(response['text'])
-            actual = actual_output(i)
             predicted_list.append(response_parsed)
             actual_list.append(actual)
 
@@ -212,8 +208,11 @@ def main():
     results = {
         "prompt": prompt_template.template,
         "Model": model,
+        "correct_size": len(predicted_list),
+        "failed_size": len(failed_prediction),
         "Precited": predicted_list,
         "Actual": actual_list,
+        "Failed": failed_prediction,
         "tp_inclusion": tp_inc,
         "fp_inclusion": fp_inc,
         "tn_inclusion": tn_inc,

@@ -11,16 +11,12 @@ def dump_json(data, file_path):
     try:
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=4)
-        return data
     except TypeError as e:
         print(f"Unable to serialize the object: {e}")
 
 
 def loads_json(json_str):
-    try:
-        return json.loads(json_str)
-    except TypeError as e:
-        print(f"Unable to load JSON from string: {e}")
+    return json.loads(json_str)
 
 
 def flatten_lists_in_dict(input_dict):

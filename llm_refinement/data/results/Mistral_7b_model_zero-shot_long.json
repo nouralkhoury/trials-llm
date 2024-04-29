@@ -1,19 +1,27 @@
 {
     "results": [
         {
-            "Model": "gpt-3.5-turbo",
+            "prompt": "<|im_start|>system\nYou are a helpful assistant that extracts only genomic biomarkers from the supplied clinical trial data and responds in JSON format. Here's the json schema you must adhere to:<schema>{\"inclusion_biomarker\": [[]], \"exclusion_biomarker\": [[]]}</schema>\nIn this context, limit the extraction of genomic biomarkers to the following categories: gene alteration (mutation, fusion, rearrangement, copy number alteration, deletion, insertion, translocation), pathway alterations, gene expression, protein expression, pathway expression, HLA, TMB (tumor molecular burden, TMB-H or TMB-L), MSI (microsatellite instability, MSI-H, MSI-L, MSS, microsatellite stable) status, gene pathway alteration like dMMR (deficient Mismatch Repair Pathway) or pMMR (proficient Mismatch Repair), and protein status (HER2, ER, PgR, PD-L1).\n\nDo not extract non-genomic biomarkers, which refer to any indicators not directly related to genetic or genomic information. Ignore information such as age, medical conditions, potential pregnancy, disease stage, allergies, treatment history, drugs, therapies, treatment, histology, and tumor cancer types, diseases, HIV, infections, and more. Also, ignore information about levels, scores, doses, expression ratios, and illnesses. Do not consider biomarkers related to model experimental animals, historical data, or previous studies.\n\nPreserve logical connections (AND, OR) between genomic biomarkers. Group 'AND'-linked genomic biomarkers in the same list, and place 'OR'-linked genomic biomarkers in separate lists. Treat main bullets in \"Inclusion Criteria\" as AND logic, and \"Exclusion Criteria\" as OR logic, unless specified otherwise. Handle ambiguous logic in the sentence as OR.\n\nEnsure each genomic biomarker is a string with the gene name preceding the variant. Remove the words \"gene\", \"allele\", \"status\", and \"mutation\" (when a specific variant is given). Make the variant singular and noun-based. Replace \"mutant\" with \"mutation\". Include a space between the gene name, its variant if they are connected. Include a space between the hormone name and its status if they are connected. Replace \"positive expression\" with \"expression\" and symbols \"-\" and \"+\" with \"negative\" and \"positive\" respectively, except in MSI status or known fusions separated by \"-\". Add \"germline\" or \"somatic\" terms in parentheses at the end of the corresponding biomarker. Ignore biomarkers mentioned as \"exceptions\" or after \"other than\". Handle synonyms in parentheses by extracting the genomic biomarker but ignoring the synonym. Extract each genomic biomarker once. Expand the genomic biomarkers when needed.\n\nTo summarize, extract only genomic biomarkers from the supplied clinical trial data, focusing on the categories mentioned above. Ignore any non-genomic biomarkers and unrelated information such as age, medical conditions, treatment history, cancer, drugs, therapies, histology, levels and scores. If no genomic biomarkers are found, return empty lists in JSON. Do not make assumptions or add biomarkers. Do not add any biomarkers that are not explicitly mentioned in the input, and do not make assumptions about potential genomic biomarkers. Ensure output list contains only lists of strings when there exist genomic biomarkers in the input, following this example: {\"inclusion_biomarker\": [[\"GeneA variantA\"], [\"GeneX variantY]], \"exclusion_biomarker\": []}. Do not \\escape. Do not repeat a genomic biomarker.<|im_end|>\n<|im_start|>user\nExtract the genomic biomarker from the clinical trial below. Just generate the JSON object without explanation.sample inserted here\n<|im_end|>\n<|im_start|>assistant",
+            "predicted_size": 49,
+            "Model": "NousResearch/Hermes-2-Pro-Mistral-7B",
             "Precited": [
                 {
-                    "inclusion_biomarker": [
-                        [
-                            "BTK alteration",
-                            "FL alteration",
-                            "MZL alteration",
-                            "MCL alteration",
-                            "CLL/SLL alteration"
-                        ]
-                    ],
-                    "exclusion_biomarker": []
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": [
+                        "Pregnant or breast-feeding or intending to become pregnant during the study.",
+                        "Known allergies to Orelabrutinib (ICP-022) or its excipients or infection with HIV.",
+                        "Treatment with any chemotherapeutic agent, or any other investigational therapies within 4 weeks prior to first dose of the study drug.",
+                        "Any external beam radiation therapy within 6 weeks prior to the first dose of the study drug.",
+                        "Concurrent use of warfarin or other vitamin K antagonists or anticoagulation therapies or strong CYP3A inhibitor.",
+                        "Active uncontrolled infections.",
+                        "Recent infection requiring IV anti-infective treatment that was completed \u2264 14 days before the first dose of study drug.",
+                        "Unresolved toxicities from prior anti-cancer therapy.",
+                        "Medically apparent CNS lymphoma or leptomeningeal disease.",
+                        "Current or previous history of CNS disease.",
+                        "Major surgery or significant traumatic injury < 28 days prior to the first dose of the study drug.",
+                        "Patients with another invasive malignancy in the last 2 years.",
+                        "Significant cardiovascular disease or active pulmonary disease."
+                    ]
                 },
                 {
                     "inclusion_biomarker": [
@@ -35,107 +43,17 @@
                     "exclusion_biomarker": []
                 },
                 {
-                    "inclusion_biomarker": [
-                        [
-                            "DLBCL",
-                            "Relapsed and refractory"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "Bone marrow involvement",
-                            "Lymphoma cells \u2265 25%",
-                            "Severe abnormal liver function",
-                            "Severe abnormal kidney function",
-                            "Uncontrolled active infections",
-                            "Organic heart disease",
-                            "Clinical symptoms or abnormal heart function",
-                            "Simultaneous presence of other tumors",
-                            "Other psychological conditions"
-                        ]
-                    ]
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": []
                 },
                 {
-                    "inclusion_biomarker": [
-                        [
-                            "Tumor tissue freshly cryopreserved during surgery"
-                        ],
-                        [
-                            "PBMC"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "Immunosuppressive agents"
-                        ],
-                        [
-                            "Other malignancies"
-                        ],
-                        [
-                            "Severe allergy or allergic constitution"
-                        ],
-                        [
-                            "Splenectomy"
-                        ],
-                        [
-                            "Primary or secondary immunodeficiency diseases"
-                        ],
-                        [
-                            "Autoimmune diseases"
-                        ],
-                        [
-                            "Multiple oral, intramuscular, or intravenous corticosteroids"
-                        ],
-                        [
-                            "Uncontrolled seizures",
-                            "central nervous system disorders",
-                            "psychotic loss of cognition"
-                        ],
-                        [
-                            "Uncontrolled central nervous system metastases"
-                        ],
-                        [
-                            "Chronic alcohol or drug abuse"
-                        ],
-                        [
-                            "Unstable systemic disease"
-                        ]
-                    ]
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
                         [
                             "BRAF mutation"
-                        ],
-                        [
-                            "PD-1/PD-L1 inhibitor"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "Autoimmune disease"
-                        ],
-                        [
-                            "CNS metastases"
-                        ],
-                        [
-                            "Major medical illnesses"
-                        ],
-                        [
-                            "Underlying medical condition"
-                        ],
-                        [
-                            "Planned major surgery"
-                        ],
-                        [
-                            "Invasive malignancy"
-                        ]
-                    ]
-                },
-                {
-                    "inclusion_biomarker": [
-                        [
-                            "CD30 expression"
                         ]
                     ],
                     "exclusion_biomarker": []
@@ -143,81 +61,29 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "CD19 alteration"
+                            "CD30 positive"
                         ],
                         [
-                            "DLBCL alteration"
-                        ],
-                        [
-                            "PMLBCL alteration"
-                        ],
-                        [
-                            "TFL alteration"
-                        ],
-                        [
-                            "HGBCL alteration"
-                        ],
-                        [
-                            "Follicular Lymphoma alteration"
+                            "CD30 expression"
                         ]
                     ],
+                    "exclusion_biomarker": []
+                },
+                {
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": []
+                },
+                {
+                    "inclusion_biomarker": [],
                     "exclusion_biomarker": [
-                        [
-                            "Common variable immunodeficiency alteration",
-                            "inherited systemic immunodeficiency syndrome alteration"
-                        ],
-                        [
-                            "Severe allergy to PCV7 alteration",
-                            "PCV13 alteration",
-                            "diphtheria-toxoid containing vaccine alteration"
-                        ],
-                        [
-                            "Psychiatric illness alteration"
-                        ],
-                        [
-                            "Active infections alteration"
-                        ],
-                        [
-                            "Platelet count <10,000 cells/microliter alteration"
-                        ],
-                        [
-                            "Lymphocyte count <200 cells/microliter alteration"
-                        ],
-                        [
-                            "IVIG administration within one month of planned apheresis alteration"
-                        ],
-                        [
-                            "PCV13 administration within one month of planned apheresis alteration"
-                        ]
+                        "- Patients are not eligible for SIRT if they had any extrahepatic disease;"
                     ]
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "HCC"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "extrahepatic disease",
-                            "vascular abnormalities",
-                            "bleeding diathesis",
-                            "allergy to contrast dye",
-                            "concurrent malignancy",
-                            "refractory ascites",
-                            "previous external beam radiation",
-                            "uncorrectable flow to the gastrointestinal tract",
-                            "greater than 30 Gy of radiation",
-                            "lung",
-                            "angiography",
-                            "Tc-99 microaggregated albumin scan",
-                            "shunt fraction"
-                        ]
-                    ]
-                },
-                {
-                    "inclusion_biomarker": [
-                        [
+                            "HR positive",
+                            "HER2 negative",
                             "PIK3CA mutation"
                         ]
                     ],
@@ -226,139 +92,53 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "PD-1",
-                            "LAG-3"
-                        ],
-                        [
-                            "Fresh biopsies"
-                        ],
-                        [
-                            "Women of childbearing potential"
-                        ],
-                        [
-                            "Male participants"
-                        ],
-                        [
-                            "Melanoma",
-                            "Stage IV melanoma"
-                        ],
-                        [
-                            "Non-Small Cell Lung Cancer"
-                        ],
-                        [
-                            "Esophageal Squamous Cell Carcinoma",
-                            "Histologically confirmed",
-                            "Major lesion histologically confirmed",
-                            "Squamous cell carcinoma",
-                            "Adenosquamous cell carcinoma"
-                        ],
-                        [
-                            "Unresectable stage III"
-                        ],
-                        [
-                            "Not more than 2 prior lines of treatment for metastatic disease",
-                            "Not more than 1 prior line of treatment for metastatic disease"
-                        ],
-                        [
-                            "Approved anti-PD-1 or anti-PD-L1 agent",
-                            "Approved PD-L1/PD-1 inhibitors"
-                        ],
-                        [
-                            "Previously Received Treatment for Metastatic Disease",
-                            "Previously did not Receive Treatment for Metastatic Disease"
-                        ],
-                        [
-                            "Tumor PD-L1 expression"
+                            "PD-L1 expression"
                         ]
                     ],
                     "exclusion_biomarker": [
                         [
-                            "Known hypersensitivity to any of the components of RO7247669"
+                            "EGFR mutation"
                         ],
                         [
-                            "Active or untreated central nervous system (CNS) metastases"
+                            "EGFR rearrangement"
                         ],
                         [
-                            "An active second malignancy"
+                            "EGFR translocation"
                         ],
                         [
-                            "Evidence of concomitant diseases"
+                            "ALK mutation"
                         ],
                         [
-                            "Metabolic dysfunction"
+                            "ALK rearrangement"
                         ],
                         [
-                            "Physical examination finding"
+                            "ALK translocation"
                         ],
                         [
-                            "Clinical laboratory finding"
+                            "ROS1 mutation"
                         ],
                         [
-                            "Positive HIV"
+                            "ROS1 rearrangement"
                         ],
                         [
-                            "Known active or uncontrolled bacterial",
-                            "Viral",
-                            "Fungal",
-                            "Mycobacterial",
-                            "Parasitic",
-                            "Other infection"
+                            "ROS1 translocation"
                         ],
                         [
-                            "Vaccination with live vaccines within 28 days prior to Cycle 1 Day 1"
+                            "BRAF V600E"
                         ],
                         [
-                            "Treatment with oral or IV antibiotics within 2 weeks prior to Cycle 1 Day 1"
+                            "NTRK mutation"
                         ],
                         [
-                            "Active or history of autoimmune disease"
+                            "NTRK rearrangement"
                         ],
                         [
-                            "Immune deficiency"
-                        ],
-                        [
-                            "Prior treatment with adoptive cell therapies"
-                        ],
-                        [
-                            "Concurrent therapy with any other investigational drug"
-                        ],
-                        [
-                            "Regular immunosuppressive therapy"
-                        ],
-                        [
-                            "Radiotherapy within the last 4 weeks before start of study drug treatment"
-                        ],
-                        [
-                            "Prior treatment with a lymphocyte activation gene-3 (LAG-3) inhibitor"
-                        ],
-                        [
-                            "EGFR",
-                            "ALK",
-                            "ROS1",
-                            "BRAFV600E",
-                            "NTRK"
-                        ],
-                        [
-                            "Esophageal Squamous Cell Carcinoma"
-                        ],
-                        [
-                            "Prior therapy with any immunomodulatory agents",
-                            "Neo-adjuvant anti-PD-1 or anti-PD-L1 therapy"
-                        ],
-                        [
-                            "Prior therapy for metastatic disease"
+                            "NTRK translocation"
                         ]
                     ]
                 },
                 {
-                    "inclusion_biomarker": [
-                        [
-                            "B-ALL"
-                        ],
-                        [
-                            "T-ALL"
-                        ]
-                    ],
+                    "inclusion_biomarker": [],
                     "exclusion_biomarker": []
                 },
                 {
@@ -436,7 +216,7 @@
                     ],
                     "exclusion_biomarker": [
                         [
-                            "Previous or current treatment with selective RET inhibitors"
+                            "Primary driver alteration"
                         ]
                     ]
                 },
@@ -446,17 +226,19 @@
                             "MTAP homozygous deletion"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "PRMT5 inhibitor therapy"
-                        ],
-                        [
-                            "MAT2A inhibitor therapy"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
+                        [
+                            "FGFR1 fusion"
+                        ],
+                        [
+                            "FGFR2 fusion"
+                        ],
+                        [
+                            "FGFR3 fusion"
+                        ],
                         [
                             "FGFR1 P150S"
                         ],
@@ -603,60 +385,30 @@
                         ],
                         [
                             "FGFR3 K650N"
+                        ],
+                        [
+                            "FGFR1 activating mutation"
+                        ],
+                        [
+                            "FGFR2 activating mutation"
+                        ],
+                        [
+                            "FGFR3 activating mutation"
+                        ],
+                        [
+                            "FGFR1 amplification"
+                        ],
+                        [
+                            "FGFR2 amplification"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "Brain metastases"
-                        ],
-                        [
-                            "Subdural metastases"
-                        ],
-                        [
-                            "Leptomeningeal metastases"
-                        ],
-                        [
-                            "Primary CNS tumor in cerebellum"
-                        ],
-                        [
-                            "Primary CNS tumor in brainstem"
-                        ],
-                        [
-                            "Primary CNS tumor in spinal cord"
-                        ],
-                        [
-                            "Primary CNS tumor in pituitary gland"
-                        ],
-                        [
-                            "Primary CNS tumor in optic nerve"
-                        ],
-                        [
-                            "Primary CNS tumor in olfactory nerve"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
                         [
                             "KK-LC-1 expression",
-                            "HLA-A*01:01",
-                            "Tumor cells positive for KK-LC-1 expression"
-                        ],
-                        [
-                            "Leukocytes > 3,000/mcL",
-                            "Absolute neutrophil count > 1,500/mcL",
-                            "Platelets > 100,000/mcL",
-                            "Hemoglobin > 9.0 g/dL",
-                            "Total bilirubin within normal institutional limits",
-                            "Serum AST (SGOT)/ALT (SGPT) < 2.5 x ULN",
-                            "Calculated creatinine clearance (CrCl) >50 mL/min/1.73 m2",
-                            "INR or a PTT \u22641.5 X ULN"
-                        ],
-                        [
-                            "Serology: HIV antibody negative",
-                            "Hepatitis B antigen negative",
-                            "Hepatitis C antibody negative",
-                            "HCV RNC negative"
+                            "HLA-A*01:01"
                         ]
                     ],
                     "exclusion_biomarker": []
@@ -664,41 +416,58 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "HR positive expression",
-                            "HER2 negative expression"
+                            "HR positive",
+                            "HER2 negative"
                         ],
                         [
-                            "HER2 positive expression"
-                        ],
-                        [
-                            "TNBC expression"
+                            "HER2 positive"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "Central nervous system metastasis"
-                        ],
-                        [
-                            "More than two chemotherapy regimens for metastatic breast cancer"
-                        ],
-                        [
-                            "Allergic history to the components of this regimen"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "PALB2 mutation (pathogenic or likely pathogenic)"
+                            "PALB2 mutation"
                         ]
                     ],
                     "exclusion_biomarker": [
                         [
-                            "ovarian cancer"
+                            "PALB2 variants of undetermined significance"
                         ],
                         [
-                            "prostate cancer"
+                            "BRCA1 mutation (germline)"
+                        ],
+                        [
+                            "BRCA1 mutation (somatic)"
+                        ],
+                        [
+                            "BRCA2 mutation (germline)"
+                        ],
+                        [
+                            "BRCA2 mutation (somatic)"
                         ]
+                    ]
+                },
+                {
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": [
+                        "history (<=3 years) of cancer that is histologically distinct from the cancer under study",
+                        "known serious allergy to investigational drug or excipients",
+                        "active brain or spinal metastases",
+                        "history of pericarditis or grade >=2 pericardial effusion",
+                        "history of interstitial lung disease",
+                        "history of grade >=2 active infections within 2 weeks",
+                        "known human immunodeficiency virus (hiv)",
+                        "seropositive for hepatitis b virus (hbv)",
+                        "seropositive for hepatitis c virus (hcv), or hcv-rna viral levels are not detectable",
+                        "any severe and/or uncontrolled medical conditions",
+                        "history of myocardial infarction, unstable angina pectoris, coronary artery bypass graft, or cerebrovascular accident",
+                        "impaired cardiac function or clinically significant cardiac diseases",
+                        "qtcf >470 msec at screening",
+                        "history of medically significant thromboembolic events or bleeding diathesis",
+                        "history of malignant biliary obstruction",
+                        "pregnant or breast-feeding"
                     ]
                 },
                 {
@@ -706,43 +475,36 @@
                     "exclusion_biomarker": []
                 },
                 {
-                    "inclusion_biomarker": [],
-                    "exclusion_biomarker": []
-                },
-                {
                     "inclusion_biomarker": [
                         [
-                            "EGFR L858R",
-                            "mutation"
+                            "EGFR mutation"
                         ],
-                        [
-                            "EGFR exon 19 deletion",
-                            "mutation"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "T790M",
-                            "positive",
-                            "(somatic)"
-                        ],
-                        [
-                            "T790M",
-                            "positive",
-                            "(germline)"
-                        ]
-                    ]
-                },
-                {
-                    "inclusion_biomarker": [
                         [
                             "EGFR L858R"
+                        ],
+                        [
+                            "EGFR exon 19 deletion"
+                        ]
+                    ],
+                    "exclusion_biomarker": [
+                        [
+                            "EGFR T790M"
+                        ],
+                        [
+                            "EGFR T790M (germline)"
+                        ]
+                    ]
+                },
+                {
+                    "inclusion_biomarker": [
+                        [
+                            "EGFR p.L858R"
                         ],
                         [
                             "EGFR del19"
                         ],
                         [
-                            "EGFR T790M"
+                            "EGFR p.T790M"
                         ]
                     ],
                     "exclusion_biomarker": [
@@ -750,67 +512,49 @@
                             "MET amplification"
                         ],
                         [
-                            "EGFR mutations other than EGFR del19, p.L858R or p.T790M"
+                            "EGFR mutation"
                         ]
                     ]
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "CD19 expression"
+                            "CD19 positive"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "Hepatitis B positive status"
-                        ],
-                        [
-                            "Hepatitis C positive status"
-                        ],
-                        [
-                            "HIV positive status"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "HER2 amplification"
+                            "HER2 mutation"
                         ],
                         [
-                            "HER2 P287T",
-                            "HER2 P287T",
-                            "HER2 P287T",
-                            "HER2 L755A",
-                            "HER2 L755S",
-                            "HER2 V777L",
-                            "HER2 V659E",
+                            "HER2 exon 20 insYVMA"
+                        ],
+                        [
+                            "HER2 exon 20 insGSP"
+                        ],
+                        [
+                            "HER2 exon 20 insTGT"
+                        ],
+                        [
+                            "HER2 L755A"
+                        ],
+                        [
+                            "HER2 L755S"
+                        ],
+                        [
+                            "HER2 V777L"
+                        ],
+                        [
+                            "HER2 V659E"
+                        ],
+                        [
                             "HER2 S310F"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "Prior therapy resulting in cumulative epirubicin dose \u2265 900mg/m2 or cumulative doxorubicin dose \u2265 500mg/m2 or equivalent dose of another anthracycline"
-                        ],
-                        [
-                            "Symptomatic congestive heart failure (New York Heart Association Classification II-IV)"
-                        ],
-                        [
-                            "Myocardial infarction or unstable angina within 6 months of enrollment"
-                        ],
-                        [
-                            "Unstable ventricular arrhythmia requiring treatment"
-                        ],
-                        [
-                            "Grade 3 or worse peripheral neuropathy as defined by CTCAE v4.1"
-                        ],
-                        [
-                            "Known hypersensitivity to any component of ado-trastuzumab emtansine"
-                        ],
-                        [
-                            "History of interstitial lung disease or pneumonitis"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [],
@@ -819,25 +563,13 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "PDGFRA D842V mutation"
+                            "PDGFRA exon 18 mutation"
                         ],
                         [
-                            "Tolerate therapy with a TKI"
+                            "PDGFRA D842V"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "Total bilirubin > 2 \u00d7 ULN",
-                            "Total bilirubin > 3 \u00d7 ULN (Gilbert's Disease)"
-                        ],
-                        [
-                            "Platelet count < 75 \u00d7 10^9/L"
-                        ],
-                        [
-                            "Strong inhibitor of cytochrome P450 3A4",
-                            "Strong inducer of cytochrome P450 3A4"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
@@ -848,24 +580,38 @@
                     "exclusion_biomarker": []
                 },
                 {
-                    "inclusion_biomarker": [
-                        [
-                            "JAK2 V617 mutation"
-                        ],
-                        [
-                            "FLT3 kinase"
-                        ]
-                    ],
+                    "inclusion_biomarker": [],
                     "exclusion_biomarker": [
-                        [
-                            "CDK4"
-                        ],
-                        [
-                            "LCK"
-                        ],
-                        [
-                            "LN"
-                        ]
+                        "germline TMB-H",
+                        "germline TMB-L",
+                        "germline MSI-H",
+                        "germline MSI-L",
+                        "germline MSS",
+                        "germline HLA",
+                        "germline PD-L1 positive",
+                        "germline HER2 positive",
+                        "germline ER positive",
+                        "germline PgR positive",
+                        "germline deficient Mismatch Repair Pathway",
+                        "germline proficient Mismatch Repair",
+                        "germline somatic TMB-H",
+                        "germline somatic TMB-L",
+                        "germline somatic MSI-H",
+                        "germline somatic MSI-L",
+                        "germline somatic MSS",
+                        "germline somatic HLA",
+                        "germline somatic PD-L1 positive",
+                        "germline somatic HER2 positive",
+                        "germline somatic ER positive",
+                        "germline somatic PgR positive",
+                        "germline somatic deficient Mismatch Repair Pathway",
+                        "germline somatic proficient Mismatch Repair"
+                    ]
+                },
+                {
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": [
+                        "JAK2V617F"
                     ]
                 },
                 {
@@ -873,109 +619,27 @@
                         [
                             "inv(16)(p13.1q22)",
                             "t(16;16)(p13.1;q22)",
-                            "CBFB-MYH11"
-                        ],
-                        [
+                            "CBFB-MYH11",
                             "t(8;21)(q22;q22.1)",
-                            "RUNX1-RUNX1T1"
-                        ],
-                        [
-                            "FLT3",
-                            "NPM1",
-                            "CEBPa"
-                        ],
-                        [
-                            "myelodysplasia-related changes"
+                            "RUNX1-RUNX1T1",
+                            "FLT3 mutation",
+                            "NPM1 mutation",
+                            "CEBPa mutation"
                         ]
                     ],
                     "exclusion_biomarker": [
                         [
-                            "acute promyelocytic leukemia",
-                            "blast crisis of chronic myeloid leukemia",
-                            "de novo AML with t(9;22)",
-                            "AML transformed from MDS or MPN after treatment",
-                            "Blastoid plasmacytoid dendritic cell neoplasia",
-                            "Undifferentiated acute leukemia"
+                            "t(9;22)"
                         ]
                     ]
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "Philadelphia chromosome (Ph) positive",
-                            "BCR-ABL positive"
-                        ],
-                        [
-                            "Clonal evolution"
+                            "ALK positive"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "New York Heart Association (NYHA) cardiac class 3-4 heart disease",
-                            "uncontrolled angina within 3 months",
-                            "diagnosed or suspected congenital long QT syndrome",
-                            "any history of clinically significant ventricular arrhythmias",
-                            "prolonged corrected QT (QTc) interval on pre-entry electrocardiogram (> 460 msec)",
-                            "history of significant bleeding disorder unrelated to cancer",
-                            "active, uncontrolled psychiatric disorders",
-                            "known to be positive for human immunodeficiency virus (HIV)",
-                            "uncontrolled and/or active systemic infection",
-                            "chronic hepatitis B virus (HBV) or hepatitis C (HCV) requiring treatment",
-                            "women of pregnancy potential",
-                            "patients in late chronic phase",
-                            "accelerated phase CML",
-                            "blastic phase",
-                            "accelerated phase CML features"
-                        ]
-                    ]
-                },
-                {
-                    "inclusion_biomarker": [
-                        [
-                            "ALK alteration positive"
-                        ],
-                        [
-                            "ALK inhibitor pre-treated",
-                            "ALK inhibitor naive"
-                        ],
-                        [
-                            "Progression of disease",
-                            "Intolerant to prior therapy"
-                        ],
-                        [
-                            "Performance status (WHO) 0-2"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "History of pancreatitis",
-                            "Increased amylase",
-                            "Increased lipase"
-                        ],
-                        [
-                            "Thoracic radiotherapy \u22644 weeks prior",
-                            "Not recovered from radiotherapy-related toxicities"
-                        ],
-                        [
-                            "Interstitial lung disease",
-                            "Interstitial pneumonitis"
-                        ],
-                        [
-                            "Hypersensitivity to LDK378 excipients"
-                        ],
-                        [
-                            "Impaired GI function",
-                            "GI disease affecting absorption"
-                        ],
-                        [
-                            "Participating in other ongoing trials",
-                            "ALK inhibitors trials",
-                            "Compassionate use programs"
-                        ],
-                        [
-                            "Receiving medications that cannot be discontinued before treatment"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
@@ -983,9 +647,15 @@
                             "EGFR mutation"
                         ],
                         [
-                            "EGFR C797S",
-                            "EGFR T790M",
-                            "EGFR 19 deletion",
+                            "EGFR C797S"
+                        ],
+                        [
+                            "EGFR T790M"
+                        ],
+                        [
+                            "EGFR 19del"
+                        ],
+                        [
                             "EGFR 21L858R"
                         ]
                     ],
@@ -994,24 +664,19 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "MSI-H",
-                            "mismatch repair deficient cancer"
+                            "microsatellite instability-high"
                         ],
                         [
-                            "HER2",
-                            "breast cancer"
+                            "mismatch repair deficient"
                         ],
                         [
-                            "HER2",
-                            "gastric cancer"
+                            "HER2 positive"
                         ],
                         [
-                            "HER2",
-                            "solid tumor"
+                            "KRAS mutation"
                         ],
                         [
-                            "CRC",
-                            "KRAS/NRAS mutation"
+                            "NRAS mutation"
                         ]
                     ],
                     "exclusion_biomarker": []
@@ -1025,111 +690,70 @@
                             "PTEN loss"
                         ]
                     ],
+                    "exclusion_biomarker": []
+                },
+                {
+                    "inclusion_biomarker": [
+                        [
+                            "Philadelphia chromosome of t (9;22) translocation"
+                        ],
+                        [
+                            "BCR-ABL1 P210"
+                        ]
+                    ],
                     "exclusion_biomarker": [
                         [
-                            "Type I diabetes"
+                            "ABL T315I"
                         ],
                         [
-                            "Uncontrolled Type II diabetes mellitus (HbA1c > 7.5%)"
+                            "ABL Y253F"
                         ],
                         [
-                            "Type II diabetes requiring treatment with a sulfonylurea, meglitinide, or insulin"
+                            "ABL Y253H"
                         ],
                         [
-                            "Uncontrolled hypertension, i.e., blood pressure (BP) of \u2265 150/90"
+                            "ABL E255K"
                         ],
                         [
-                            "Uncontrolled moderate to severe hypertriglyceridemia (TG > 300 mg/dL)"
+                            "ABL E255V"
                         ],
                         [
-                            "Known selenium deficiency"
+                            "ABL F359C"
+                        ],
+                        [
+                            "ABL F359V"
+                        ],
+                        [
+                            "ABL F359I"
                         ]
                     ]
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "ABL kinase region mutation"
+                            "KRAS p.G12A"
                         ],
                         [
-                            "F317L mutation",
-                            "F317V mutation",
-                            "F317I mutation",
-                            "F317C mutation"
+                            "KRAS p.G12D"
                         ],
                         [
-                            "V299L mutation"
+                            "KRAS p.G12R"
                         ],
                         [
-                            "Philadelphia chromosome t(9;22) translocation"
+                            "KRAS p.G12S"
                         ],
                         [
-                            "P210 BCR-ABL1 transcript"
+                            "KRAS p.G12V"
                         ]
                     ],
                     "exclusion_biomarker": [
                         [
-                            "T315I mutation"
-                        ],
-                        [
-                            "Y253F mutation",
-                            "Y253H mutation"
-                        ],
-                        [
-                            "E255K mutation",
-                            "E255V mutation"
-                        ],
-                        [
-                            "F359C mutation",
-                            "F359V mutation",
-                            "F359I mutation"
+                            "KRAS p.G12C"
                         ]
                     ]
                 },
                 {
-                    "inclusion_biomarker": [
-                        [
-                            "KRAS G12A"
-                        ],
-                        [
-                            "KRAS G12D"
-                        ],
-                        [
-                            "KRAS G12R"
-                        ],
-                        [
-                            "KRAS G12S"
-                        ],
-                        [
-                            "KRAS G12V"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "KRAS G12C"
-                        ]
-                    ]
-                },
-                {
-                    "inclusion_biomarker": [
-                        [
-                            "NF1 alteration (mutation, fusion, rearrangement, copy number alteration, deletion, insertion, translocation)",
-                            "NF1 expression"
-                        ],
-                        [
-                            "Glioma pathway alteration",
-                            "Glioma expression"
-                        ],
-                        [
-                            "HLA status"
-                        ],
-                        [
-                            "Tumor molecular burden (TMB-H or TMB-L)"
-                        ],
-                        [
-                            "MSI status (MSI, MSI-H, MSI-L, MSS, microsatellite stable)"
-                        ]
-                    ],
+                    "inclusion_biomarker": [],
                     "exclusion_biomarker": []
                 },
                 {
@@ -1139,154 +763,217 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "KRAS G12C mutation"
+                            "KRAS G12C"
+                        ]
+                    ],
+                    "exclusion_biomarker": []
+                },
+                {
+                    "inclusion_biomarker": [
+                        [
+                            "EGFR activating mutation"
                         ],
                         [
-                            "Pathway alteration (RAS, MAPK, SOS1)"
+                            "EGFR uncommon mutation"
+                        ],
+                        [
+                            "EGFR exon 18 mutation"
+                        ],
+                        [
+                            "EGFR exon 19 mutation"
+                        ],
+                        [
+                            "EGFR exon 20 mutation"
+                        ],
+                        [
+                            "EGFR exon 21 mutation"
+                        ],
+                        [
+                            "EGFR G719A"
+                        ],
+                        [
+                            "EGFR G719C"
+                        ],
+                        [
+                            "EGFR G719S"
+                        ],
+                        [
+                            "EGFR G719D"
+                        ],
+                        [
+                            "EGFR G719E"
+                        ],
+                        [
+                            "EGFR 18del"
+                        ],
+                        [
+                            "EGFR E709G"
+                        ],
+                        [
+                            "EGFR E709M"
+                        ],
+                        [
+                            "EGFR E709V"
+                        ],
+                        [
+                            "EGFR E709H"
+                        ],
+                        [
+                            "EGFR E709DA"
+                        ],
+                        [
+                            "EGFR E709DK"
+                        ],
+                        [
+                            "EGFR V689M"
+                        ],
+                        [
+                            "EGFR S720P"
+                        ],
+                        [
+                            "EGFR S720F"
+                        ],
+                        [
+                            "EGFR P699S"
+                        ],
+                        [
+                            "EGFR N700D"
+                        ],
+                        [
+                            "EGFR E709Q"
+                        ],
+                        [
+                            "EGFR G721A"
+                        ],
+                        [
+                            "EGFR V740A"
+                        ],
+                        [
+                            "EGFR L718P"
+                        ],
+                        [
+                            "EGFR I744_K745insKIPVAI"
+                        ],
+                        [
+                            "EGFR K745_E746insIPVAIK"
+                        ],
+                        [
+                            "EGFR K745_E746insVPVAIK"
+                        ],
+                        [
+                            "EGFR K745_E746insTPVAIK"
+                        ],
+                        [
+                            "EGFR S768I"
+                        ],
+                        [
+                            "EGFR V765A"
+                        ],
+                        [
+                            "EGFR T783A"
+                        ],
+                        [
+                            "EGFR V774A"
+                        ],
+                        [
+                            "EGFR S784P"
+                        ],
+                        [
+                            "EGFR R776C"
+                        ],
+                        [
+                            "EGFR R776H"
+                        ],
+                        [
+                            "EGFR V765M"
+                        ],
+                        [
+                            "EGFR G779C"
+                        ],
+                        [
+                            "EGFR G779F"
+                        ],
+                        [
+                            "EGFR G779S"
+                        ],
+                        [
+                            "EGFR T783I"
+                        ],
+                        [
+                            "EGFR L798F"
+                        ],
+                        [
+                            "EGFR L798H"
+                        ],
+                        [
+                            "EGFR K806E"
+                        ],
+                        [
+                            "EGFR Q812R"
+                        ],
+                        [
+                            "EGFR L814P"
+                        ],
+                        [
+                            "EGFR L861Q"
+                        ],
+                        [
+                            "EGFR R831H"
+                        ],
+                        [
+                            "EGFR V834I"
+                        ],
+                        [
+                            "EGFR L838P"
+                        ],
+                        [
+                            "EGFR L861R"
+                        ],
+                        [
+                            "EGFR 18G719A+20S768I"
+                        ],
+                        [
+                            "EGFR 18 E709X+21L861Q"
                         ]
                     ],
                     "exclusion_biomarker": [
                         [
-                            "Previous anticancer chemotherapy"
+                            "EGFR 19del+21L861Q"
                         ],
                         [
-                            "Previous anticancer hormonal treatment"
+                            "EGFR 18G719X+21L858R"
                         ],
                         [
-                            "Previous treatment with RAS, MAPK, or SOS1 targeting agents"
+                            "EGFR exon 19 deletion"
                         ],
                         [
-                            "Radiotherapy within 2 weeks prior to start of treatment"
+                            "EGFR exon 21 L858R"
                         ],
                         [
-                            "Major surgery within 4 weeks prior to start of treatment"
+                            "EGFR 20 insertion"
                         ],
                         [
-                            "Previous treatment with investigational agents or targeted treatment"
+                            "EGFR exon 20 T790M"
                         ],
                         [
-                            "Hypersensitivity to BI 1823911 tablets"
+                            "EGFR L747S"
                         ],
                         [
-                            "Contraindication to Midazolam"
+                            "EGFR L747P"
                         ],
                         [
-                            "Cardiovascular abnormalities"
+                            "EGFR D761Y"
                         ],
                         [
-                            "Myocardial infarction within 6 months"
-                        ],
-                        [
-                            "Uncontrolled hypertension"
-                        ],
-                        [
-                            "Left ventricular ejection fraction <50%"
+                            "EGFR T854A"
                         ]
                     ]
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "EGFR activating mutations (exon 19 deletion, L858R mutation in exon 21, uncommon EGFR mutations)"
+                            "EGFR mutation"
                         ],
-                        [
-                            "EGFR mutations in exon 18: G719X",
-                            "EGFR mutations in exon 18: 18del",
-                            "EGFR mutations in exon 18: E709X",
-                            "EGFR mutations in exon 18: V689M",
-                            "EGFR mutations in exon 18: S720P",
-                            "EGFR mutations in exon 18: P699S",
-                            "EGFR mutations in exon 18: N700D",
-                            "EGFR mutations in exon 18: E709Q",
-                            "EGFR mutations in exon 18: G721A",
-                            "EGFR mutations in exon 18: V740A",
-                            "EGFR mutations in exon 18: L718P"
-                        ],
-                        [
-                            "EGFR mutations in exon 19: I744_K745insKIPVAI",
-                            "EGFR mutations in exon 19: K745_E746insIPVAIK",
-                            "EGFR mutations in exon 19: K745_E746insVPVAIK",
-                            "EGFR mutations in exon 19: K745_E746insTPVAIK"
-                        ],
-                        [
-                            "EGFR mutations in exon 20: S768I",
-                            "EGFR mutations in exon 20: V765A",
-                            "EGFR mutations in exon 20: T783A",
-                            "EGFR mutations in exon 20: V774A",
-                            "EGFR mutations in exon 20: S784P",
-                            "EGFR mutations in exon 20: R776C",
-                            "EGFR mutations in exon 20: R776H",
-                            "EGFR mutations in exon 20: V765M",
-                            "EGFR mutations in exon 20: G779C",
-                            "EGFR mutations in exon 20: G779F",
-                            "EGFR mutations in exon 20: G779S",
-                            "EGFR mutations in exon 20: T783A",
-                            "EGFR mutations in exon 20: T783I",
-                            "EGFR mutations in exon 20: L798F",
-                            "EGFR mutations in exon 20: L798H",
-                            "EGFR mutations in exon 20: K806E",
-                            "EGFR mutations in exon 20: Q812R",
-                            "EGFR mutations in exon 20: L814P"
-                        ],
-                        [
-                            "EGFR mutations in exon 21: L861Q",
-                            "EGFR mutations in exon 21: R831H",
-                            "EGFR mutations in exon 21: V834I",
-                            "EGFR mutations in exon 21: L838P",
-                            "EGFR mutations in exon 21: L861R"
-                        ],
-                        [
-                            "Complex EGFR mutations without drug-resistant pattern"
-                        ]
-                    ],
-                    "exclusion_biomarker": [
-                        [
-                            "Small cell lung cancer"
-                        ],
-                        [
-                            "Patients who have received EGFR-TKIs"
-                        ],
-                        [
-                            "EGFR mutations: 19del",
-                            "EGFR mutations: 21L858R",
-                            "EGFR mutations: 20 insertion",
-                            "EGFR mutations: 20T790M",
-                            "EGFR mutations: L747S",
-                            "EGFR mutations: L747P",
-                            "EGFR mutations: D761Y",
-                            "EGFR mutations: T854A"
-                        ],
-                        [
-                            "Factors affecting oral medication"
-                        ],
-                        [
-                            "Brain metastases"
-                        ],
-                        [
-                            "Severe and/or uncontrolled diseases"
-                        ],
-                        [
-                            "History of psychotropic drug abuse or mental disorders"
-                        ],
-                        [
-                            "Severe allergies to dacomitinib ingredients"
-                        ],
-                        [
-                            "Other malignant tumors"
-                        ],
-                        [
-                            "Inability or refusal to take effective contraceptive measures"
-                        ],
-                        [
-                            "Pregnant or breast-feeding women"
-                        ],
-                        [
-                            "Other situations deemed ineligible by the investigator"
-                        ]
-                    ]
-                },
-                {
-                    "inclusion_biomarker": [
                         [
                             "EGFR exon 19 deletion"
                         ],
@@ -1297,75 +984,31 @@
                             "EGFR L861Q"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "EGFR TKI"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "CD79B fusion"
+                            "cyclin D1 positive"
                         ],
                         [
-                            "Cyclin D1 expression"
-                        ],
-                        [
-                            "t(11;14) translocation"
+                            "t(11;14) positive"
                         ]
                     ],
                     "exclusion_biomarker": [
-                        [
-                            "CD20 negative status"
-                        ]
+                        "CD20 negative"
                     ]
                 },
                 {
                     "inclusion_biomarker": [],
                     "exclusion_biomarker": [
-                        [
-                            "ERK inhibitor AND PD"
-                        ],
-                        [
-                            "Central nervous system malignant tumor"
-                        ],
-                        [
-                            "CNS metastasis"
-                        ],
-                        [
-                            "Other malignant tumor within 2 years"
-                        ],
-                        [
-                            "Clinically significant liver disease"
-                        ],
-                        [
-                            "Hereditary long QT syndrome"
-                        ],
-                        [
-                            "QTcF>480 msec"
-                        ],
-                        [
-                            "Serious arrhythmia"
-                        ],
-                        [
-                            "Impaired cardiac function"
-                        ],
-                        [
-                            "Multiple factors affecting drug absorption"
-                        ],
-                        [
-                            "Retinopathy"
-                        ],
-                        [
-                            "Any other clinically significant abnormality"
-                        ]
+                        "patients with central nervous system (CNS) malignant tumor or malignant solid tumor with known central nervous system metastasis"
                     ]
                 },
                 {
                     "inclusion_biomarker": [
                         [
-                            "CD276 (B7-H3) expression"
+                            "CD276 expression"
                         ]
                     ],
                     "exclusion_biomarker": []
@@ -1373,10 +1016,8 @@
                 {
                     "inclusion_biomarker": [
                         [
-                            "KRAS G12V (mutation) (somatic)"
-                        ],
-                        [
-                            "HLA-DRB1*07:01"
+                            "KRAS G12V",
+                            "HLA class II match"
                         ]
                     ],
                     "exclusion_biomarker": []
@@ -1385,58 +1026,18 @@
                     "inclusion_biomarker": [
                         [
                             "EGFR expression"
-                        ],
-                        [
-                            "MSI-L"
                         ]
                     ],
-                    "exclusion_biomarker": [
-                        [
-                            "CNS metastases"
-                        ],
-                        [
-                            "Grade > 1 toxicity from previous radiotherapy"
-                        ],
-                        [
-                            "Cardiovascular disease"
-                        ],
-                        [
-                            "Severe/uncontrolled concurrent medical disease"
-                        ]
-                    ]
+                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [],
                     "exclusion_biomarker": [
-                        [
-                            "CNS metastasis",
-                            "hepatitis B",
-                            "hepatitis C",
-                            "HIV",
-                            "organ transplantation",
-                            "severe allergy",
-                            "clinical trial drugs",
-                            "major surgery",
-                            "minor surgical procedures",
-                            "high blood pressure",
-                            "active infection",
-                            "hemoptysis",
-                            "arterial thromboembolic events",
-                            "venous thrombosis",
-                            "bleeding disorders",
-                            "jaundice",
-                            "COPD",
-                            "abdominal hernia",
-                            "gastrointestinal perforation",
-                            "esophageal varices",
-                            "cardiovascular diseases",
-                            "gastrointestinal disorders",
-                            "hereditary nonpolyposis colorectal cancer",
-                            "intestinal perforation",
-                            "warfarin use",
-                            "platelet function inhibitors",
-                            "neurological dysfunction"
-                        ]
+                        "Patients with hereditary nonpolyposis colorectal cancer or familial adenomatous polyposis syndrome",
+                        "Subjects who are in use of warfarin, heparin, aspirin (>325 mg/day) or other drugs known to inhibit platelet function within 10 days prior to the first study treatment",
+                        "Subjects receiving dipyridamole, ticlopidine, clopidogrel or cilostazol treatment",
+                        "Subjects with a clear history of neurological or dysfunction, such as poor adherence to epilepsy",
+                        "Pregnant or nursing women"
                     ]
                 }
             ],
@@ -2030,6 +1631,10 @@
                     "exclusion_biomarker": []
                 },
                 {
+                    "inclusion_biomarker": [],
+                    "exclusion_biomarker": []
+                },
+                {
                     "inclusion_biomarker": [
                         [
                             "inv(16)(p13.1q22)"
@@ -2061,17 +1666,6 @@
                             "t(9;22)"
                         ]
                     ]
-                },
-                {
-                    "inclusion_biomarker": [
-                        [
-                            "Philadelphia chromosome positive"
-                        ],
-                        [
-                            "BCR-ABL positive"
-                        ]
-                    ],
-                    "exclusion_biomarker": []
                 },
                 {
                     "inclusion_biomarker": [
@@ -2481,6 +2075,23 @@
                     "exclusion_biomarker": []
                 }
             ],
+            "Failed": [
+                {
+                    "input": "This phase II trial studies the effect of ASTX727 and dasatinib in treating patients with\n newly diagnosed Philadelphia chromosome or BCR-ABL positive chronic myeloid leukemia in\n chronic phase. Philadelphia chromosome positive and BCR-ABL positive are types of genetic\n mutations (changes). Chemotherapy drugs, such as ASTX727, work in different ways to stop the\n growth of cancer cells, either by killing the cells, by stopping them from dividing, or by\n stopping them from spreading. Dasatinib may stop the growth of cancer cells by blocking some\n of the enzymes needed for cell growth. ASTX727 and dasatinib may help to control Philadelphia\n chromosome-positive chronic myeloid leukemia or BCR-ABL positive chronic myeloid leukemia in\n chronic phase.\n ;\n ;\n Inclusion Criteria:\n - Diagnosis of Philadelphia chromosome (Ph)-positive or BCR-ABL positive CML in early\n chronic phase CML (i.e., time from diagnosis =< 12 months). Except for hydroxyurea\n and/or 1 to 2 doses of cytarabine patients must have received no or minimal prior\n therapy, defined as < 1 month (30 days) of prior Food and Drug Administration (FDA)\n approved tyrosine kinase inhibitor (TKI)\n - Clonal evolution defined as the presence of additional chromosomal abnormalities\n other than the Ph chromosome has historically been included as a criterion for\n accelerated phase. However, patients with clonal evolution as the only criterion\n of accelerated phase have a significantly better prognosis, and when present at\n diagnosis may not impact the prognosis at all. Thus, patients with clonal\n evolution and no other criteria for accelerated phase will be eligible for this\n study\n - Eastern Cooperative Oncology Group (ECOG) performance of 0-2\n - Total bilirubin < 1.5 x upper limit of normal (ULN) (unless secondary to Gilbert's\n disease, in which case should be < 2.5 x ULN)\n - Serum glutamic pyruvic transaminase (SGPT) < 3 x ULN\n - Creatinine < 1.5 x ULN\n - Patients must sign an informed consent indicating they are aware of the\n investigational nature of this study, in keeping with the policies of the hospital\n Exclusion Criteria:\n - New York Heart Association (NYHA) cardiac class 3-4 heart disease\n - Cardiac Symptoms: Patients meeting the following criteria are not eligible unless\n cleared by Cardiology:\n - Uncontrolled angina within 3 months\n - Diagnosed or suspected congenital long QT syndrome\n - Any history of clinically significant ventricular arrhythmias (such as\n ventricular tachycardia, ventricular fibrillation, or Torsades de pointes).\n - Prolonged corrected QT (QTc) interval on pre-entry electrocardiogram (> 460 msec)\n - History of significant bleeding disorder unrelated to cancer, including:\n - Diagnosed congenital bleeding disorders (e.g., von Willebrand's disease)\n - Diagnosed acquired bleeding disorder within one year (e.g., acquired\n anti-factor VIII antibodies)\n - Patients with active, uncontrolled psychiatric disorders include: psychosis, major\n depression, and bipolar disorders\n - Subject is known to be positive for human immunodeficiency virus (HIV) (HIV testing is\n not required)\n - Evidence of other clinically significant uncontrolled condition(s) including, but not\n limited to:\n - Uncontrolled and/or active systemic infection (viral, bacterial or fungal)\n - Chronic hepatitis B virus (HBV) or hepatitis C (HCV) requiring treatment. Note:\n subjects with serologic evidence of prior vaccination to HBV (i.e. hepatitis B\n surface [HBs] antigen negative-, anti-HBs antibody positive and anti-hepatitis B\n core [HBc] antibody negative) or positive anti-HBc antibody from intravenous\n immunoglobulins (IVIG) may participate\n - Women of pregnancy potential must practice an effective method of birth control during\n the course of the study, in a manner such that risk of failure is minimized. Prior to\n study enrollment, women of childbearing potential (WOCBP) must be advised of the\n importance of avoiding pregnancy during trial participation and the potential risk\n factors for an unintentional pregnancy. Postmenopausal women must be amenorrheic for\n at least 12 months to be considered of non-childbearing potential. Women must continue\n birth control for the duration of the trial and at least 3 months after the last dose\n of study drug. Pregnant or breast-feeding women are excluded. All WOCBP must have a\n negative pregnancy test prior to first receiving investigational product. If the\n pregnancy test is positive, the patient must not receive study drug and must not be\n enrolled in the study\n - Patients in late chronic phase (i.e., time from diagnosis to treatment > 12 months),\n accelerated (except as noted in inclusion criteria) or blast phase are excluded. The\n definitions of CML phases are as follows:\n - Early chronic phase: time from diagnosis to therapy =< 12 months\n - Late chronic phase: time from diagnosis to therapy > 12 months\n - Blastic phase: presence of 30% blasts or more in the peripheral blood or bone\n marrow\n - Accelerated phase CML: presence of any of the following features:\n - Peripheral or marrow blasts 15% or more\n - Peripheral or marrow basophils 20% or more\n - Thrombocytopenia < 100 x 10^9/L unrelated to therapy\n - Documented extramedullary blastic disease outside liver or spleen",
+                    "actual": {
+                        "inclusion_biomarker": [
+                            [
+                                "Philadelphia chromosome positive"
+                            ],
+                            [
+                                "BCR-ABL positive"
+                            ]
+                        ],
+                        "exclusion_biomarker": []
+                    },
+                    "predicted": "{'input': \"This phase II trial studies the effect of ASTX727 and dasatinib in treating patients with\\n newly diagnosed Philadelphia chromosome or BCR-ABL positive chronic myeloid leukemia in\\n chronic phase. Philadelphia chromosome positive and BCR-ABL positive are types of genetic\\n mutations (changes). Chemotherapy drugs, such as ASTX727, work in different ways to stop the\\n growth of cancer cells, either by killing the cells, by stopping them from dividing, or by\\n stopping them from spreading. Dasatinib may stop the growth of cancer cells by blocking some\\n of the enzymes needed for cell growth. ASTX727 and dasatinib may help to control Philadelphia\\n chromosome-positive chronic myeloid leukemia or BCR-ABL positive chronic myeloid leukemia in\\n chronic phase.\\n ;\\n ;\\n Inclusion Criteria:\\n - Diagnosis of Philadelphia chromosome (Ph)-positive or BCR-ABL positive CML in early\\n chronic phase CML (i.e., time from diagnosis =< 12 months). Except for hydroxyurea\\n and/or 1 to 2 doses of cytarabine patients must have received no or minimal prior\\n therapy, defined as < 1 month (30 days) of prior Food and Drug Administration (FDA)\\n approved tyrosine kinase inhibitor (TKI)\\n - Clonal evolution defined as the presence of additional chromosomal abnormalities\\n other than the Ph chromosome has historically been included as a criterion for\\n accelerated phase. However, patients with clonal evolution as the only criterion\\n of accelerated phase have a significantly better prognosis, and when present at\\n diagnosis may not impact the prognosis at all. Thus, patients with clonal\\n evolution and no other criteria for accelerated phase will be eligible for this\\n study\\n - Eastern Cooperative Oncology Group (ECOG) performance of 0-2\\n - Total bilirubin < 1.5 x upper limit of normal (ULN) (unless secondary to Gilbert's\\n disease, in which case should be < 2.5 x ULN)\\n - Serum glutamic pyruvic transaminase (SGPT) < 3 x ULN\\n - Creatinine < 1.5 x ULN\\n - Patients must sign an informed consent indicating they are aware of the\\n investigational nature of this study, in keeping with the policies of the hospital\\n Exclusion Criteria:\\n - New York Heart Association (NYHA) cardiac class 3-4 heart disease\\n - Cardiac Symptoms: Patients meeting the following criteria are not eligible unless\\n cleared by Cardiology:\\n - Uncontrolled angina within 3 months\\n - Diagnosed or suspected congenital long QT syndrome\\n - Any history of clinically significant ventricular arrhythmias (such as\\n ventricular tachycardia, ventricular fibrillation, or Torsades de pointes).\\n - Prolonged corrected QT (QTc) interval on pre-entry electrocardiogram (> 460 msec)\\n - History of significant bleeding disorder unrelated to cancer, including:\\n - Diagnosed congenital bleeding disorders (e.g., von Willebrand's disease)\\n - Diagnosed acquired bleeding disorder within one year (e.g., acquired\\n anti-factor VIII antibodies)\\n - Patients with active, uncontrolled psychiatric disorders include: psychosis, major\\n depression, and bipolar disorders\\n - Subject is known to be positive for human immunodeficiency virus (HIV) (HIV testing is\\n not required)\\n - Evidence of other clinically significant uncontrolled condition(s) including, but not\\n limited to:\\n - Uncontrolled and/or active systemic infection (viral, bacterial or fungal)\\n - Chronic hepatitis B virus (HBV) or hepatitis C (HCV) requiring treatment. Note:\\n subjects with serologic evidence of prior vaccination to HBV (i.e. hepatitis B\\n surface [HBs] antigen negative-, anti-HBs antibody positive and anti-hepatitis B\\n core [HBc] antibody negative) or positive anti-HBc antibody from intravenous\\n immunoglobulins (IVIG) may participate\\n - Women of pregnancy potential must practice an effective method of birth control during\\n the course of the study, in a manner such that risk of failure is minimized. Prior to\\n study enrollment, women of childbearing potential (WOCBP) must be advised of the\\n importance of avoiding pregnancy during trial participation and the potential risk\\n factors for an unintentional pregnancy. Postmenopausal women must be amenorrheic for\\n at least 12 months to be considered of non-childbearing potential. Women must continue\\n birth control for the duration of the trial and at least 3 months after the last dose\\n of study drug. Pregnant or breast-feeding women are excluded. All WOCBP must have a\\n negative pregnancy test prior to first receiving investigational product. If the\\n pregnancy test is positive, the patient must not receive study drug and must not be\\n enrolled in the study\\n - Patients in late chronic phase (i.e., time from diagnosis to therapy > 12 months)\\n"
+                }
+            ],
             "tp_inclusion": [
                 0,
                 2,
@@ -2488,114 +2099,116 @@
                 0,
                 0,
                 1,
+                2,
+                0,
+                0,
+                3,
                 1,
-                0,
-                0,
-                1,
-                0,
                 0,
                 1,
                 18,
                 1,
                 1,
-                49,
+                57,
                 2,
-                0,
-                0,
-                0,
-                0,
-                2,
-                1,
-                0,
-                6,
-                0,
-                0,
-                1,
-                0,
-                5,
-                1,
-                0,
-                4,
-                1,
-                2,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
                 3,
                 0,
                 0,
                 0,
+                3,
+                3,
+                1,
+                9,
                 0,
+                2,
+                1,
+                0,
+                0,
+                8,
+                0,
+                1,
+                5,
+                5,
+                2,
+                2,
+                5,
+                0,
+                0,
+                1,
+                55,
+                4,
+                2,
+                0,
+                1,
+                2,
                 1,
                 0
             ],
             "fp_inclusion": [
-                5,
-                0,
-                0,
-                2,
-                2,
-                1,
-                0,
-                6,
-                1,
-                0,
-                21,
-                2,
                 0,
                 0,
                 0,
                 0,
                 0,
-                13,
-                4,
-                1,
                 0,
                 0,
-                2,
-                2,
-                1,
-                3,
                 0,
-                2,
                 0,
-                2,
-                4,
-                2,
-                6,
-                1,
-                9,
                 0,
-                8,
-                5,
-                7,
                 0,
-                2,
-                40,
                 0,
-                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0,
                 1,
-                2,
-                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0
             ],
             "tn_inclusion": [
+                1,
                 0,
                 0,
+                1,
+                1,
                 0,
                 0,
+                1,
+                1,
                 0,
                 0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
+                1,
                 0,
                 0,
                 0,
@@ -2613,6 +2226,8 @@
                 1,
                 0,
                 0,
+                1,
+                1,
                 0,
                 0,
                 0,
@@ -2621,8 +2236,7 @@
                 0,
                 0,
                 0,
-                0,
-                0,
+                1,
                 1,
                 0,
                 0,
@@ -2641,47 +2255,48 @@
                 0,
                 0,
                 0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
                 0,
                 0,
                 2,
-                1,
                 0,
                 0,
                 0,
                 0,
                 0,
-                8,
-                0,
-                3,
-                1,
                 0,
                 0,
-                1,
-                2,
-                1,
-                4,
-                0,
-                2,
                 0,
                 0,
-                3,
-                1,
-                1,
-                1,
-                4,
-                0,
-                2,
-                5,
                 0,
                 0,
-                1,
-                55,
-                1,
-                2,
                 0,
-                1,
-                2,
+                0,
+                0,
+                0,
                 2,
                 0
             ],
@@ -2696,173 +2311,21 @@
                 0,
                 0,
                 0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
-            ],
-            "tn_exclusion": [
-                1,
-                1,
-                1,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                1,
-                0,
-                1,
-                1,
-                1,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                1,
-                1,
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                1,
-                0,
-                0,
-                0,
-                0,
-                1,
-                1,
-                0,
-                0,
-                0,
-                1,
-                1,
-                0,
-                0,
-                0,
-                0,
-                0,
-                1,
-                1,
-                0,
-                0
-            ],
-            "fp_exclusion": [
-                0,
-                0,
-                0,
-                9,
-                13,
-                6,
-                0,
-                11,
-                13,
-                0,
-                32,
-                0,
-                0,
-                0,
-                1,
-                2,
-                9,
-                0,
-                3,
-                2,
-                0,
-                0,
-                6,
-                1,
-                3,
-                7,
-                0,
-                5,
-                0,
-                3,
-                6,
-                15,
-                14,
-                0,
-                0,
-                6,
-                8,
-                1,
-                0,
-                0,
-                12,
-                19,
-                1,
-                1,
-                12,
-                0,
-                0,
-                4,
-                27
-            ],
-            "fn_exclusion": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
                 13,
                 0,
                 0,
                 0,
                 1,
                 0,
-                13,
+                0,
                 0,
                 0,
                 5,
                 0,
                 0,
                 2,
-                1,
+                2,
+                0,
                 0,
                 0,
                 0,
@@ -2889,68 +2352,234 @@
                 0,
                 0
             ],
+            "tn_exclusion": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0
+            ],
+            "fp_exclusion": [
+                13,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                16,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                24,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                5
+            ],
+            "fn_exclusion": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                13,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
             "Inclusion Precision": [
-                0.39473684210526316
+                0.9951690821256038
             ],
             "Inclusion Recall": [
-                0.49528301886792453
+                0.9716981132075472
             ],
             "Inclusion F1": [
-                0.4393305439330544
+                0.9832935560859188
             ],
             "Inclusion Acc": [
-                0.2928759894459103
+                0.9692982456140351
             ],
             "Inclusion F2": [
-                0.4712746858168761
+                0.976303317535545
+            ],
+            "Inclusion Specificity": [
+                0.9375
             ],
             "Exclusion Precision": [
-                0.003952569169960474
+                0.41904761904761906
             ],
             "Exclusion Recall": [
-                0.017543859649122806
+                0.7719298245614035
             ],
             "Exclusion F1": [
-                0.0064516129032258064
+                0.5432098765432098
             ],
             "Exclusion Acc": [
-                0.06097560975609756
+                0.5066666666666667
             ],
             "Exclusion F2": [
-                0.010395010395010394
+                0.6606606606606606
+            ],
+            "Exclusion Specificity": [
+                0.34408602150537637
             ],
             "Inclusion DNF Precision": [
-                0.4857142857142857
+                0.9897435897435898
             ],
             "Inclusion DNF Recall": [
-                0.4106280193236715
+                0.9323671497584541
             ],
             "Inclusion DNF F1": [
-                0.4450261780104712
+                0.9601990049751243
             ],
             "Inclusion DNF Acc": [
-                0.30033003300330036
+                0.9285714285714286
             ],
             "Inclusion DNF F2": [
-                0.423728813559322
+                0.943304007820137
+            ],
+            "Inclusion DNF Specificity": [
+                0.8823529411764706
             ],
             "Exclusion DNF Precision": [
-                0.006711409395973154
+                0.4095238095238095
             ],
             "Exclusion DNF Recall": [
-                0.017543859649122806
+                0.7543859649122807
             ],
             "Exclusion DNF F1": [
-                0.009708737864077669
+                0.5308641975308641
             ],
             "Exclusion DNF Acc": [
-                0.08928571428571429
+                0.4966887417218543
             ],
             "Exclusion DNF F2": [
-                0.01326259946949602
+                0.6456456456456455
             ],
-            "Latency (seconds)": 589.7785458564758,
-            "tokens": 128288
+            "Exclusion DNF Specificity": [
+                0.3404255319148936
+            ]
         }
     ]
 }

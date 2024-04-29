@@ -1,3 +1,23 @@
+"""
+Description:
+    This script evaluates the performance of a Language Model (LLM) using a test set and multiple prompts. 
+    It generates predictions based on the provided prompts and evaluates the accuracy of the predictions against 
+    the ground truth labels. The evaluation includes metrics such as precision, recall, F1 score, accuracy, and latency.
+
+Usage:
+    Run the script with the required command-line arguments:
+    python test_llm_performance.py --test <test_set.json> --output-file <output_file.json> \
+        --prompt-1 <prompt1.json> --prompt-2 <prompt2.json> [--prompt-interim <prompt_interim.json>] \
+        [--model <model_name>] [--tags <tag1> <tag2> ...]
+
+Output:
+    The script saves evaluation results in the specified output file in JSON format.
+
+Example:
+    python test_llm_performance.py --test test_set.json --output-file evaluation_results.json \
+        --prompt-1 prompt1.json --prompt-2 prompt2.json --model gpt-3.5-turbo --tags tag1 tag2
+"""
+
 import os
 import sys
 import time
@@ -8,11 +28,7 @@ from langchain.prompts import load_prompt
 from modules.gpt_handler import GPTHandler
 from modules.logging_handler import CustomLogger
 from modules.chromadb_handler import ChromaDBHandler
-from configurations.config import (
-    CTRIALS_COLLECTION,
-    PERSIST_DIRECTORY,
-    RESULTS_DATA
-    )
+from configurations.config import RESULTS_DATA
 from utils.jsons import (
     load_json,
     flatten_lists_in_dict,
@@ -20,14 +36,6 @@ from utils.jsons import (
     loads_json)
 from utils.evaluation import evaluate_predictions, save_eval, get_metrics
 from utils.token_count import num_tokens_from_string
-
-
-def actual_output(trial):
-    actual_inclusion = trial['inclusion_biomarker']
-    actual_exclusion = trial['exclusion_biomarker']
-    actual = {'inclusion_biomarker': actual_inclusion,
-              'exclusion_biomarker': actual_exclusion}
-    return actual
 
 
 def log_name(template_file, model):
@@ -116,13 +124,6 @@ def main():
         logger.log_error(f"Failed to load {args.test}: {e}")
         sys.exit(1)
 
-    # loading collection
-    try:
-        trials = ChromaDBHandler(PERSIST_DIRECTORY, CTRIALS_COLLECTION).collection
-        logger.log_info(f"Number of Trials in {CTRIALS_COLLECTION} collection: {trials.count()}")
-    except Exception as e:
-        logger.log_error(f"Failed to load ChromaDB collection {CTRIALS_COLLECTION} from {PERSIST_DIRECTORY}: {e}")
-
     try:
         # Load the first prompt file
         first_prompt_template = load_prompt_file(prompt_1)
@@ -176,7 +177,7 @@ def main():
 
     tp_ex, tn_ex, fp_ex, fn_ex = [], [], [], []
     tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf = [], [], [], []
-    predicted_list, actual_list = [], []
+    predicted_list, actual_list, failed_prediction = [], [], []
 
     bar = progressbar.ProgressBar(maxval=test_set['size'], widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
     bar.start()
@@ -188,7 +189,8 @@ def main():
             trial_id = i['trial_id']
             logger.log_info(f"@ trial {trial_id}")
 
-            input_trial = trials.get(ids=[trial_id])['documents'][0]
+            actual = i['output']
+            input_trial = i['document']
 
             response_1 = chain_1.run({'trial': input_trial})
             token_count += num_tokens_from_string(response_1, "cl100k_base") + num_tokens_from_string(input_trial, "cl100k_base") + num_tokens_from_string(first_prompt_template.template, "cl100k_base")
@@ -206,9 +208,18 @@ def main():
                 response_parsed = loads_json(response)
             except Exception as e:
                 logger.log_error(f"Trial {trial_id} Failed to parse JSON output: {e}")
+                failed_prediction.append(response)
+                if actual == {'inclusion_biomarker': [], 'exclusion_biomarker': []}:
+                    evals_dnf_inclusion = evals_dnf_exclusion = evals_extract_incl = evals_extract_exl = (0,0,1,0)
+                else:
+                    response = {'inclusion_biomarker': [], 'exclusion_biomarker': []}
+                    evals_dnf_inclusion, evals_dnf_exclusion, evals_extract_incl, evals_extract_exl = compute_evals(response, actual)
+                save_eval(tp_inc_dnf, tn_inc_dnf, fp_inc_dnf, fn_inc_dnf, evals_dnf_inclusion)
+                save_eval(tp_ex_dnf, tn_ex_dnf, fp_ex_dnf, fn_ex_dnf, evals_dnf_exclusion)
+                save_eval(tp_inc, tn_inc, fp_inc, fn_inc, evals_extract_incl)
+                save_eval(tp_ex, tn_ex, fp_ex, fn_ex, evals_extract_exl)
                 continue
 
-            actual = actual_output(i)
             predicted_list.append(response_parsed)
             actual_list.append(actual)
 
@@ -238,8 +249,11 @@ def main():
     ex_dnf = get_metrics(tp=sum(tp_ex_dnf), tn=sum(tn_ex_dnf), fp=sum(fp_ex_dnf), fn=sum(fn_ex_dnf))
     results = {
         "Model": model,
+        "correct_size": len(predicted_list),
+        "failed_size": len(failed_prediction),
         "Precited": predicted_list,
         "Actual": actual_list,
+        "Failed": failed_prediction,
         "tp_inclusion": tp_inc,
         "fp_inclusion": fp_inc,
         "tn_inclusion": tn_inc,
