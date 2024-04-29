@@ -56,7 +56,7 @@ def input_args():
                         help="List of PromptLayer tags",
                         nargs='+',
                         default=[])
-        # add the --train argument to a separate argument group that is required only when --n-example is used
+    # add the --train argument to a separate argument group that is required only when --n-example is used
     train_group = parser.add_argument_group(title="required arguments when using --n-example")
     train_group.add_argument("--train", required=False, help="Paths to JSON train set with annotation")
 
