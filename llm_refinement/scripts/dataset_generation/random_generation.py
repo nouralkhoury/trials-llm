@@ -106,7 +106,7 @@ def main():
     final_results = list(set([id_val[0] for id_val in results['ids']]))   # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
     dump_json(data={"size": len(final_results), "ids": final_results},
-              file_path=f"{args.output_dir}/random_trials_ids.json")
+              file_path=f"{args.output_dir}/random_trials_ids_500_42.json")
 
 
 if __name__ == "__main__":
