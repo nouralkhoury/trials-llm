@@ -1,7 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Fine-tuning Mistral-7B to Extract Biomarkers from Clincical Trials
+"""
+Description:
+    This script is used to test the Hermes model's performance on a clinical trials dataset. It loads the dataset, tokenizes the input prompts, generates responses using the model, and evaluates the predicted biomarkers against the ground truth. The evaluation metrics include precision, recall, F1 score, and accuracy for both inclusion and exclusion biomarkers.
+
+Output:
+    The script generates evaluation results for the Hermes model's performance on the clinical trials dataset. It stores the results in a JSON file.
+
+Example:
+    python test_hermes.py
+"""
 
 # # Inference
 
