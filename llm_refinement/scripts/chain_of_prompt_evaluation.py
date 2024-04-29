@@ -1,3 +1,23 @@
+"""
+Description:
+    This script evaluates the performance of a Language Model (LLM) using a test set and multiple prompts. 
+    It generates predictions based on the provided prompts and evaluates the accuracy of the predictions against 
+    the ground truth labels. The evaluation includes metrics such as precision, recall, F1 score, accuracy, and latency.
+
+Usage:
+    Run the script with the required command-line arguments:
+    python test_llm_performance.py --test <test_set.json> --output-file <output_file.json> \
+        --prompt-1 <prompt1.json> --prompt-2 <prompt2.json> [--prompt-interim <prompt_interim.json>] \
+        [--model <model_name>] [--tags <tag1> <tag2> ...]
+
+Output:
+    The script saves evaluation results in the specified output file in JSON format.
+
+Example:
+    python test_llm_performance.py --test test_set.json --output-file evaluation_results.json \
+        --prompt-1 prompt1.json --prompt-2 prompt2.json --model gpt-3.5-turbo --tags tag1 tag2
+"""
+
 import os
 import sys
 import time
