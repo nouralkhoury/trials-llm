@@ -1,3 +1,16 @@
+"""
+Description: This script fine-tunes the open-source model NousResearch/Hermes-2-Pro-Mistral-7B using Direct Preference Optimization (DPO) for the task of genomic biomarker extraction from clinical trial data. It utilizes Hugging Face's Transformers library, PEFT (Prompt Engineering for Transformers), and TRL (Text Representation Learning) for fine-tuning and training.
+
+Usage:
+python script_name.py [file_path]
+
+Arguments:
+- file_path: Path to the JSONL file containing the clinical trial data for genomic biomarker extraction, the prefered completion (ouput) and the losing completion (rejected).
+
+Note:
+Ensure that the specified pre-trained model and tokenizer are available and compatible. Adjust training arguments and configurations as needed based on resource constraints and task requirements.
+"""
+
 import json
 import gc
 import torch
