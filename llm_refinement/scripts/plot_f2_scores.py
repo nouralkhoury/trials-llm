@@ -1,7 +1,5 @@
 import os
-import argparse
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 from utils.jsons import load_json
 
