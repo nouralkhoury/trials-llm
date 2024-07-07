@@ -28,7 +28,7 @@ from langchain.prompts import load_prompt
 from modules.gpt_handler import GPTHandler
 from modules.logging_handler import CustomLogger
 from modules.chromadb_handler import ChromaDBHandler
-from configurations.config import RESULTS_DATA
+from conf.config import RESULTS_DATA
 from utils.jsons import (
     load_json,
     flatten_lists_in_dict,

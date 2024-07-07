@@ -13,7 +13,7 @@ from langchain.prompts import load_prompt
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from utils.jsons import load_json
-from configurations.config import PROCESSED_DATA, PROMPTS
+from conf.config import PROCESSED_DATA, PROMPTS
 
 # Set OpenAI API key
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

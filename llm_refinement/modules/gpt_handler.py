@@ -3,7 +3,7 @@ import promptlayer
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.chat_models import PromptLayerChatOpenAI
-from configurations.config import OPENAI_API_KEY, PROMPTLAYER_API_KEY
+from conf.config import OPENAI_API_KEY, PROMPTLAYER_API_KEY
 
 
 class GPTHandler(object):

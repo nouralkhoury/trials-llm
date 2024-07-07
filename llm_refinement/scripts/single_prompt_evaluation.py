@@ -7,7 +7,7 @@ from pathlib import Path
 from langchain.prompts import load_prompt
 from modules.gpt_handler import GPTHandler
 from modules.logging_handler import CustomLogger
-from configurations.config import (
+from conf.config import (
     RESULTS_DATA
 )
 from utils.jsons import (

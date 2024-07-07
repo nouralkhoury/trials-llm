@@ -20,7 +20,7 @@ from modules.chromadb_handler import ChromaDBHandler
 from utils.jsons import load_json
 import os
 import logging as log
-from configurations.config import CTRIALS_COLLECTION, PERSIST_DIRECTORY, PROCESSED_DATA
+from conf.config import CTRIALS_COLLECTION, PERSIST_DIRECTORY, PROCESSED_DATA
 
 
 def create_train_collection(train_collection_name, train_set_path, persist_train):
