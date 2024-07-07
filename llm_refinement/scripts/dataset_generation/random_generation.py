@@ -52,7 +52,7 @@ def get_random_nums(seed, input_size, output_size):
     return random.sample(range(0, input_size), output_size)
 
 
-def generate_random_data(civic_path, persist_dir, size=500, seed=42):
+def generate_random_data(civic_path, trials, size=500, seed=42):
     """
     Generate random data by querying a ChromaDB collection with a randomly
     selected set of biomarkers.
@@ -67,8 +67,6 @@ def generate_random_data(civic_path, persist_dir, size=500, seed=42):
         The dictionary has keys 'ids' and 'documents', where 'ids' is a list of document IDs,
         and 'documents' is a list of corresponding document content.
     """
-    # load collection
-    trials = ChromaDBHandler(persist_dir, 'ctrials').collection
     # Get civic biomarkers list
     civic = pd.read_csv(civic_path)
     biomarkers = get_civic_biomarkers(civic)
@@ -77,9 +75,23 @@ def generate_random_data(civic_path, persist_dir, size=500, seed=42):
     selected_biomarkers = biomarkers[random_numbers]
     results = trials.query(query_texts=selected_biomarkers,
                            n_results=1,
-                           include=[])  # return example {'ids': [['NCT04489433']], 'embeddings': None, 'documents': None, 'metadatas': None, 'distances': None}
+                           include=['documents'])  # return example {'ids': [['NCT04489433']], 'embeddings': None, 'documents': None, 'metadatas': None, 'distances': None}
     results = []
+
     return results, selected_biomarkers
+
+def create_trials_list(ids, trials):
+    trials_list = []
+    queried_data = trials.get(ids=ids)
+    for i in range(len(ids)):
+        trial_dict = {
+            'id': queried_data['ids'][i],
+            'document': queried_data['documents'][i]
+        }
+        trials_list.append(trial_dict)
+
+    return trials_list
+    
 
 
 def main():
@@ -103,15 +115,39 @@ def main():
 
     args = parser.parse_args()
 
-    results, biomarkers = generate_random_data(args.civic_path, args.persist_dir)
-    final_results = list(set([id_val[0] for id_val in results['ids']]))   # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
+    # load collection
+    trials = ChromaDBHandler(args.persist_dir, 'ctrials').collection
+    results, biomarkers = generate_random_data(args.civic_path, trials)
+    unique_ids = list(set([id_val[0] for id_val in results['ids']]))   # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
-    dump_json(data={"size": len(final_results), "ids": final_results},
+    results = create_trials_list(unique_ids, trials)
+
+    dump_json(data={
+        "size": len(unique_ids), 
+        "trials": results},
               file_path=f"{args.output_dir}/random_trials_ids_500_42.json")
     
     dump_json(data={"size": len(biomarkers), "biomarkers": list(biomarkers)},
-            file_path=f"{args.output_dir}/biomarkers_list.json")
+            file_path=f"{args.output_dir}/biomarkers_list_ok.json")
 
 
 if __name__ == "__main__":
     main()
+
+
+
+
+old_ids = old_file['ids']
+
+all_data = []
+for id in old_ids:
+    t = trials.get(ids=[id])
+    new_trial = {'id':id,
+                 'document': t['documents'][0]}
+    all_data.append(new_trial)
+    
+
+dump_json(data={
+        "size": len(old_ids), 
+        "trials": all_data},
+              file_path=f"random_trials_ids_500_42.json")
