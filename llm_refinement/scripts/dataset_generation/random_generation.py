@@ -133,21 +133,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-old_ids = old_file['ids']
-
-all_data = []
-for id in old_ids:
-    t = trials.get(ids=[id])
-    new_trial = {'id':id,
-                 'document': t['documents'][0]}
-    all_data.append(new_trial)
-    
-
-dump_json(data={
-        "size": len(old_ids), 
-        "trials": all_data},
-              file_path=f"random_trials_ids_500_42.json")
