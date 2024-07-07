@@ -12,7 +12,7 @@ Usage:
 python script_name.py --persist-dir persist_dir --civic-path civic_data.csv --output-dir output_dir
 """
 import random
-import argparse
+import hydra
 import pandas as pd
 from utils.jsons import dump_json
 from modules.chromadb_handler import ChromaDBHandler
@@ -76,7 +76,6 @@ def generate_random_data(civic_path, trials, size=500, seed=42):
     results = trials.query(query_texts=selected_biomarkers,
                            n_results=1,
                            include=['documents'])  # return example {'ids': [['NCT04489433']], 'embeddings': None, 'documents': None, 'metadatas': None, 'distances': None}
-    results = []
 
     return results, selected_biomarkers
 
@@ -93,31 +92,12 @@ def create_trials_list(ids, trials):
     return trials_list
     
 
-
-def main():
-    parser = argparse.ArgumentParser(description="""Generate random biomarkers
-                                     from Civic data and query them in a
-                                     ChromaDB collection.""")
-    parser.add_argument(
-            "--persist-dir",
-            required=True,
-            help="Path to the ChromaDB collection persist directory")
-
-    parser.add_argument(
-        "--civic-path",
-        required=True,
-        help="Path to the Civic data file")
-
-    parser.add_argument(
-        "--output-dir",
-        required=True,
-        help="Output directory to save a JSON holding the selected clinical trial ids")
-
-    args = parser.parse_args()
-
+@hydra.main(version_base=None, config_path="../../conf", config_name="config")
+def main(cfg):
     # load collection
-    trials = ChromaDBHandler(args.persist_dir, 'ctrials').collection
-    results, biomarkers = generate_random_data(args.civic_path, trials)
+    trials = ChromaDBHandler(cfg.chromadb.persist_dir, cfg.chromadb.collection_name).collection
+    
+    results, biomarkers = generate_random_data(cfg.civic.processed_file, trials)
     unique_ids = list(set([id_val[0] for id_val in results['ids']]))   # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
     results = create_trials_list(unique_ids, trials)
@@ -125,10 +105,10 @@ def main():
     dump_json(data={
         "size": len(unique_ids), 
         "trials": results},
-              file_path=f"{args.output_dir}/random_trials_ids_500_42.json")
+              file_path=f"{cfg.data.interim_dir}/random_trials_ids_500_42_olaaa.json")
     
     dump_json(data={"size": len(biomarkers), "biomarkers": list(biomarkers)},
-            file_path=f"{args.output_dir}/biomarkers_list_ok.json")
+            file_path=f"{cfg.data.interim_dir}/biomarkers_list_ok.json")
 
 
 if __name__ == "__main__":
