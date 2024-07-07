@@ -5,7 +5,6 @@ Usage: python scripts/dataset_generation/simulated_data_gpt4.py
 """
 
 import os
-import openai
 from datasets import load_dataset
 import functools
 from utils.jsons import dump_json
