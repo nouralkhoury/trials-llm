@@ -17,21 +17,22 @@ import os
 import json
 import torch
 from datasets import load_dataset
+from utils.jsons import load_json
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
-dataset = load_dataset('nalkhou/clinical-trials', split=['train', 'validation', 'test'])
+try:
+    train_dataset = load_json("data/processed/ft_train.jsonl")
+    validation_dataset = load_json("data/processed/ft_validation.jsonl")
+    test_dataset = load_json("data/processed/ft_test.jsonl")
+except Exception as e:
+    print(f"Loading data from HuggingFace: {e}")
+    dataset = load_dataset('nalkhou/clinical-trials', split=['train', 'validation', 'test'])
+    train_dataset = dataset[0]
+    validation_dataset = dataset[1]
+    test_dataset = dataset[2]
 
-train_dataset = dataset[0]
-validation_dataset = dataset[1]
-test_dataset = dataset[2]
-
-print("Train dataset:")
-print(train_dataset)
-print("\nValidation dataset:")
-print(validation_dataset)
-print("\Test dataset:")
-print(test_dataset)
+print("Datasets Loaded")
 
 base_model_id = "NousResearch/Hermes-2-Pro-Mistral-7B"
 

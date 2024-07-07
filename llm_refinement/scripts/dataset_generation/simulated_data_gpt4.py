@@ -12,14 +12,18 @@ from langchain.prompts.prompt import PromptTemplate
 from langchain.prompts import load_prompt
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
+from utils.jsons import load_json
 from configurations.config import PROCESSED_DATA, PROMPTS
 
 # Set OpenAI API key
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-dataset = load_dataset("nalkhou/clinical-trials", split=["train", "validation", "test"])
-
-train_data = dataset[0]
+try:
+    train_data = load_json("data/processed/ft_train.jsonl")
+except Exception as e:
+    print(f"Loading data from HuggingFace: {e}")
+    dataset = load_dataset("nalkhou/clinical-trials", split=["train", "validation", "test"])
+    train_data = dataset[0]
 
 model_name = "gpt-4"
 
