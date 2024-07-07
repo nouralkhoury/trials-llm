@@ -13,44 +13,15 @@ Arguments:
 
 from sklearn.model_selection import train_test_split
 from utils.jsons import dump_json, load_json
+import hydra
 
-import argparse
 
-
-def main():
-    parser = argparse.ArgumentParser(description="""Generate train/test sets
-                                     from previously annotated dataset in JSON
-                                     format.""")
-
-    parser.add_argument(
-        "--annotated",
-        required=True,
-        help="Path to the annotated trials in JSON format")
-
-    parser.add_argument(
-        "--output-dir",
-        required=True,
-        help="Output directory to save train and test JSON files")
-
-    parser.add_argument(
-        "--train-perc",
-        required=False,
-        default=70,
-        type=int,
-        help="Train set size percentage. Default is 70%")
-
-    parser.add_argument(
-        "--random-state",
-        required=False,
-        default=42,
-        type=int,
-        help="Random state for train_test_split(). Default is 42"
-    )
-
-    args = parser.parse_args()
+@hydra.main(version_base=None, config_path="../../conf", config_name="config")
+def main(cfg):
     # Load JSON file
     try:
-        annotated = load_json(args.annotated)
+        annotated_path = f"{cfg.data.interim_dir}/random_t_annotation_500_42.json"
+        annotated = load_json(annotated_path)
     except Exception as e:
         print(f"Error loading annotated JSON file: {e}")
         return
@@ -58,13 +29,13 @@ def main():
 
     # convert dict to list of dict
     list_annotated = [{'trial_id': trial_id, "output": {"inclusion_biomarker": trial_data.get('inclusion_biomarker', []), "exclusion_biomarker": trial_data.get('exclusion_biomarker', [])}, "document": trial_data['document']} for trial_id, trial_data in annotated.items()]
-    train_size = int(len(list_annotated) * args.train_perc/100)
+    train_size = int(len(list_annotated) * cfg.split_params.train_percent/100)
 
     # Split data into train and test
     try:
         training_data, test_data = train_test_split(list_annotated,
                                                     train_size=train_size,
-                                                    random_state=args.random_state)
+                                                    random_state=cfg.split_params.random_state)
     except Exception as e:
         print(f"Error during train-test split: {e}")
         return
@@ -72,10 +43,10 @@ def main():
     # Save train and test sets to JSON files
     try:
         dump_json(data={"size": len(training_data), "ids": training_data},
-                  file_path=f"{args.output_dir}/train_set.json")
+                  file_path=f"{cfg.data.interim_dir}/train_set.json")
 
         dump_json(data={"size": len(test_data), "ids": test_data},
-                  file_path=f"{args.output_dir}/test_set.json")
+                  file_path=f"{cfg.data.interim_dir}/test_set.json")
     except Exception as e:
         print(f"Error saving train/test sets to JSON files: {e}")
 
