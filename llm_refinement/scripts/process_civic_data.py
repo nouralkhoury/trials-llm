@@ -81,6 +81,36 @@ def get_genes_synonym(gene_symbols: List[str], output_dir):
     df.to_csv(f'{output_dir}/gene_synonyms.csv', index=None)
 
 
+def expand_variant_aliases(variants_df, output_dir):
+    """
+    Separates variant_aliases and populates each alias with the gene and variant on a new line.
+
+    Args:
+        variants_df (pd.DataFrame): DataFrame with columns gene, variant, and variant_aliases.
+
+    Returns:
+        pd.DataFrame: DataFrame with expanded variant_aliases.
+    """
+
+    variants_df = variants_df[['gene', 'variant', 'variant_aliases']]
+
+    variants_df = variants_df.dropna(subset=['variant_aliases']).reset_index(drop=True)
+
+    variants_df = variants_df.applymap(str.upper)
+
+    expanded_data = []
+    for _, row in variants_df.iterrows():
+        gene = row['gene']
+        variant = row['variant'].replace("::", "-")
+        aliases = row['variant_aliases'].split(',')
+        aliases = [item.replace("::", "-") for item in aliases]
+        for alias in aliases:
+            expanded_data.append({'gene': gene, 'variant': variant, 'variant_alias': alias.strip()})
+    expanded_df = pd.DataFrame(expanded_data)
+
+    expanded_df.to_csv(f'{output_dir}/variants_synonyms.csv', index=None)
+
+
 def process_civic_data(civic, output_dir):
 
     # Converting gene names and variants to uppercase
@@ -101,7 +131,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     civic = pd.read_table(args.input_file)
-    civic = civic[['gene', 'variant']].drop_duplicates().reset_index(drop=True)
+    expand_variant_aliases(civic, args.output_dir)
 
+    civic = civic[['gene', 'variant']].drop_duplicates().reset_index(drop=True)
     process_civic_data(civic, args.output_dir)
     get_genes_synonym(get_civic_genes(civic), args.output_dir)

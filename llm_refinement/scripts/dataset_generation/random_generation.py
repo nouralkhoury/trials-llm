@@ -78,7 +78,8 @@ def generate_random_data(civic_path, persist_dir, size=500, seed=42):
     results = trials.query(query_texts=selected_biomarkers,
                            n_results=1,
                            include=[])  # return example {'ids': [['NCT04489433']], 'embeddings': None, 'documents': None, 'metadatas': None, 'distances': None}
-    return results
+    results = []
+    return results, selected_biomarkers
 
 
 def main():
@@ -102,11 +103,14 @@ def main():
 
     args = parser.parse_args()
 
-    results = generate_random_data(args.civic_path, args.persist_dir)
+    results, biomarkers = generate_random_data(args.civic_path, args.persist_dir)
     final_results = list(set([id_val[0] for id_val in results['ids']]))   # example ['NCT05252403', 'NCT05435248', 'NCT04374877']
 
     dump_json(data={"size": len(final_results), "ids": final_results},
               file_path=f"{args.output_dir}/random_trials_ids_500_42.json")
+    
+    dump_json(data={"size": len(biomarkers), "biomarkers": list(biomarkers)},
+            file_path=f"{args.output_dir}/biomarkers_list.json")
 
 
 if __name__ == "__main__":
