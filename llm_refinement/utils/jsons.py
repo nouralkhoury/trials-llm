@@ -41,3 +41,29 @@ def flatten_lists_in_dict(input_dict):
         else:
             output_dict[key] = value
     return output_dict
+
+def write_jsonl(output_file, data_list):
+    with open(output_file, 'w') as outfile:
+        for entry in data_list:
+            json.dump(entry, outfile)
+            outfile.write('\n')
+
+
+def to_jsonl(dataset):
+    messages = []
+    for trial in dataset:
+        try:
+            trial_id = trial.get('trial_id', None)
+            if trial_id:
+                if trial_id == "NCT04017130":  # skip this, outlier
+                    continue
+            document_key = 'document' if trial.get('document') else 'input'
+            t_doc = trial[document_key]
+            t_output = trial['output']
+
+            current_message = {"input": t_doc, "output": t_output}
+
+            messages.append(current_message)
+        except (KeyError, IndexError) as e:
+            print(f"Error processing trial: {trial['trial_id']} - {e}")
+    return messages
