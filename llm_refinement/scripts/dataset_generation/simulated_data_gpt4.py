@@ -127,4 +127,4 @@ def main(cfg):
     for i in range(20):
         simulated_data += generate_simulated_data(trial1, trial2, trial3, trial4, inference_prompt, inf_openai_model, openai_model, prompt_template)
 
-        dump_json(simulated_data, os.path.join(cfg.data.interim_dir, "gpt4_simulated_trials.json"))
+        dump_json(simulated_data, os.path.join(cfg.data.raw_dir, "gpt4_simulated_trials.json"))
