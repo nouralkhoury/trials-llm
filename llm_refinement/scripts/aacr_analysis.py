@@ -1,22 +1,25 @@
-from modules.biomarker_handler import BiomarkerHandler 
-import pandas as pd
-import json
 import re
+import hydra
+import pandas as pd
+
+import json
+
+from modules.biomarker_handler import BiomarkerHandler 
 
 
-def load_data():
+def load_data(clinical_sample_file, mutations_file, biomarkers_file, gene_file, variant_file, civic_file, cna_file, sv_file):
     try:
         # Load data files
-        data_clinical_sample = pd.read_csv("data/raw/aacr_genie/data_clinical_sample.txt", sep="\t", comment='#')
-        data_mutations = pd.read_csv("data/raw/aacr_genie/data_mutations_extended.txt", sep="\t")
-        with open("data/interim/biomarkers_list.json", 'r') as f:
+        data_clinical_sample = pd.read_csv(clinical_sample_file, sep="\t", comment='#')
+        data_mutations = pd.read_csv(mutations_file, sep="\t")
+        with open(biomarkers_file, 'r') as f:
             biomarkers_list = json.load(f)['biomarkers']
-        gene_synonyms = pd.read_csv("data/processed/gene_synonyms.csv")
-        variant_synonyms = pd.read_csv("data/processed/variants_synonyms.csv")
-        civic_df = pd.read_csv("data/processed/civic_processed.csv")
-        data_cna = pd.read_csv("data/raw/aacr_genie/data_CNA.txt", sep="\t") # > 1 AMP, <-1 DEL
+        gene_synonyms = pd.read_csv(gene_file)
+        variant_synonyms = pd.read_csv(variant_file)
+        civic_df = pd.read_csv(civic_file)
+        data_cna = pd.read_csv(cna_file, sep="\t") # > 1 AMP, <-1 DEL
         # Handle SV -- Work on this now...
-        data_sv =  pd.read_csv("data/raw/aacr_genie/data_sv.txt", sep="\t")
+        data_sv =  pd.read_csv(sv_file, sep="\t")
         data_sv = data_sv[['Sample_Id', 'Site1_Hugo_Symbol',
             'Site2_Hugo_Symbol', 'Event_Info', 'Site1_Description', 'Site2_Description','Class']]
         return data_clinical_sample, data_mutations, biomarkers_list, gene_synonyms, variant_synonyms, civic_df, data_sv, data_cna
@@ -152,9 +155,10 @@ def process_sv(data_sv, biomarkers_df):
     return pd.DataFrame(matches_sv)
 
 
-def main():
+@hydra.main(version_base=None, config_path="../conf", config_name="config")
+def main(cfg):
     # Load data
-    data_clinical_sample, data_mutations, biomarkers_list, gene_synonyms, variant_synonyms, civic_df, data_sv, data_cna = load_data()
+    data_clinical_sample, data_mutations, biomarkers_list, gene_synonyms, variant_synonyms, civic_df, data_sv, data_cna = load_data(cfg.aacr.clinical_sample, cfg.aacr.data_mutations, f"{cfg.data.interim_dir}/biomarkers_list.json", cfg.civic.gene_syn_file, cfg.civic.variant_syn_file, cfg.civic.processed_file, cfg.aacr.data_cna, cfg.aacr.data_sv)
 
     # Preprocess data
     data_mutations_selected = preprocess_data(data_mutations)
@@ -185,7 +189,7 @@ def main():
 
     print(f"The percentage of patients matching the biomarkers is: {percentage_matching:.2f}%")
 
-    patients_with_biomarker.to_csv("figures/patient_with_biomarkers.csv", index=False)
+    patients_with_biomarker.to_csv(f"{cfg.data.processed_dir}/patient_with_biomarkers_NEW.csv", index=False)
 
 
 if __name__ == "__main__":

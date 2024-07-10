@@ -1,22 +1,16 @@
 """
 This script processes CIViC data, cleans variant names, standardizes them,
 and retrieves gene synonyms using the NCBI Datasets API.
-
-Usage:
-    python process_civic_script.py input_file output_dir
-
-Parameters:
-    - input_file: Path to the input CIViC data file.
-    - output_dir: Path to the output directory.
 """
 
 import re
+import hydra
 import pandas as pd
-import argparse
-from typing import List
 from ncbi.datasets.openapi import ApiClient as DatasetsApiClient
 from ncbi.datasets.openapi import ApiException as DatasetsApiException
 from ncbi.datasets import GeneApi as DatasetsGeneApi
+
+from typing import List
 
 
 def clean_mutation_pattern(input_string):
@@ -56,7 +50,7 @@ def get_civic_genes(civic):
     return genes_list
 
 
-def get_genes_synonym(gene_symbols: List[str], output_dir):
+def get_genes_synonym(gene_symbols: List[str], output_file):
     taxon = "human"
     input_dict = {}
     output_list = []
@@ -78,10 +72,10 @@ def get_genes_synonym(gene_symbols: List[str], output_dir):
             print(f"Exception when calling GeneApi: {e}\n")
 
     df = pd.DataFrame(output_list)
-    df.to_csv(f'{output_dir}/gene_synonyms.csv', index=None)
+    df.to_csv(output_file, index=None)
 
 
-def expand_variant_aliases(variants_df, output_dir):
+def expand_variant_aliases(variants_df, output_file):
     """
     Separates variant_aliases and populates each alias with the gene and variant on a new line.
 
@@ -108,10 +102,10 @@ def expand_variant_aliases(variants_df, output_dir):
             expanded_data.append({'gene': gene, 'variant': variant, 'variant_alias': alias.strip()})
     expanded_df = pd.DataFrame(expanded_data)
 
-    expanded_df.to_csv(f'{output_dir}/variants_synonyms.csv', index=None)
+    expanded_df.to_csv(output_file, index=None)
 
 
-def process_civic_data(civic, output_dir):
+def process_civic_data(civic, output_file):
 
     # Converting gene names and variants to uppercase
     civic = civic.assign(gene=civic['gene'].str.upper(),
@@ -121,18 +115,22 @@ def process_civic_data(civic, output_dir):
     civic['variant'] = civic['variant'].apply(clean_variant)
 
     # Saving Processed Data
-    civic.to_csv(f"{output_dir}/civic_processed.csv", index=False)
+    civic.to_csv(output_file, index=False)
+
+
+@hydra.main(version_base=None, config_path="../conf", config_name="config")
+def main(cfg):
+    civic = pd.read_table(cfg.civic.raw_file)
+    expand_variant_aliases(civic, cfg.civic.variant_syn_file)
+
+    civic = civic[['gene', 'variant']].drop_duplicates().reset_index(drop=True)
+    process_civic_data(civic, cfg.civic.processed_file)
+    get_genes_synonym(get_civic_genes(civic), cfg.civic.gene_syn_file)
+
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process CIViC data")
-    parser.add_argument("input_file", help="Path to the input CIViC data file")
-    parser.add_argument("output_dir", help="Path to the output directory")
-    args = parser.parse_args()
+    main()
 
-    civic = pd.read_table(args.input_file)
-    expand_variant_aliases(civic, args.output_dir)
 
-    civic = civic[['gene', 'variant']].drop_duplicates().reset_index(drop=True)
-    process_civic_data(civic, args.output_dir)
-    get_genes_synonym(get_civic_genes(civic), args.output_dir)
+    
