@@ -1,6 +1,9 @@
-import os
+import hydra
 import pandas as pd
 import matplotlib.pyplot as plt
+
+import os
+
 from utils.jsons import load_json
 
 
@@ -91,10 +94,9 @@ def plot_dataframe(df, score_column, model_order, prompt_order, filename):
 
     plt.savefig(filename)
 
-
-if __name__ == "__main__":
-    results_dir = "data/results"
-    df = load_and_process_data(results_dir)
+@hydra.main(version_base=None, config_path="../conf", config_name="config")
+def main(cfg):
+    df = load_and_process_data(cfg.data.results_dir)
 
     model_order = [
         'gpt-3.5-turbo',
@@ -107,8 +109,14 @@ if __name__ == "__main__":
     prompt_order = ['0S', 'PC', '1S', '2S']
 
     score_columns = ['inclusion_f2_score', 'exclusion_f2_score', 'dnf_inclusion_f2_score', 'dnf_exclusion_f2_score']
-    filenames = ['figures/gpt_plot_models_inclusion.png', 'figures/gpt_plot_models_exclusion.png',
-                 'figures/gpt_plot_models_dnf_inclusion.png', 'figures/gpt_plot_models_dnf_exclusion.png']
+
+    figures_dir = cfg.figures.dir
+    filenames = [f'{figures_dir}/gpt_plot_models_inclusion.png', f'{figures_dir}/gpt_plot_models_exclusion.png',
+                 f'{figures_dir}/gpt_plot_models_dnf_inclusion.png', f'{figures_dir}/gpt_plot_models_dnf_exclusion.png']
     
     for score_column, filename in zip(score_columns, filenames):
         plot_dataframe(df, score_column, model_order, prompt_order, filename)
+
+
+if __name__ == "__main__":
+    main()
