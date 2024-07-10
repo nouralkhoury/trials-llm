@@ -1,5 +1,5 @@
 import json
-
+import os
 
 def load_json(file_path):
     with open(file_path, 'r') as file:
@@ -43,6 +43,12 @@ def flatten_lists_in_dict(input_dict):
     return output_dict
 
 def write_jsonl(output_file, data_list):
+    # Create the output directory if it doesn't exist
+    output_dir = os.path.dirname(output_file)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    # Write the data to the JSONL file
     with open(output_file, 'w') as outfile:
         for entry in data_list:
             json.dump(entry, outfile)
