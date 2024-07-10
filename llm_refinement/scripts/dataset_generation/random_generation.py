@@ -11,9 +11,11 @@ Parameters:
 Usage:
 python script_name.py --persist-dir persist_dir --civic-path civic_data.csv --output-dir output_dir
 """
-import random
 import hydra
 import pandas as pd
+
+import random
+
 from utils.jsons import dump_json
 from modules.chromadb_handler import ChromaDBHandler
 
