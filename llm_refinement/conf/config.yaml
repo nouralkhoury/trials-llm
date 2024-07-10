@@ -11,6 +11,9 @@ data:
   processed_dir: ${data.dir}/processed
   simulated_dir: ${data.processed_dir}/simulated
 
+figures:
+  dir: figures
+
 chromadb:
   collection_name: ctrials
   persist_dir: ${data.raw_dir}/collections
@@ -19,6 +22,8 @@ chromadb:
 civic:
   raw_file: ${data.raw_dir}/01-Dec-2023-VariantSummaries.tsv
   processed_file: ${data.processed_dir}/civic_processed.csv
+  variant_syn_file: ${data.processed_dir}/variants_synonyms.csv
+  gene_syn_file: ${data.processed_dir}/gene_synonyms.csv
 
 split_params:
   random_state: 42
@@ -27,4 +32,10 @@ split_params:
 prompts:
   dir: prompts
 
-synthetic_data: True
+open_source_model: NousResearch/Hermes-2-Pro-Mistral-7B
+
+aacr:
+  clinical_sample: ${data.raw_dir}/aacr_genie/data_clinical_sample.txt
+  data_mutations: ${data.raw_dir}/aacr_genie/data_mutations_extended.txt
+  data_cna: ${data.raw_dir}/aacr_genie/data_CNA.txt
+  data_sv: ${data.raw_dir}/aacr_genie/data_sv.txt
