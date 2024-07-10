@@ -4,16 +4,18 @@ This script is designed to generate simulated clinical trial data based on provi
 Usage: python scripts/dataset_generation/simulated_data_gpt4.py
 """
 
-import os
 import hydra
 from datasets import load_dataset
-import functools
-from utils.jsons import dump_json
-from langchain.prompts.prompt import PromptTemplate
+from langchain.chains import LLMChain
 from langchain.prompts import load_prompt
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import LLMChain
-from utils.jsons import load_json
+from langchain.prompts.prompt import PromptTemplate
+
+import os
+import functools
+
+from utils.jsons import dump_json, load_json
+
 
 # Set OpenAI API key
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
