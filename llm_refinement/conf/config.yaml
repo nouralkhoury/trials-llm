@@ -9,6 +9,7 @@ data:
   raw_dir: ${data.dir}/raw
   interim_dir: ${data.dir}/interim
   processed_dir: ${data.dir}/processed
+  simulated_dir: ${data.processed_dir}/simulated
 
 chromadb:
   collection_name: ctrials
