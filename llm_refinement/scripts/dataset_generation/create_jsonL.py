@@ -25,7 +25,7 @@ def main(cfg):
 
         # Extend training set with synthetic data if provided
         if cfg.synthetic_data:
-            syn_data = load_json(f"{cfg.data.interim_dir}/simulated_set.json")
+            syn_data = load_json(f"{cfg.data.processed_dir}/gpt4_simulated_trials.json")
             training_set['ids'].extend(syn_data)  # Extend the training_set['ids'] list with syn_data
 
         # Convert datasets to JSONL format
